@@ -43,7 +43,7 @@ const getPokemonsDB = async () => {
         attributes: []
       }
     }
-})
+  })
 }
 
 const getAllPokemons = async () => {
@@ -55,7 +55,20 @@ const getAllPokemons = async () => {
 }
 
 router.get("/", async (req, res) => {
-  res.json(await getAllPokemons())
+  const detailsPokeDb = await Pokemon.findAll({
+    attributes: ["name", "id", "image"],
+    include: {
+      model: Tipo,
+      attributes: ["nombre"],
+      through: {
+        attributes: []
+      }
+    }
+  })
+  const infoAPI = await getPokemonsAPI()
+  const allPokes = [...infoAPI, ...detailsPokeDb]
+
+  res.json(allPokes)
 })
 
 router.get("/:id", async (req, res) => {
@@ -71,7 +84,7 @@ router.get("/:id", async (req, res) => {
   }
   
   let idApi = id.split("_")[0]
-  console.log(idApi);
+
   if (id.includes("_api")){
     const api = await fetch(`https://pokeapi.co/api/v2/pokemon/${idApi}`);
     const pokeAPI = await api.json()
@@ -116,13 +129,12 @@ router.post("/", async (req, res) => {
   }
 
   let tipoPoke = await Tipo.findAll({
-    where: {nombre: types},
+    where: {nombre: types}
   })
 
-  await newPoke.addTipos(tipoPoke)
-  //await newPoke.setTipos(types)
+  await newPoke.setTipos(tipoPoke)
 
-  res.send("Pokemon creado")
+  res.json({message:"Pokemon creado con exito"})
 
 })
 

@@ -4,19 +4,28 @@ const { Tipo } = require('../db.js')
 
 const router = Router();
 
-router.get('/', async (req, res) => {
+const getTypesAPI = async () => {
   const api = await fetch('https://pokeapi.co/api/v2/type');
-  const types = await api.json();
+  const typesRes = await api.json();
 
-  if (types.results.length) {
-    for (let i = 0; i < types.results.length; i++) {
-      await Tipo.create({ nombre: types.results[i].name })
-    }
+  if (typesRes.results.length) {
+    for (let i = 0; i < typesRes.results.length; i++) {
+      await Tipo.create(
+        {nombre: typesRes.results[i].name}
+      );
+    }    
+  }
+  return Tipo.findAll()
+}
+
+router.get('/', async (req, res) => {
+  const types = await Tipo.findAll()
+
+  if (!types.length) {
+    return res.json(await getTypesAPI())
   }
 
-  res.json(await Tipo.findAll({
-    attributes: {exclude: ["createdAt", "updatedAt"]}
-  }));
+  res.json(types)
 })
 
 module.exports = router;
