@@ -55,6 +55,7 @@ const getAllPokemons = async () => {
 }
 
 router.get("/", async (req, res) => {
+  const name = req.query.name
   const detailsPokeDb = await Pokemon.findAll({
     attributes: ["name", "id", "image"],
     include: {
@@ -68,7 +69,15 @@ router.get("/", async (req, res) => {
   const infoAPI = await getPokemonsAPI()
   const allPokes = [...infoAPI, ...detailsPokeDb]
 
-  res.json(allPokes)
+  if (name) {
+    let pokeName = allPokes.filter(el => el.name.toLowerCase().includes(name.toLowerCase()))
+    pokeName.length 
+      ? res.status(200).send(pokeName)
+      : res.status(404).send({message: "Pokemon no encontrado"})
+  }else{
+    res.json(allPokes)
+  }
+
 })
 
 router.get("/:id", async (req, res) => {
