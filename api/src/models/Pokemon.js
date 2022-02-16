@@ -28,6 +28,7 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.TEXT,
+      defaultValue: "https://pa1.narvii.com/6673/8ff3f1ad9f92cb0c11e6af52f241a1075336f440_hq.gif"
     },
     id: {
       type: DataTypes.UUID,

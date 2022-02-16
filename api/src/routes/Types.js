@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const fetch = require("node-fetch")
-const { Tipo } = require('../db.js')
+const { Type } = require('../db.js')
 
 const router = Router();
 
@@ -10,16 +10,16 @@ const getTypesAPI = async () => {
 
   if (typesRes.results.length) {
     for (let i = 0; i < typesRes.results.length; i++) {
-      await Tipo.create(
+      await Type.create(
         {nombre: typesRes.results[i].name}
       );
     }    
   }
-  return Tipo.findAll()
+  return Type.findAll()
 }
 
 router.get('/', async (req, res) => {
-  const types = await Tipo.findAll()
+  const types = await Type.findAll()
 
   if (!types.length) {
     return res.json(await getTypesAPI())

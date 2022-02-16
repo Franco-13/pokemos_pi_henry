@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const fetch = require("node-fetch");
-const { Pokemon, Tipo } = require('../db.js')
+const { Pokemon, Type } = require('../db.js')
 
 const router = Router();
 
@@ -37,7 +37,7 @@ const getPokemonsAPI = async () => {
 const getPokemonsDB = async () => {
   return await Pokemon.findAll({
     include: {
-      model: Tipo,
+      model: Type,
       attributes: ["nombre"],
       through: {
         attributes: []
@@ -46,20 +46,13 @@ const getPokemonsDB = async () => {
   })
 }
 
-const getAllPokemons = async () => {
-  const infoAPI = await getPokemonsAPI();
-  const infoDB = await getPokemonsDB();
-  const infoTotalPokes = [...infoAPI, ...infoDB]
-
-  return infoTotalPokes;
-}
 
 router.get("/", async (req, res) => {
   const name = req.query.name
   const detailsPokeDb = await Pokemon.findAll({
     attributes: ["name", "id", "image"],
     include: {
-      model: Tipo,
+      model: Type,
       attributes: ["nombre"],
       through: {
         attributes: []
@@ -118,8 +111,11 @@ router.get("/:id", async (req, res) => {
 })
 
 router.post("/", async (req, res) => {
-  const {name, hp, attack, defense, speed, height, weight, image, types} = req.body;
+  let {name, hp, attack, defense, speed, height, weight, image, types} = req.body;
 
+  if(!image.length) {
+    image = "https://pa1.narvii.com/6673/8ff3f1ad9f92cb0c11e6af52f241a1075336f440_hq.gif"
+  }
   const [newPoke, created] = await Pokemon.findOrCreate({
     where: {
       name, 
@@ -137,11 +133,11 @@ router.post("/", async (req, res) => {
     return res.status(404).send("El pokemon ya existe")
   }
 
-  let tipoPoke = await Tipo.findAll({
+  let tipoPoke = await Type.findAll({
     where: {nombre: types}
   })
 
-  await newPoke.setTipos(tipoPoke)
+  await newPoke.setTypes(tipoPoke)
 
   res.json({message:"Pokemon creado con exito"})
 
