@@ -11,7 +11,7 @@ const getTypesAPI = async () => {
   if (typesRes.results.length) {
     for (let i = 0; i < typesRes.results.length; i++) {
       await Type.create(
-        {nombre: typesRes.results[i].name}
+        {name: typesRes.results[i].name}
       );
     }    
   }
