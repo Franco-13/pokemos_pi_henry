@@ -13,8 +13,8 @@ export const Paginado = ({pokemonsPerPage, allPokemons, pagination}) => {
         {
           pageNumber && pageNumber.map(num =>{
             return (
-              <li>
-                <a onClick={()=>pagination(num)}>{num}</a>
+              <li key={num}>
+                <button onClick={()=>pagination(num)}>{num}</button>
               </li>
             )
           })
