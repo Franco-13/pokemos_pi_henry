@@ -1,22 +1,8 @@
 const { Router } = require('express')
-const fetch = require("node-fetch")
+const { getTypesAPI } = require('../GetFunctions/GetFunctions')
 const { Type } = require('../db.js')
 
 const router = Router();
-
-const getTypesAPI = async () => {
-  const api = await fetch('https://pokeapi.co/api/v2/type');
-  const typesRes = await api.json();
-
-  if (typesRes.results.length) {
-    for (let i = 0; i < typesRes.results.length; i++) {
-      await Type.create(
-        {name: typesRes.results[i].name}
-      );
-    }    
-  }
-  return Type.findAll()
-}
 
 router.get('/', async (req, res) => {
   const types = await Type.findAll()
@@ -29,4 +15,3 @@ router.get('/', async (req, res) => {
 })
 
 module.exports = router;
-
