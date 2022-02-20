@@ -1,9 +1,10 @@
-import {GET_POKEMONS, SORT_POKES, FILTER_BY_TYPES, SORT_POKES_HP, DETAILS_POKE, GET_NAME_POKEMON} from "../actions"
+import {GET_POKEMONS, SORT_POKES, FILTER_BY_TYPES, SORT_POKES_HP, DETAILS_POKE, GET_POKEMON_SEARCH_NAME} from "../actions"
 import {GET_TYPES} from "../actions"
 
 const initialState = {
   pokemons: [],
   allPokes: [],
+  searchPokemon: [],
   types: [],
   detailsPoke: {} 
 }
@@ -18,10 +19,10 @@ function rootReducer(state = initialState, action){
          allPokes: action.payload
       }
     
-    case GET_NAME_POKEMON:
+    case GET_POKEMON_SEARCH_NAME:
       return {
         ...state,
-        pokemons: action.payload,
+        searchPokemon: action.payload,
       }
 
     case GET_TYPES:
@@ -83,6 +84,13 @@ function rootReducer(state = initialState, action){
             }
             return 0;
           })
+      }
+    case "RESET":
+      return {
+        ...state,
+        pokemons: state.allPokes,
+        searchPokemon: [],
+        detailsPoke: {}
       }
     default:
       return state;

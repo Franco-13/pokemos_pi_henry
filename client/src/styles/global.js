@@ -1,0 +1,6 @@
+export const COLOR_PRIMARY = "#42B079"
+export const COLOR_SECONDARY= "#007799"
+export const COLOR_SUCCESS="#C73061"
+export const COLOR_LIGHT="#E0E0E0"
+export const COLOR_PRIMARY_HOVER = "#2E7E5680"
+export const COLOR_BORDER_BOX = "#C2DBFE"

@@ -1,25 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Navigation } from './styles';
+import { GlobalButton } from './../GlobalButton/GlobalButton';
+import { COLOR_PRIMARY } from '../../styles/global';
 
-export const Paginado = ({pokemonsPerPage, allPokemons, pagination}) => {
-  const pageNumber = []
-  
-  for (let i = 0; i < Math.ceil(allPokemons/pokemonsPerPage); i++) {
-    pageNumber.push(i+1)
-  }
-  
+export const Paginado = ({pokemonsPerPage, pokemons, pagination, currentPage}) => {
+  const pageNumber = Array(Math.ceil(pokemons/pokemonsPerPage)).fill(0)
+ console.log(currentPage);
   return (
-    <nav>
+    <Navigation>
       <ul>
         {
-          pageNumber && pageNumber.map(num =>{
+          pageNumber.length > 0 && pageNumber.map(( e, index) =>{
             return (
-              <li key={num}>
-                <button onClick={()=>pagination(num)}>{num}</button>
+              <li key={index+1}>
+                <GlobalButton
+                onClick={()=>pagination(index+1)}
+                textBtn={index+1}
+                colorBtn={COLOR_PRIMARY}
+                fontSize="1.5rem"
+                radius="50%"
+                active={currentPage===index+1 ? true : false}
+                />
               </li>
             )
           })
         }
       </ul>
-    </nav>
+    </Navigation>
   )
 }

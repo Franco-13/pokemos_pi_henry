@@ -1,14 +1,26 @@
 import React from 'react'
+import { CardContainer, SpanContainer } from './styles'
+import { Link } from 'react-router-dom';
 
 export const Card = ({name, image, types, id}) => {
   
   return (
-    <div>
+    <CardContainer>
       <h1 >{name}</h1>
-      <img src={image} alt={name} />
       {
-        //types?.map(el => el.nombre ? <span>{el.nombre}</span> : <span>{el} </span>)
+        id==="no_found" 
+        ? <img src={image} alt={name} />
+        :<Link to={`/home/${id}`}>
+          <img src={image} alt={name} />
+        </Link>
       }
-    </div>
+      <SpanContainer>
+        {
+          types?.map((el,i) => el.name 
+            ? <span key={el.id+i.toString()+id}>{el.name}</span> 
+            : <span key={el.id+i.toString()+id}>{el} </span>)
+        }
+      </SpanContainer>
+    </CardContainer>
   )
 }

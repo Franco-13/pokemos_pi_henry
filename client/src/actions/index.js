@@ -4,7 +4,7 @@ export const FILTER_BY_TYPES = "FILTER_BY_TYPES"
 export const SORT_POKES = "SORT_POKES"
 export const SORT_POKES_HP = "SORT_POKES_HP"
 export const DETAILS_POKE = "DETAILS_POKE"
-export const GET_NAME_POKEMON = "GET_NAME_POKEMON"
+export const GET_POKEMON_SEARCH_NAME = "GET_POKEMON_SEARCH_NAME"
 
 export function getPokemons(){
   return async function(dispatch){
@@ -30,13 +30,13 @@ export function getPokemonsById(id){
   }
 }
 
-export function getNamePokemon(name){
+export function getPokemonSearchName(name){
   return async function(dispatch){
     const backendResp = await fetch(`http://localhost:3001/pokemons?name=${name}`)
     const Poke = await backendResp.json()
     try {
       return dispatch({
-        type: GET_NAME_POKEMON,
+        type: GET_POKEMON_SEARCH_NAME,
         payload: Poke
       })
     } catch (error) {
@@ -91,5 +91,11 @@ export function sortPokesHP(payload){
   return {
     type: SORT_POKES_HP,
     payload
+  }
+}
+
+export function reset(){
+  return {
+    type: "RESET"
   }
 }
