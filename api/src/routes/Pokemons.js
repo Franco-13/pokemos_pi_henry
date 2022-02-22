@@ -7,7 +7,7 @@ const router = Router();
 router.get("/", async (req, res) => {
   const name = req.query.name
   const detailsPokeDb = await Pokemon.findAll({
-    attributes: ["name", "id", "image", "hp"],
+    attributes: ["name", "id", "image", "hp", "pokemonCreadoDB"],
     include: {
       model: Type,
       attributes: ["name"],
@@ -81,12 +81,12 @@ router.post("/", async (req, res) => {
       speed, 
       height, 
       weight, 
-      image
+      image: image.length ? image : "https://androidapkzfree.com/wp-content/uploads/2021/12/Pokmon-GO-APK-Mod-Unlimited-Money-Download-on-android.png"
     },
   })
 
   if (!created) {
-    return res.status(404).send("El pokemon ya existe")
+    return res.json({message: "El pokemon ya existe"})
   }
 
   if (!types.length) {

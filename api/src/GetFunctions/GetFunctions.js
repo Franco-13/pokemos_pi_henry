@@ -8,10 +8,7 @@ const getPokemonsAPI = async () => {
   let arrPokesResp = []
   for (let i = 0; i < results.length; i++) {
     const apiResUrl = fetch(`${results[i].url}`)
-    
-    arrPokesResp.push(
-      apiResUrl
-    )
+    arrPokesResp.push( apiResUrl )
   }
 
   const pokeResultArr = await Promise.all(arrPokesResp)
