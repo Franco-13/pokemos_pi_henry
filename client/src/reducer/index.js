@@ -1,16 +1,18 @@
-import {GET_POKEMONS, SORT_POKES, FILTER_BY_TYPES, SORT_POKES_HP, DETAILS_POKE, GET_POKEMON_SEARCH_NAME} from "../actions"
+import {GET_POKEMONS, SORT_POKES, FILTER_BY_TYPES, SORT_POKES_HP, DETAILS_POKE, GET_POKEMON_SEARCH_NAME, FILTER_BY_ORIGIN, POST_RESPONSE} from "../actions"
 import {GET_TYPES} from "../actions"
 
 const initialState = {
   pokemons: [],
   allPokes: [],
   searchPokemon: [],
+  searchPokemonOriginal: [],
   types: [],
-  detailsPoke: {} 
+  detailsPoke: {},
+  postMsg:{}
 }
 
 function rootReducer(state = initialState, action){
-  console.log("ESTADO REDUX: ",state);
+  //console.log("ESTADO REDUX: ",state);
   switch (action.type) {
     case GET_POKEMONS:
       return {
@@ -19,10 +21,17 @@ function rootReducer(state = initialState, action){
          allPokes: action.payload
       }
     
+    case POST_RESPONSE:
+    return {
+      ...state,
+      postMsg: action.resp
+    }
+    
     case GET_POKEMON_SEARCH_NAME:
       return {
         ...state,
         searchPokemon: action.payload,
+        searchPokemonOriginal: action.payload
       }
 
     case GET_TYPES:
@@ -45,19 +54,32 @@ function rootReducer(state = initialState, action){
         :state.pokemons.filter((p) => p.types.includes(action.payload) || p.types.map(e => e.name).includes(action.payload))
       }
 
+    case FILTER_BY_ORIGIN:
+      const pokesOrigin = state.allPokes
+      return {
+        ...state,
+        pokemons: action.payload === "created"
+          ? pokesOrigin.filter(p => p.pokemonCreadoDB)  
+          : action.payload === "API" 
+            ? pokesOrigin.filter(p => !p.pokemonCreadoDB)
+            : pokesOrigin
+      }
+    
+    case "FILTER_SEARCH_BY_ORIGIN":
+      const pokesSearchOrigin = state.searchPokemonOriginal
+      return {
+        ...state,
+        searchPokemon: action.payload === "created"
+          ? pokesSearchOrigin.filter(p => p.pokemonCreadoDB)  
+          : action.payload === "API" 
+            ? pokesSearchOrigin.filter(p => !p.pokemonCreadoDB)
+            : pokesSearchOrigin
+      }
+
     case SORT_POKES_HP:
-      /* if (action.payload === "--") {
-        sort = state.allPokes
-      } else if (action.payload ==="HP_ASC"){
-        sort = state.pokemons.sort((a,b) => a.hp - b.hp)
-      } else if (action.payload === "HP_DESC"){
-        sort = state.pokemons.sort((a,b) => b.hp - a.hp)
-      } */
       return{
         ...state,
-        pokemons: /* action.payload === "All" 
-          .? state.allPokes  
-          :*/ action.payload === "HP_ASC"
+        pokemons: action.payload === "HP_ASC"
           ? state.pokemons.sort((a,b) => a.hp - b.hp)
           : state.pokemons.sort((a,b) => b.hp - a.hp)
       } 
@@ -66,31 +88,17 @@ function rootReducer(state = initialState, action){
       return {
         ...state,
          pokemons: action.payload === "A-Z" 
-          ? state.pokemons.sort(/* (a, b) => a.name.toLowerCase() - (b.name.toLowerCase()) */function(a, b){
-            if (a.name > b.name) {
-              return 1;
-            }
-            if (a.name < b.name) {
-              return -1;
-            }
-            return 0;
-          })
-          : state.pokemons.sort(/* (a, b) => b.name.toLowerCase() - (a.name.toLowerCase()) */function(a, b){
-            if (a.name < b.name) {
-              return 1;
-            }
-            if (a.name > b.name) {
-              return -1;
-            }
-            return 0;
-          })
-      }
+          ? state.pokemons.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()))
+          : state.pokemons.sort((a, b) => b.name.toLowerCase().localeCompare(a.name.toLowerCase()))
+      } 
+
     case "RESET":
       return {
         ...state,
         pokemons: state.allPokes,
         searchPokemon: [],
-        detailsPoke: {}
+        detailsPoke: {},
+        postMsg: {}
       }
     default:
       return state;

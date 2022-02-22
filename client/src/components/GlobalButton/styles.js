@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLOR_BORDER_BOX, COLOR_SUCCESS } from "../../styles/global";
+import {  COLOR_LIGHT, COLOR_SUCCESS } from "../../styles/global";
 
 export const GlobalButonLayout = styled.button`     
     ${({colorBtn, fontSize, radius, active}) => {
@@ -15,10 +15,9 @@ export const GlobalButonLayout = styled.button`
         `
     }}
     &:hover{
-        box-shadow: inset 0px 0px 7px 5px;
-        background-color: ${COLOR_SUCCESS};
-        border: 1px solid ${COLOR_SUCCESS};
-        //box-shadow: 0 0 0 .25rem ${COLOR_BORDER_BOX};
+        box-shadow: ${({disabled})=>disabled ? "" : "inset 0px 0px 7px 5px"};
+        background-color: ${({disabled})=>disabled ? COLOR_LIGHT : COLOR_SUCCESS};
+        border: 1px solid ${({disabled})=>disabled ? COLOR_LIGHT : COLOR_SUCCESS};
     }
     &:focus{
         outline: 0;

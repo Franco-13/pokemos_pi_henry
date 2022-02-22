@@ -1,7 +1,7 @@
-import React, { /* useEffect, */ useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { /* getPokemons, */ sortPokes, sortPokesHP, filterPokesByType, getPokemonsById, reset } from '../../actions';
+import { sortPokes, sortPokesHP, filterPokesByType, getPokemonsById, filterPokesByOrigin, filterSearchByOrigin } from '../../actions';
 import { Card } from '../../components/Card/Card';
 import { Paginado } from '../../components/Paginado/Paginado';
 import { SearchBar } from '../../components/SearchBar/SearchBar';
@@ -27,17 +27,11 @@ export const Home = () => {
   const pagination = (pageNumber) => {
     setCurrentPage(pageNumber)
   }
-  console.log("2",currentPoke);
+  
   const [order, setOrder] = useState("")
 
   const handleSortAlpha = (e) => {
     dispatch(sortPokes(e.target.value))
-    setCurrentPage(1)
-    setOrder(e)
-  }
-
-  const handleType = (e) => {
-    dispatch(filterPokesByType(e.target.value))
     setCurrentPage(1)
     setOrder(e)
   }
@@ -47,33 +41,50 @@ export const Home = () => {
     setCurrentPage(1)
     setOrder(e)
   }
+  
+  const handleType = (e) => {
+    dispatch(filterPokesByType(e.target.value))
+    setCurrentPage(1)
+    setOrder(e)
+  }
 
-  const handleClickDetails = (el) => {
-    dispatch(reset())
-    dispatch(getPokemonsById(el.id))
-
+  const handleOrigin = (e) => {
+    if (searchPokemon.length) {
+      dispatch(filterSearchByOrigin(e.target.value))
+      setCurrentPage(1)
+      setOrder(e)
+    }else{
+      dispatch(filterPokesByOrigin(e.target.value))
+      setCurrentPage(1)
+      setOrder(e)
+    }
   }
   
   return (
     <HomeContainer>
       <Header>
-        <Link to="/home/createPokemon">
+        <Link to="/createPokemon">
           <GlobalButton
             textBtn="Crear Pokemon"
             colorBtn={`${COLOR_SECONDARY}`}
           />
         </Link>
-        <Select defaultValue={""} onChange={(e) => handleHP(e)}>
-        <option value="" disabled>Filtrar</option>
+        <Select defaultValue={""} onChange={handleHP}>
+          <option value="" disabled>Filtrar</option>
           <option value="HP_ASC">HP ASC</option>
           <option value="HP_DESC">HP DESC</option>
         </Select>
-        <Select onChange={(e) => handleSortAlpha(e)}>
+        <Select onChange={handleSortAlpha}>
           <option value="A-Z">A-Z</option>
           <option value="Z-A">Z-A</option>
         </Select>
-        <Select onChange={(e) => handleType(e)}>
-          <option value="All">All</option>
+        <Select onChange={handleOrigin}>
+          <option value="allOrigin">Todos los orígenes</option>
+          <option value="created">Creados</option>
+          <option value="API">Originales</option>
+        </Select>
+        <Select onChange={handleType}>
+          <option value="All">Todos los tipos</option>
           {
             types?.map((el) => <option key={el.name} value={el.name}>{el.name}</option> )
           }
@@ -96,4 +107,8 @@ export const Home = () => {
     </HomeContainer>
   )
 }
+
+
+
+
 /* {el.types?.map((el,i) => el.name ? <span key={el.id+i.toString()}>{el.name}</span> : <span key={el.id+i.toString()}>{el} </span>)} */

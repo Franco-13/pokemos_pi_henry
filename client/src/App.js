@@ -23,8 +23,8 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage/>}/>
           <Route path="/home" element={<Home/>}/>
-          <Route path="/home/:id" element={<DetailsPoke/>}/>
-          <Route path="/home/createPokemon" element={<CreatePokemon/>} />
+          <Route path="/detail/:id" element={<DetailsPoke/>}/>
+          <Route path="/createPokemon" element={<CreatePokemon/>} />
         </Routes>
       </React.Fragment>
   );

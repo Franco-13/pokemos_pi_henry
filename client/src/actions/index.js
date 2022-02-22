@@ -5,12 +5,14 @@ export const SORT_POKES = "SORT_POKES"
 export const SORT_POKES_HP = "SORT_POKES_HP"
 export const DETAILS_POKE = "DETAILS_POKE"
 export const GET_POKEMON_SEARCH_NAME = "GET_POKEMON_SEARCH_NAME"
+export const FILTER_BY_ORIGIN = "FILTER_BY_ORIGIN"
+export const POST_RESPONSE = "POST_RESPONSE"
 
 export function getPokemons(){
   return async function(dispatch){
     const backendRes = await fetch("http://localhost:3001/pokemons")
     const Pokes = await backendRes.json();
-    console.log("getPokemons allPokes: ",Pokes)
+    
     return dispatch({
       type: GET_POKEMONS,
       payload: Pokes
@@ -22,7 +24,7 @@ export function getPokemonsById(id){
   return async function(dispatch){
     const backendResp = await fetch(`http://localhost:3001/pokemons/${id}`)
     const Poke = await backendResp.json()
-    console.log("DetPokeDB: ", Poke);
+    //console.log("DetPokeDB: ", Poke);
     return dispatch({
       type: DETAILS_POKE,
       payload:Poke
@@ -56,19 +58,30 @@ export function getTypes(){
   }
 }
 
-/* export function postPokemon(payload){
-  return async function(){
-    const resp = await fetch(`http://localhost:3001/pokemons`,{
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    })
-    return resp
+export function postPokemon(payload){
+  return async function(dispatch){
+    //console.log(payload);
+    try {
+      const resp = await fetch("http://localhost:3001/pokemons",{
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      }
+      )
+      const respPost = await resp.json()
+      console.log(respPost);
+      return dispatch({
+        type: POST_RESPONSE,
+        resp: respPost
+      })
+    }catch (error) {
+      console.log(error);
+    }
   }
-} */
+}
 
 export function filterPokesByType(payload){
   console.log(payload);
@@ -78,8 +91,22 @@ export function filterPokesByType(payload){
   }
 }
 
+export function filterPokesByOrigin(payload){
+  return {
+    type: FILTER_BY_ORIGIN,
+    payload
+  }
+}
+
+export function filterSearchByOrigin(payload){
+  return {
+    type: "FILTER_SEARCH_BY_ORIGIN",
+    payload
+  }
+}
+
 export function sortPokes(payload){
-  console.log("sortPokes: ",payload);
+  //console.log("sortPokes: ",payload);
   return {
     type: SORT_POKES,
     payload
@@ -87,7 +114,7 @@ export function sortPokes(payload){
 }
 
 export function sortPokesHP(payload){
-  console.log("sortPokesHP: ",payload);
+  //console.log("sortPokesHP: ",payload);
   return {
     type: SORT_POKES_HP,
     payload

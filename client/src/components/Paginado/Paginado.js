@@ -5,7 +5,7 @@ import { COLOR_PRIMARY } from '../../styles/global';
 
 export const Paginado = ({pokemonsPerPage, pokemons, pagination, currentPage}) => {
   const pageNumber = Array(Math.ceil(pokemons/pokemonsPerPage)).fill(0)
- console.log(currentPage);
+ 
   return (
     <Navigation>
       <ul>

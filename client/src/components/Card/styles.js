@@ -1,18 +1,20 @@
 import styled from "styled-components";
+import { COLOR_RED_TRANSPARENT } from "../../styles/global";
 
 
 export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #b81613a6;
+  background: ${COLOR_RED_TRANSPARENT};
   margin: 1.5rem;
   width: 425px;
   height: 425px;
   border-radius:50%;
   padding: 1rem;
   img{
-    width: 65%;
+    width: 15rem;
+    height: 15rem;
   }
   a, h1{
     color: white;
