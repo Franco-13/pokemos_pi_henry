@@ -90,14 +90,14 @@ router.post("/", async (req, res) => {
   }
 
   if (!types.length) {
-    types = [1]
+    types = [...["unknown"]]
   }
 
   let tipoPoke = await Type.findAll({
     where: {name: types}
   })
-
   await newPoke.addTypes(tipoPoke)
+  //console.log(tipoPoke)
 
   res.json({message:"Pokemon creado con exito"})
 
