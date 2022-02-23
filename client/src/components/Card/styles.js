@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { COLOR_RED_TRANSPARENT } from "../../styles/global";
 
-
 export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -31,5 +30,4 @@ export const SpanContainer = styled.section`
     padding: .5rem;
     text-align: center;
   }
-
 `

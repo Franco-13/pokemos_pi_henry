@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { getPokemons, postPokemon, reset } from "../../actions";
@@ -7,32 +7,38 @@ import { COLOR_LIGHT, COLOR_SECONDARY } from "../../styles/global";
 import { CheckSection, ContainerCreated, FormPoke, HeaderCreatePokemon, InputSection, Modal } from "./styles";
 import { GlobalInput } from './../../components/GlobalInput/GlobalInput';
 
+function validateInputs(input) {
+  let errors = {};
+  let validImg = /^.*\.(jpg|jpeg|png|gif)$/;
+  let validName = /^[a-zA-Z\s]+$/;
+  console.log(input.types.length)
+  console.log(input.types)
+  if (!input.name.length) {
+    errors.name = "Ingrese un nombre para el pokemon"
+    errors.errorTF = true
+  } else if (!validName.test(input.name)) {
+    errors.name = "El nombre solo debe contener letras"
+  }
+  if (input.types.length > 2) {
+    errors.types = "Solo puede asignar hasta dos tipos"
+    errors.errorTF = true
+  }
+  if (Number(input.hp) > 252) {
+    errors.hp = "El valor vida no puede ser mayor a 255"
+  }
+  if (!validImg.test(input.image)) {
+    errors.image = "La imagen debe ser '.jpg', '.jpeg', '.png' ó '.gif' "
+  }
+  console.log(errors)
+  return errors;
+}
+
 export const CreatePokemon = () => {
   const dispatch = useDispatch();
   const typess = useSelector((state) => state.types);
   const {message} = useSelector((state) => state.postMsg)
   const types = typess.map((type) => type.name)
   //console.log("types", types);
-
-  function validateInputs(input) {
-    let errors = {};
-    let validImg = /^.*\.(jpg|jpeg|png|gif)$/;
-    if (!input.name) {
-      errors.name = "Ingrese un nombre para el pokemon"
-    } else if (!/\S+@\S+\.\S+/.test(input.name)) {
-      errors.name = "El nombre solo debe contener letras"
-    }
-    if (input.types.length > 2) {
-      errors.types = "Solo puede asignar hasta dos tipos"
-    }
-    if (Number(input.hp) > 252) {
-      errors.hp = "El valor vida no puede ser mayor a 255"
-    }
-    if (!validImg.test(input.image)) {
-      errors.image = "La imagen debe ser '.jpg', '.jpeg', '.png' ó '.gif' "
-    }
-    return errors;
-  }
 
   const [input, setInput] = useState({
     name: "",
@@ -48,7 +54,6 @@ export const CreatePokemon = () => {
   });
   const [errors, setErrors] = useState({});
   const [infoCreatedModal, setInfoCreatedModal] = useState(false)
-  const [check, setCheck] = useState()
 
   const handleChange = (e) => {
     setInput({
@@ -67,20 +72,28 @@ export const CreatePokemon = () => {
         ...input,
         types: input.types.filter(t => t !== e.target.value)
       })
+      setErrors(validateInputs({
+        ...input,
+        types: input.types.filter(t => t !== e.target.value)
+      }))
     }else{
       setInput({
         ...input,
         types: [...input.types, e.target.value]
       })
+      setErrors(validateInputs({
+        ...input,
+        types: [...input.types, e.target.value]
+      }))
     }
-    setErrors(validateInputs({
-      ...input,
-      [e.target.name]: e.target.value
-    }))
   }
+  
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    if (errors.errorTF) {
+      return alert("Revise los datos")
+    }
     dispatch(postPokemon(input));
     setInput({
       name: "",
@@ -94,10 +107,9 @@ export const CreatePokemon = () => {
       types: [],
       pokemonCreadoDB: true,
     })
-    setCheck(false)
     setInfoCreatedModal(true)
   }
-
+  useEffect(() => {console.log("algo");},[setInfoCreatedModal])
   const click = (e) => {
     e.preventDefault()
     setInfoCreatedModal(false)
@@ -144,106 +156,105 @@ export const CreatePokemon = () => {
             {!errors.image ? null : <span>{errors.image}</span>}
           </div>
           <div>       
-          <GlobalInput
-            id="hp"
-            type="number"
-            name="hp"
-            onChange={handleChange}
-            value={input.hp}
-            placeholder="Ingrese un número positívo"
-            label="hp"
-            labelTitle="Vida"
-            min="0"
-            max="252"
-          />
-          {!errors.hp ? null : <span>{errors.hp}</span>}
-        </div>
-        <div>
-          <GlobalInput
-            id="attack"
-            type="number"
-            name="attack"
-            onChange={handleChange}
-            value={input.attack}
-            placeholder="Ingrese un número positívo"
-            label="attack"
-            labelTitle="Ataque"
-          />
-          {!errors.attack ? null : <span>{errors.attack}</span>}
-        </div>
-        <div>
-          <GlobalInput
-            id="defense"
-            type="number"
-            name="defense"
-            onChange={handleChange}
-            value={input.defense}
-            placeholder="Ingrese un número positívo"
-            label="defense"
-            labelTitle="Defensa"
-            min="0"
-            max="252"
-          />
-          {!errors.defense ? null : <span>{errors.defense}</span>}
-        </div>
-        <div>
-          <GlobalInput
-            id="speed"
-            type="number"
-            name="speed"
-            onChange={handleChange}
-            value={input.speed}
-            placeholder="Ingrese un número positívo"
-            label="speed"
-            labelTitle="Velocidad"
-            min="0"
-            max="252"
-          />
-          {!errors.speed ? null : <span>{errors.speed}</span>}
-        </div>
-        <div>
-          <GlobalInput
-            id="height"
-            type="number"
-            name="height"
-            onChange={handleChange}
-            value={input.height}
-            placeholder="Ingrese un número positívo"
-            label="height"
-            labelTitle="Altura"
-            min="0"
-            max="100"
-          />
-          {!errors.height ? null : <span>{errors.height}</span>}
-        </div>
-        <div>  
-          <GlobalInput
-            id="weight"
-            type="number"
-            name="weight"
-            onChange={handleChange}
-            value={input.weight}
-            placeholder="Ingrese un número positívo"
-            label="weight"
-            labelTitle="Peso"
-            min="0"
-            max="1000"
-          />
-          {!errors.weight ? null : <span>{errors.weight}</span>}
-        </div>
+            <GlobalInput
+              id="hp"
+              type="number"
+              name="hp"
+              onChange={handleChange}
+              value={input.hp}
+              placeholder="Ingrese un número positívo"
+              label="hp"
+              labelTitle="Vida"
+              min="0"
+              max="252"
+            />
+            {!errors.hp ? null : <span>{errors.hp}</span>}
+          </div>
+          <div>
+            <GlobalInput
+              id="attack"
+              type="number"
+              name="attack"
+              onChange={handleChange}
+              value={input.attack}
+              placeholder="Ingrese un número positívo"
+              label="attack"
+              labelTitle="Ataque"
+            />
+            {!errors.attack ? null : <span>{errors.attack}</span>}
+          </div>
+          <div>
+            <GlobalInput
+              id="defense"
+              type="number"
+              name="defense"
+              onChange={handleChange}
+              value={input.defense}
+              placeholder="Ingrese un número positívo"
+              label="defense"
+              labelTitle="Defensa"
+              min="0"
+              max="252"
+            />
+            {!errors.defense ? null : <span>{errors.defense}</span>}
+          </div>
+          <div>
+            <GlobalInput
+              id="speed"
+              type="number"
+              name="speed"
+              onChange={handleChange}
+              value={input.speed}
+              placeholder="Ingrese un número positívo"
+              label="speed"
+              labelTitle="Velocidad"
+              min="0"
+              max="252"
+            />
+            {!errors.speed ? null : <span>{errors.speed}</span>}
+          </div>
+          <div>
+            <GlobalInput
+              id="height"
+              type="number"
+              name="height"
+              onChange={handleChange}
+              value={input.height}
+              placeholder="Ingrese un número positívo"
+              label="height"
+              labelTitle="Altura"
+              min="0"
+              max="100"
+            />
+            {!errors.height ? null : <span>{errors.height}</span>}
+          </div>
+          <div>  
+            <GlobalInput
+              id="weight"
+              type="number"
+              name="weight"
+              onChange={handleChange}
+              value={input.weight}
+              placeholder="Ingrese un número positívo"
+              label="weight"
+              labelTitle="Peso"
+              min="0"
+              max="1000"
+            />
+            {!errors.weight ? null : <span>{errors.weight}</span>}
+          </div>
         </InputSection>
         <CheckSection>
           {
             types?.map((el, i) => (
               <label key={el+i}>
-                <input onChange={handleChangeInputCheck} type="checkbox" name={el} value={el} checked={check}/>
+                <input onChange={handleChangeInputCheck} type="checkbox" name={el} value={el}/>
                 {el}
               </label>
             ))
           }
-          
-          {!errors.types ? null : <span>{errors.types}</span>}
         </CheckSection>
+        {!errors.types ? null : <span>{errors.types}</span>}  
         <GlobalButton
           type="submit"
           textBtn="Crear"

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Navigation } from './styles';
 import { GlobalButton } from './../GlobalButton/GlobalButton';
 import { COLOR_PRIMARY } from '../../styles/global';

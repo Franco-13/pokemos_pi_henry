@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { sortPokes, sortPokesHP, filterPokesByType, getPokemonsById, filterPokesByOrigin, filterSearchByOrigin } from '../../actions';
+import { sortPokes, sortPokesHP, filterPokesByType, /* getPokemonsById, */ filterPokesByOrigin, filterSearchByOrigin } from '../../actions';
 import { Card } from '../../components/Card/Card';
 import { Paginado } from '../../components/Paginado/Paginado';
 import { SearchBar } from '../../components/SearchBar/SearchBar';
@@ -61,7 +61,7 @@ export const Home = () => {
   }
   
   return (
-    <HomeContainer>
+    <HomeContainer al = {pokemons.length ? true : false}>
       <Header>
         <Link to="/createPokemon">
           <GlobalButton
@@ -70,11 +70,12 @@ export const Home = () => {
           />
         </Link>
         <Select defaultValue={""} onChange={handleHP}>
-          <option value="" disabled>Filtrar</option>
+          <option value="" disabled>Filtrar Vida</option>
           <option value="HP_ASC">HP ASC</option>
           <option value="HP_DESC">HP DESC</option>
         </Select>
-        <Select onChange={handleSortAlpha}>
+        <Select defaultValue={""} onChange={handleSortAlpha}>
+          <option value="" disabled>Filtro Alfabético</option>
           <option value="A-Z">A-Z</option>
           <option value="Z-A">Z-A</option>
         </Select>
@@ -94,21 +95,15 @@ export const Home = () => {
       <Paginado pokemonsPerPage={pokesPerPage} pokemons={pokemonOrSearch.length} currentPage = {currentPage} pagination={pagination}/>
       <PokemonsContainer>
         {
-          currentPoke?.map((el) => el.id === "ERROR_SIN_RESULTADO" 
-            ? <Card  name={el.name.toUpperCase()} image={el.image} id={el.id} types={el.types} />
-            : 
-            <div key={el.id} onClick={()=>dispatch(getPokemonsById(el.id))}>
-                <Card  name={el.name.toUpperCase()} image={el.image} id={el.id} types={el.types} />
+          currentPoke.length && currentPoke.map((el) => el.id === "ERROR_SIN_RESULTADO" ?
+            <h1 className="error">{"Sin resultados"}</h1>
+            :<div key={el.id} >
+              <Card  name={el.name.toUpperCase()} image={el.image} id={el.id} types={el.types} />
             </div>
           )
         } 
+        {pokemonOrSearch.length ? null : <h1 className="error">{"Sin resultados"}</h1>}
       </PokemonsContainer>
-      <Paginado pokemonsPerPage={pokesPerPage} pokemons={pokemonOrSearch.length} currentPage = {currentPage} pagination={pagination}/>
     </HomeContainer>
   )
 }
-
-
-
-
-/* {el.types?.map((el,i) => el.name ? <span key={el.id+i.toString()}>{el.name}</span> : <span key={el.id+i.toString()}>{el} </span>)} */

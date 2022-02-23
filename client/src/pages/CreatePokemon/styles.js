@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { COLOR_RED_TRANSPARENT } from '../../styles/global';
+import { COLOR_SUCCESS } from './../../styles/global';
 
 export const ContainerCreated = styled.div`
   background-image: url("https://img.wallpapersafari.com/desktop/1366/768/13/63/7zrbm6.jpg");
@@ -7,7 +8,6 @@ export const ContainerCreated = styled.div`
   background-size: cover;
   height: 100vh;
 `
-
 export const HeaderCreatePokemon = styled.header`     
   display: flex;
   justify-content: space-evenly;
@@ -18,29 +18,36 @@ export const HeaderCreatePokemon = styled.header`
 export const FormPoke = styled.form`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   width: 40rem;
   height: 40rem;
   margin: 0 auto;
+  span{
+    color: ${COLOR_SUCCESS};
+    font-size: .85rem;
+  }
 `
 export const InputSection = styled.section`
   width: 40rem;
-  height: 20rem;
-  margin: 3rem auto;
+  height: 22rem;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr; 
   grid-template-rows: 1fr 1fr 1fr;
+  grid-auto-rows: 3rem;
+  span{
+    font-size: .85rem;
+  }
 `
 export const CheckSection = styled.section`
   box-shadow: inset 0px 0px 7px 8px;
   background-color: #69696999;
   padding: 1rem 1rem;
   border-radius: .5rem;
-
   display: grid;
   justify-content: center;
   width: 35rem;
-  margin: 1rem auto;
+  margin: 0 auto;
   grid-template-columns: 1fr 1fr 1fr 1fr; 
   grid-template-rows: 1fr 1fr 1fr;
   label{
