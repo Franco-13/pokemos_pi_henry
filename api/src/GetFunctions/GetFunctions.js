@@ -1,6 +1,5 @@
 const fetch = require("node-fetch");
 const { Pokemon, Type } = require('../db')
-
 const getPokemonsAPI = async () => {
   const api = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=40");
   const {results} = await api.json()
@@ -53,11 +52,12 @@ const getPokemonsDB = async () => {
 const getTypesAPI = async () => {
   const api = await fetch('https://pokeapi.co/api/v2/type');
   const typesRes = await api.json();
-
+  console.log(typesRes);
   if (typesRes.results.length) {
     for (let i = 0; i < typesRes.results.length; i++) {
       await Type.create(
-        {name: typesRes.results[i].name}
+        {name: typesRes.results[i].name,
+        }
       );
     }    
   }
