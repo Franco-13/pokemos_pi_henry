@@ -18,4 +18,7 @@ export const GlobalInputLayout = styled.input`
   padding-left: .5rem;
   background-color: #69696999;
   color: thistle;
+  ::placeholder{
+    color: thistle;
+  }
 `

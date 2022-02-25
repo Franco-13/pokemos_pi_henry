@@ -24,14 +24,27 @@ export const Title = styled.div`
   } 
 
 `
-export const ImageLoading = styled.div`
-position: absolute;
-top: 25rem;
+export const BtnContainer = styled.div`
+  position: absolute;
+  top: 25rem;
   img{
     height: 9.2rem;
     box-shadow: inset 0px 0px 7px 8px;
     background-color: #64a8e2b8;
     padding: 1rem 1rem;
-    border-radius: .5rem;
+    border-radius: 50%;
   }
+}
+`
+export const ImageLoading = styled.div`
+  position: absolute;
+  top: 21rem;
+  img{
+    height: 9.2rem;
+    box-shadow: inset 0px 0px 7px 8px;
+    background-color: #64a8e2b8;
+    padding: 1rem 1rem;
+    border-radius: 50%;
+  }
+}
 `

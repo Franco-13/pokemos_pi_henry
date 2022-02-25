@@ -31,7 +31,12 @@ export const PokemonsContainer = styled.div`
 `
 export const Select = styled.select`
   margin: 0 .5rem;
-  height: 1.75rem;
+  height: 2.25rem;
   border-radius: .25rem;
   padding-left: .5rem;
+  background-color: #69696999;
+  color: thistle;
+  option{
+    background-color: #7f4746;
+  }
 `

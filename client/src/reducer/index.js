@@ -12,7 +12,6 @@ const initialState = {
 }
 
 function rootReducer(state = initialState, action){
-  //console.log("ESTADO REDUX: ",state);
   switch (action.type) {
     case GET_POKEMONS:
       return {
@@ -77,11 +76,12 @@ function rootReducer(state = initialState, action){
       }
 
     case SORT_POKES_HP:
+      const pokesHP = state.allPokes
       return{
         ...state,
         pokemons: action.payload === "HP_ASC"
-          ? state.pokemons.sort((a,b) => a.hp - b.hp)
-          : state.pokemons.sort((a,b) => b.hp - a.hp)
+          ? pokesHP.sort((a,b) => a.hp - b.hp)
+          : pokesHP.sort((a,b) => b.hp - a.hp)
       } 
 
     case SORT_POKES:

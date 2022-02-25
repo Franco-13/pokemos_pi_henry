@@ -1,44 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import { getPokemons, postPokemon, reset } from "../../actions";
 import { GlobalButton } from "../../components/GlobalButton/GlobalButton";
 import { COLOR_LIGHT, COLOR_SECONDARY } from "../../styles/global";
 import { CheckSection, ContainerCreated, FormPoke, HeaderCreatePokemon, InputSection, Modal } from "./styles";
 import { GlobalInput } from './../../components/GlobalInput/GlobalInput';
-
-function validateInputs(input) {
-  let errors = {};
-  let validImg = /^.*\.(jpg|jpeg|png|gif)$/;
-  let validName = /^[a-zA-Z\s]+$/;
-  console.log(input.types.length)
-  console.log(input.types)
-  if (!input.name.length) {
-    errors.name = "Ingrese un nombre para el pokemon"
-    errors.errorTF = true
-  } else if (!validName.test(input.name)) {
-    errors.name = "El nombre solo debe contener letras"
-  }
-  if (input.types.length > 2) {
-    errors.types = "Solo puede asignar hasta dos tipos"
-    errors.errorTF = true
-  }
-  if (Number(input.hp) > 252) {
-    errors.hp = "El valor vida no puede ser mayor a 255"
-  }
-  if (!validImg.test(input.image)) {
-    errors.image = "La imagen debe ser '.jpg', '.jpeg', '.png' ó '.gif' "
-  }
-  console.log(errors)
-  return errors;
-}
+import { validateInputs } from "./validates";
 
 export const CreatePokemon = () => {
   const dispatch = useDispatch();
   const typess = useSelector((state) => state.types);
   const {message} = useSelector((state) => state.postMsg)
   const types = typess.map((type) => type.name)
-  //console.log("types", types);
+  let navigate = useNavigate();
 
   const [input, setInput] = useState({
     name: "",
@@ -87,7 +62,6 @@ export const CreatePokemon = () => {
       }))
     }
   }
-  
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -95,27 +69,34 @@ export const CreatePokemon = () => {
       return alert("Revise los datos")
     }
     dispatch(postPokemon(input));
-    setInput({
-      name: "",
-      image: "",
-      hp: 0,
-      attack: 0,
-      defense: 0,
-      speed: 0,
-      height: 0,
-      weight: 0,
-      types: [],
-      pokemonCreadoDB: true,
-    })
+    if(message === "Pokemon creado con exito"){
+      setInput({
+        name: "",
+        image: "",
+        hp: 0,
+        attack: 0,
+        defense: 0,
+        speed: 0,
+        height: 0,
+        weight: 0,
+        types: [],
+        pokemonCreadoDB: true,
+      })
+    }
     setInfoCreatedModal(true)
   }
-  useEffect(() => {console.log("algo");},[setInfoCreatedModal])
+  
   const click = (e) => {
     e.preventDefault()
     setInfoCreatedModal(false)
-    dispatch(reset())
-    dispatch(getPokemons())
+    if (message === "Pokemon creado con exito") {
+      dispatch(reset())
+      dispatch(getPokemons())
+      navigate("/home")
+    }
   }
+
+  let disabledBtn = input.name.length === 0 || Object.keys(errors).length
 
   return (
     <ContainerCreated>
@@ -180,6 +161,8 @@ export const CreatePokemon = () => {
               placeholder="Ingrese un número positívo"
               label="attack"
               labelTitle="Ataque"
+              min="0"
+              max="252"
             />
             {!errors.attack ? null : <span>{errors.attack}</span>}
           </div>
@@ -253,13 +236,13 @@ export const CreatePokemon = () => {
               </label>
             ))
           }
+          {!errors.types ? null : <span>{errors.types}</span>}  
         </CheckSection>
-        {!errors.types ? null : <span>{errors.types}</span>}  
         <GlobalButton
           type="submit"
           textBtn="Crear"
-          colorBtn={!input.name.length ? COLOR_LIGHT :COLOR_SECONDARY}
-          disabledState={!input.name.length ? true : false}
+          colorBtn={disabledBtn ? COLOR_LIGHT : COLOR_SECONDARY}
+          disabledState={disabledBtn ? true : false}
         />
       </FormPoke>
       <Modal onClick={click} visible={infoCreatedModal}  className ="active">

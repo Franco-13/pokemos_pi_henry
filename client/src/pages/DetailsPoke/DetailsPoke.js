@@ -31,31 +31,33 @@ export const DetailsPoke = () => {
         { det.name 
           ?<DeatilContainer>
             <h1>{name.toUpperCase()}</h1>
+            <span>ID: {id}</span>
             <DetailSection>
               <div className="imgPoke">
                 <img src={image} alt={name} />
               </div>
               <SectionStatsAndType>
                 <Stats>
+                  <h2>VIDA: {hp}</h2>
                   <h2>ATAQUE: {attack}</h2>
                   <h2>DEFENSA: {defense}</h2>
+                  <h2>VELOCIDAD: {speed}</h2>
                   <h2>ALTURA: {height}</h2>
                   <h2>PESO: {weight}</h2>
-                  <h2>VIDA: {hp}</h2>
-                  <h2>VELOCIDAD: {speed}</h2>
+                  <Type>
+                    {
+                      types?.map((el,i) => el.name ? <h2 key={el.id+i.toString()+id}>{el.name.toUpperCase()}</h2> : <h2 key={el.id+i.toString()+id}>{el.toUpperCase()} </h2>)
+                    }
+                  </Type>
                 </Stats>
-                <Type>
-                  {
-                    types?.map((el,i) => el.name ? <h2 key={el.id+i.toString()+id}>{el.name.toUpperCase()}</h2> : <h2 key={el.id+i.toString()+id}>{el.toUpperCase()} </h2>)
-                  }
-                </Type>
               </SectionStatsAndType>
             </DetailSection>
           </DeatilContainer>
           : <ImageLoading>
-              <img src="https://www.gifsanimados.org/data/media/1446/pokemon-imagen-animada-0098.gif" alt='Loading'/>
+              <img src="https://i.imgur.com/XLJxE8S.gif" alt='Loading'/>
             </ImageLoading> 
         }
     </Container>
   )
 }
+//https://www.gifsanimados.org/data/media/1446/pokemon-imagen-animada-0098.gif

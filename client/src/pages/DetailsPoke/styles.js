@@ -27,6 +27,10 @@ export const DeatilContainer = styled.section`
     margin: .75rem 0;
     color: yellowgreen;
     font-weight: bolder;
+    padding-left: 2rem
+  }
+  span{
+    color: yellowgreen;
   }
   `
 export const DetailSection = styled.section`
@@ -60,7 +64,10 @@ export const SectionStatsAndType = styled.section`
 
 `
 export const Type = styled.div`
+  grid-column-start: 1;
+  grid-column-end: 3;
   display: flex;
+  justify-content: center;
   h2{
     padding: 0 1rem;
   }
@@ -75,7 +82,11 @@ export const ImageLoading = styled.section`
   display: flex;
   justify-content: center;
   img{
-    margin: 16rem auto;
-    width: 24rem;
+    border-radius:50%;
+    margin: 10rem auto;
+    width: 21rem;
+    box-shadow: inset 0px 0px 7px 8px;
+    background-color: #64a8e2b8;
+    padding: 1rem 1rem;
   }
 `

@@ -25,6 +25,9 @@ export const FormPoke = styled.form`
   span{
     color: ${COLOR_SUCCESS};
     font-size: .85rem;
+    background-color: #000000bf;
+    margin-left: 0.75rem;
+    font-weight: 900;
   }
 `
 export const InputSection = styled.section`
@@ -40,13 +43,15 @@ export const InputSection = styled.section`
   }
 `
 export const CheckSection = styled.section`
-  box-shadow: inset 0px 0px 7px 8px;
+  position: relative;
+  box-shadow: inset 0px 0px 7px 4px;
   background-color: #69696999;
   padding: 1rem 1rem;
   border-radius: .5rem;
   display: grid;
   justify-content: center;
   width: 35rem;
+  height: 10rem;
   margin: 0 auto;
   grid-template-columns: 1fr 1fr 1fr 1fr; 
   grid-template-rows: 1fr 1fr 1fr;
@@ -55,6 +60,13 @@ export const CheckSection = styled.section`
     color: yellowgreen;
     font-weight: bolder;
     font-size: larger;
+  }
+  span{
+    position: absolute;
+    width: 13rem;
+    margin: 0 33%;
+    bottom:-4px;
+    background-color: #00000000;
   }
 `
 export const Modal = styled.div`

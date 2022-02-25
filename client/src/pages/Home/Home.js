@@ -17,9 +17,10 @@ export const Home = () => {
   const types = useSelector((state) => state.types)
 
   const [currentPage, setCurrentPage] = useState(1)
-  const [pokesPerPage, setPokesPerPage] = useState(12)
+  const [pokesPerPage, /* setPokesPerPage */] = useState(12)
   const indexLastPoke = currentPage * pokesPerPage
   const indexFirstPoke = indexLastPoke - pokesPerPage
+  const [/* order */, setOrder] = useState("")
   let currentPoke = pokemonOrSearch.length 
                         ? pokemonOrSearch?.slice(indexFirstPoke, indexLastPoke) 
                         : pokemons?.slice(indexFirstPoke, indexLastPoke)
@@ -27,8 +28,6 @@ export const Home = () => {
   const pagination = (pageNumber) => {
     setCurrentPage(pageNumber)
   }
-  
-  const [order, setOrder] = useState("")
 
   const handleSortAlpha = (e) => {
     dispatch(sortPokes(e.target.value))
@@ -47,7 +46,7 @@ export const Home = () => {
     setCurrentPage(1)
     setOrder(e)
   }
-
+  
   const handleOrigin = (e) => {
     if (searchPokemon.length) {
       dispatch(filterSearchByOrigin(e.target.value))
@@ -61,7 +60,7 @@ export const Home = () => {
   }
   
   return (
-    <HomeContainer al = {pokemons.length ? true : false}>
+    <HomeContainer al = {pokemonOrSearch.length>3 ? true : false}>
       <Header>
         <Link to="/createPokemon">
           <GlobalButton
@@ -70,12 +69,12 @@ export const Home = () => {
           />
         </Link>
         <Select defaultValue={""} onChange={handleHP}>
-          <option value="" disabled>Filtrar Vida</option>
-          <option value="HP_ASC">HP ASC</option>
-          <option value="HP_DESC">HP DESC</option>
+          <option value="" disabled>Ordenar Vida</option>
+          <option value="HP_ASC">Ascendente</option>
+          <option value="HP_DESC">Descendente</option>
         </Select>
         <Select defaultValue={""} onChange={handleSortAlpha}>
-          <option value="" disabled>Filtro Alfabético</option>
+          <option value="" disabled>Orden Alfabético</option>
           <option value="A-Z">A-Z</option>
           <option value="Z-A">Z-A</option>
         </Select>
@@ -87,7 +86,7 @@ export const Home = () => {
         <Select onChange={handleType}>
           <option value="All">Todos los tipos</option>
           {
-            types?.map((el) => <option key={el.name} value={el.name}>{el.name}</option> )
+            types?.sort((a, b) => a.name.localeCompare(b.name)).map((el) => <option key={el.name} value={el.name}>{el.name}</option>)
           }
         </Select>
         <SearchBar/>
@@ -96,9 +95,9 @@ export const Home = () => {
       <PokemonsContainer>
         {
           currentPoke.length && currentPoke.map((el) => el.id === "ERROR_SIN_RESULTADO" ?
-            <h1 className="error">{"Sin resultados"}</h1>
+            <h1 key={"ERROR_SIN_RESULTADO"}  className="error">{"Sin resultados"}</h1>
             :<div key={el.id} >
-              <Card  name={el.name.toUpperCase()} image={el.image} id={el.id} types={el.types} />
+              <Card key={el.id+el.name.toUpperCase()} name={el.name.toUpperCase()} image={el.image} id={el.id} types={el.types} />
             </div>
           )
         } 
