@@ -1,7 +1,7 @@
 import React from "react";
 import { GlobalButonLayout } from "./styles";
 
-export function GlobalButton ({type, onClick, textBtn, colorBtn, fontSize, disabledState = false, radius, active=false}) {
+export function GlobalButton ({type, onClick, textBtn, colorBtn, fontSize, disabledState = false, radius, active=false, fontColor}) {
   return (
     <GlobalButonLayout 
       type={type} 
@@ -11,8 +11,9 @@ export function GlobalButton ({type, onClick, textBtn, colorBtn, fontSize, disab
       radius={radius}
       active={active}
       disabled={disabledState}
+      fontColor={fontColor}
     >
-      {textBtn}
+     <h4>{textBtn}</h4> 
     </GlobalButonLayout>
   )
 }

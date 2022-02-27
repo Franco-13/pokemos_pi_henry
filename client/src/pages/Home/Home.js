@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { sortPokes, sortPokesHP, filterPokesByType, /* getPokemonsById, */ filterPokesByOrigin, filterSearchByOrigin } from '../../actions';
+import { sortPokes, sortPokesHP, filterPokesByType, filterPokesByOrigin, filterSearchByOrigin } from '../../actions';
 import { Card } from '../../components/Card/Card';
 import { Paginado } from '../../components/Paginado/Paginado';
 import { SearchBar } from '../../components/SearchBar/SearchBar';
-import { COLOR_SECONDARY } from '../../styles/global';
+import { YELLOW_PIKACHU } from '../../styles/global';
 import { GlobalButton } from './../../components/GlobalButton/GlobalButton';
 import { Header, HomeContainer, PokemonsContainer, Select } from './styles';
 
@@ -13,6 +13,9 @@ export const Home = () => {
   const dispatch = useDispatch()
   let pokemons = useSelector((state) => state.pokemons)
   let searchPokemon = useSelector((state) => state.searchPokemon)
+  let typeSortHp = useSelector((state) => state.typeSortHp)
+  let typeSortName = useSelector((state) => state.typeSortName)
+  let typeFilterOrigin = useSelector((state) => state.typeFilterOrigin)
   const pokemonOrSearch = searchPokemon.length === 0 ? pokemons : searchPokemon;
   const types = useSelector((state) => state.types)
 
@@ -30,6 +33,7 @@ export const Home = () => {
   }
 
   const handleSortAlpha = (e) => {
+    console.log(e.target.value);
     dispatch(sortPokes(e.target.value))
     setCurrentPage(1)
     setOrder(e)
@@ -65,20 +69,22 @@ export const Home = () => {
         <Link to="/createPokemon">
           <GlobalButton
             textBtn="Crear Pokemon"
-            colorBtn={`${COLOR_SECONDARY}`}
+            colorBtn={YELLOW_PIKACHU}
+            fontColor="black"
           />
         </Link>
-        <Select defaultValue={""} onChange={handleHP}>
+        <Select value={typeSortHp} onChange={handleHP}>
           <option value="" disabled>Ordenar Vida</option>
           <option value="HP_ASC">Ascendente</option>
           <option value="HP_DESC">Descendente</option>
         </Select>
-        <Select defaultValue={""} onChange={handleSortAlpha}>
+        <Select value={typeSortName} onChange={handleSortAlpha}>
           <option value="" disabled>Orden Alfabético</option>
           <option value="A-Z">A-Z</option>
           <option value="Z-A">Z-A</option>
         </Select>
-        <Select onChange={handleOrigin}>
+        <Select value={typeFilterOrigin} onChange={handleOrigin}>
+        <option value="" disabled>Seleciona origen</option>
           <option value="allOrigin">Todos los orígenes</option>
           <option value="created">Creados</option>
           <option value="API">Originales</option>
@@ -93,15 +99,16 @@ export const Home = () => {
       </Header>
       <Paginado pokemonsPerPage={pokesPerPage} pokemons={pokemonOrSearch.length} currentPage = {currentPage} pagination={pagination}/>
       <PokemonsContainer>
-        {
+        {pokemonOrSearch.length ? /* null  */
+        
           currentPoke.length && currentPoke.map((el) => el.id === "ERROR_SIN_RESULTADO" ?
             <h1 key={"ERROR_SIN_RESULTADO"}  className="error">{"Sin resultados"}</h1>
-            :<div key={el.id} >
-              <Card key={el.id+el.name.toUpperCase()} name={el.name.toUpperCase()} image={el.image} id={el.id} types={el.types} />
-            </div>
+            :
+              <Card key={el.id} name={el.name.toUpperCase()} image={el.image} id={el.id} types={el.types} />
+            
           )
-        } 
-        {pokemonOrSearch.length ? null : <h1 className="error">{"Sin resultados"}</h1>}
+         
+        : <h1 className="error">{"Sin resultados"}</h1>}
       </PokemonsContainer>
     </HomeContainer>
   )

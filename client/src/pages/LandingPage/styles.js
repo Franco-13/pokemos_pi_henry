@@ -1,9 +1,9 @@
 import styled from "styled-components";
 //import { COLOR_BORDER_BOX, COLOR_SUCCESS } from "../../styles/global";
-import imgBG from "../../images/LandingBackground1.jpg"
+//import imgBG from "https://wallpapercave.com/wp/wp2566722.jpg"
 
 export const LandingContainer = styled.div`
-  background-image: url("${imgBG}");
+  background-image: url("https://wallpapercave.com/wp/wp2566722.jpg");
   background-size: cover;
   height: 100vh;
   display: flex;
@@ -19,10 +19,9 @@ export const Title = styled.div`
     font-size: 5rem;
     box-shadow: inset 0px 0px 7px 8px;
     background-color: #64a8e2b8;
-    padding: 1rem 1rem;
+    padding: 2rem;
     border-radius: .5rem;
   } 
-
 `
 export const BtnContainer = styled.div`
   position: absolute;
@@ -39,6 +38,7 @@ export const BtnContainer = styled.div`
 export const ImageLoading = styled.div`
   position: absolute;
   top: 21rem;
+  
   img{
     height: 9.2rem;
     box-shadow: inset 0px 0px 7px 8px;

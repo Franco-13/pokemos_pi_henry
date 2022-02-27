@@ -1,4 +1,4 @@
-import {GET_POKEMONS, SORT_POKES, FILTER_BY_TYPES, SORT_POKES_HP, DETAILS_POKE, GET_POKEMON_SEARCH_NAME, FILTER_BY_ORIGIN, POST_RESPONSE} from "../actions"
+import {GET_POKEMONS, SORT_POKES, FILTER_BY_TYPES, SORT_POKES_HP, DETAILS_POKE, GET_POKEMON_SEARCH_NAME, FILTER_BY_ORIGIN, POST_RESPONSE, PUT_RESPONSE, DELETE_RESPONSE, FILTER_SEARCH_BY_ORIGIN, RESET} from "../actions"
 import {GET_TYPES} from "../actions"
 
 const initialState = {
@@ -8,18 +8,35 @@ const initialState = {
   searchPokemonOriginal: [],
   types: [],
   detailsPoke: {},
-  postMsg:{}
+  postMsg: {},
+  putMsg: {},
+  delMsg: {},
+  typeSortHp: "",
+  typeSortName: "",
+  typeFilterOrigin: "",
 }
 
 function rootReducer(state = initialState, action){
   switch (action.type) {
+    case PUT_RESPONSE:
+      return {
+        ...state,
+        putMsg: action.resp
+      }
+
     case GET_POKEMONS:
       return {
         ...state,
          pokemons: action.payload,
          allPokes: action.payload
       }
-    
+
+    case DELETE_RESPONSE:
+    return {
+      ...state,
+      delMsg: action.delMsg
+    }
+
     case POST_RESPONSE:
     return {
       ...state,
@@ -57,6 +74,9 @@ function rootReducer(state = initialState, action){
       const pokesOrigin = state.allPokes
       return {
         ...state,
+        typeSortHp:"",
+        typeSortName:"",
+        typeFilterOrigin: action.payload,
         pokemons: action.payload === "created"
           ? pokesOrigin.filter(p => p.pokemonCreadoDB)  
           : action.payload === "API" 
@@ -64,10 +84,13 @@ function rootReducer(state = initialState, action){
             : pokesOrigin
       }
     
-    case "FILTER_SEARCH_BY_ORIGIN":
+    case FILTER_SEARCH_BY_ORIGIN:
       const pokesSearchOrigin = state.searchPokemonOriginal
       return {
         ...state,
+        typeSortHp:"",
+        typeSortName:"",
+        typeFilterOrigin: action.payload,
         searchPokemon: action.payload === "created"
           ? pokesSearchOrigin.filter(p => p.pokemonCreadoDB)  
           : action.payload === "API" 
@@ -76,23 +99,30 @@ function rootReducer(state = initialState, action){
       }
 
     case SORT_POKES_HP:
-      const pokesHP = state.allPokes
+      //const pokesHP = state.allPokes
       return{
         ...state,
+        typeSortHp: action.payload,
+        typeSortName:"",
+        typeFilterOrigin: "",
         pokemons: action.payload === "HP_ASC"
-          ? pokesHP.sort((a,b) => a.hp - b.hp)
-          : pokesHP.sort((a,b) => b.hp - a.hp)
+          ? state.pokemons.sort((a,b) => a.hp - b.hp)
+          : state.pokemons.sort((a,b) => b.hp - a.hp)
       } 
 
     case SORT_POKES:
+      //const pokesAZ = state.allPokes
       return {
         ...state,
+        typeSortHp:"",
+        typeFilterOrigin: "",
+        typeSortName: action.payload,
          pokemons: action.payload === "A-Z" 
           ? state.pokemons.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()))
           : state.pokemons.sort((a, b) => b.name.toLowerCase().localeCompare(a.name.toLowerCase()))
       } 
 
-    case "RESET":
+    case RESET:
       return {
         ...state,
         pokemons: state.allPokes,

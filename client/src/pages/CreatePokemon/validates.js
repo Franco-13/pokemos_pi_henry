@@ -5,13 +5,11 @@ export function validateInputs(input) {
   
   if (!input.name.length) {
     errors.name = "Ingrese un nombre para el pokemon"
-    errors.errorTF = true
   } else if (!validName.test(input.name)) {
     errors.name = "El nombre solo debe contener letras"
   }
   if (input.types.length > 2) {
     errors.types = "Solo puede asignar hasta dos tipos"
-    errors.errorTF = true
   }
   if (Number(input.hp)> 252) {
     errors.hp = "El valor vida no puede ser mayor a 252"
@@ -34,6 +32,6 @@ export function validateInputs(input) {
   if (!validImg.test(input.image)) {
     errors.image = "La imagen debe ser '.jpg', '.jpeg', '.png' ó '.gif' "
   }
-  console.log(errors)
+  //console.log(errors)
   return errors;
 }

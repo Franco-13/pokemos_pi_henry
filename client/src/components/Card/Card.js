@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getPokemonsById } from './../../actions/index';
 
-export const Card = ({name, image, types, id, typesImg}) => {
+export const Card = ({name, image, types, id}) => {
   const dispatch = useDispatch()
   return (
-    <CardContainer key={id}>
+    <CardContainer>
+      <div className="line"></div>
       <h1 >{name}</h1>
       {
         id==="ERROR_SIN_RESULTADO" 
@@ -19,10 +20,10 @@ export const Card = ({name, image, types, id, typesImg}) => {
       <SpanContainer>
         {
           types?.map((el,i) => el.name 
-            ? <div>
-              <span key={el.id+el.name+id}>{el.name}</span> 
+            ?<div  key={el.id+el.name+id}>
+              <span>{el.name}</span> 
             </div> 
-            : <span key={el.id+i.toString()+id}>{el} </span>)
+            :<span key={el.id+i.toString()+id}>{el} </span>)
         }
       </SpanContainer>
     </CardContainer>

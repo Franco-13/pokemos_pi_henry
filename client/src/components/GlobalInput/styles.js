@@ -17,8 +17,8 @@ export const GlobalInputLayout = styled.input`
   border-radius: .25rem;
   padding-left: .5rem;
   background-color: #69696999;
-  color: thistle;
+  color: black;
   ::placeholder{
-    color: thistle;
+    color: grey;
   }
 `

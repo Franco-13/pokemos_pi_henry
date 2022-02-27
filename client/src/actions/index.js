@@ -7,6 +7,10 @@ export const DETAILS_POKE = "DETAILS_POKE"
 export const GET_POKEMON_SEARCH_NAME = "GET_POKEMON_SEARCH_NAME"
 export const FILTER_BY_ORIGIN = "FILTER_BY_ORIGIN"
 export const POST_RESPONSE = "POST_RESPONSE"
+export const PUT_RESPONSE = "PUT_RESPONSE"
+export const DELETE_RESPONSE = "DELETE_RESPONSE"
+export const FILTER_SEARCH_BY_ORIGIN = "FILTER_SEARCH_BY_ORIGIN"
+export const RESET = "RESET"
 
 /* export function getPokemons(){
   return async function(dispatch){
@@ -36,7 +40,6 @@ export function getPokemonsById(id){
   return async function(dispatch){
     const backendResp = await fetch(`http://localhost:3001/pokemons/${id}`)
     const Poke = await backendResp.json()
-    //console.log("DetPokeDB: ", Poke);
     return dispatch({
       type: DETAILS_POKE,
       payload:Poke
@@ -140,7 +143,6 @@ export function postPokemon(payload) {
 }
 
 export function filterPokesByType(payload){
-  //console.log(payload);
   return {
     type: FILTER_BY_TYPES,
     payload
@@ -156,13 +158,12 @@ export function filterPokesByOrigin(payload){
 
 export function filterSearchByOrigin(payload){
   return {
-    type: "FILTER_SEARCH_BY_ORIGIN",
+    type: FILTER_SEARCH_BY_ORIGIN,
     payload
   }
 }
 
 export function sortPokes(payload){
-  //console.log("sortPokes: ",payload);
   return {
     type: SORT_POKES,
     payload
@@ -170,7 +171,6 @@ export function sortPokes(payload){
 }
 
 export function sortPokesHP(payload){
-  //console.log("sortPokesHP: ",payload);
   return {
     type: SORT_POKES_HP,
     payload
@@ -179,6 +179,56 @@ export function sortPokesHP(payload){
 
 export function reset(){
   return {
-    type: "RESET"
+    type: RESET
+  }
+}
+
+export function updatePokeDB(payload){
+  return async function(dispatch) {
+    try {
+      const resp = await fetch("http://localhost:3001/pokemons",{
+        method: "PUT",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      }
+      )
+      const respPut = await resp.json()
+      return dispatch({
+        type: PUT_RESPONSE,
+        resp: respPut
+      })
+    }catch (error) {
+      console.log("error");
+    }
+  } 
+}
+
+/* export function deletePokeDB(id){
+  return async function(dispatch) {
+    try {
+      const resp = await fetch(`http://localhost:3001/pokemons/${id}`,{method: "DELETE"})
+      let respDel = await resp.json()
+      return dispatch({
+        type: DELETE_RESPONSE,
+        resp: respDel
+      })
+    }catch (error) {
+      console.log(error);
+    }
+  } 
+} */
+
+export function deletePokeDB(id) {
+  return function(dispatch) {
+    fetch(`http://localhost:3001/pokemons/${id}`, {method:"DELETE"})
+      .then((r) => r.json())
+      .then(respDel => dispatch({
+        type: DELETE_RESPONSE,
+        delMsg: respDel
+      }))
+      .catch(error => console.log(error))
   }
 }

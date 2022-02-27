@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, GlobalInputLayout } from "./styles";
 
-export function GlobalInput ({ type, name, placeholder, onChange, value, label, labelTitle, display, min, max}) {
+export function GlobalInput ({ type, name, placeholder, onChange, value, label, labelTitle, display, min, max, defaultValue}) {
     
     return (
         <Container>
@@ -10,7 +10,8 @@ export function GlobalInput ({ type, name, placeholder, onChange, value, label, 
                 type={type} 
                 name={name} 
                 onChange={onChange}  
-                id={label?label:""} 
+                id={label?label:""}
+                defaultValue={defaultValue}
                 value={value}
                 placeholder={placeholder}
                 display={display}

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { BtnContainer, ImageLoading, LandingContainer, Title } from './styles';
 import { GlobalButton } from './../../components/GlobalButton/GlobalButton';
-import { COLOR_SECONDARY } from '../../styles/global';
+import { COLOR_RED, COLOR_SECONDARY } from '../../styles/global';
 
 
 export const LandingPage = () => {
@@ -20,7 +20,7 @@ export const LandingPage = () => {
           <Link to="/home">
               <GlobalButton
                   textBtn="INGRESAR"
-                  colorBtn={`${COLOR_SECONDARY}`}
+                  colorBtn={COLOR_RED}
                   fontSize="1.5rem"
                 />
             </Link>

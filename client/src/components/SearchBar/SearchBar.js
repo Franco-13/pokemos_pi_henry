@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { getPokemonSearchName, reset } from '../../actions';
-import { COLOR_SECONDARY } from '../../styles/global';
+import { YELLOW_PIKACHU } from '../../styles/global';
 import { GlobalButton } from '../GlobalButton/GlobalButton';
 import { SearchContainer } from './styles';
 import { GlobalInput } from './../GlobalInput/GlobalInput';
@@ -29,13 +29,14 @@ export const SearchBar = () => {
       {/* <input placeholder="Buscar poke" type="text" value={search} onChange={handleChangeSearch}/> */}
       <GlobalInput 
         type="text"
-        placeholder="Buscar poke"
+        placeholder="Buscar pokemon..."
         onChange={handleChangeSearch}
         value={search}
       />
       <GlobalButton
         textBtn="Buscar"
-        colorBtn={`${COLOR_SECONDARY}`}
+        colorBtn={`${YELLOW_PIKACHU}`}
+        fontColor="black"
         onClick={handleSubmit}
         type="submit"
       />

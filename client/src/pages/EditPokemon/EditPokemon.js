@@ -1,33 +1,38 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link , useNavigate} from "react-router-dom";
-import { getPokemons, postPokemon, reset } from "../../actions";
+import { Link , useNavigate, useParams} from "react-router-dom";
+import { updatePokeDB, reset, getPokemonsById } from "../../actions";
 import { GlobalButton } from "../../components/GlobalButton/GlobalButton";
 import { COLOR_LIGHT, YELLOW_PIKACHU } from "../../styles/global";
 import { CheckSection, ContainerCreated, FormPoke, HeaderCreatePokemon, InputSection, Modal } from "./styles";
 import { GlobalInput } from './../../components/GlobalInput/GlobalInput';
-import { validateInputs } from "./validates";
+import { validateInputs } from "./../CreatePokemon/validates";
 
-export const CreatePokemon = () => {
+export const EditPokemon = () => {
   const dispatch = useDispatch();
+  const {name, hp, attack, defense, speed, height, weight, image, types} = useSelector((state) => state.detailsPoke)
+  const allPokes = useSelector((state) => state.allPokes)
+  let {id} = useParams()
+  const dbPokes = allPokes.filter(el => el.pokemonCreadoDB)
+  console.log(dbPokes);
+  const tipos = types?.map((el) => el.name)
   const typess = useSelector((state) => state.types);
-  const {message} = useSelector((state) => state.postMsg)
-  console.log(message);
-  const types = typess.map((type) => type.name)
+  const typesNameState = typess.map((type) => type.name)
   let navigate = useNavigate();
 
   const [input, setInput] = useState({
-    name: "",
-    image: "",
-    hp: 0,
-    attack: 0,
-    defense: 0,
-    speed: 0,
-    height: 0,
-    weight: 0,
-    types: [],
-    pokemonCreadoDB: true,
+    id:id,
+    name,
+    image,
+    hp,
+    attack,
+    defense,
+    speed,
+    height,
+    weight,
+    types: tipos,
   });
+  console.log("DET INPUT",input);
   const [errors, setErrors] = useState({});
   const [infoCreatedModal, setInfoCreatedModal] = useState(false)
 
@@ -40,7 +45,7 @@ export const CreatePokemon = () => {
       ...input,
       [e.target.name]: e.target.value
     }))
-  }
+  } 
 
   const handleChangeInputCheck = (e) => {
     if (input.types.includes(e.target.value)) {
@@ -64,33 +69,33 @@ export const CreatePokemon = () => {
     }
   }
 
+  const pokesFind = dbPokes.length && dbPokes.filter(el => el.name.toLowerCase() === input.name.toLowerCase())
+  console.log("find",pokesFind)
+  let msg = ""
+  for (let i = 0; i < pokesFind.length; i++) {
+    if (pokesFind.id === id && pokesFind.name === input.name) {
+      msg = "Pokemon actualizado con éxito"
+    } else if ( pokesFind.id !== id && pokesFind.name === input.name){
+      msg = "Ya existe un pokemon con el nombre ingresado"
+    }
+  }
+
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(postPokemon(input));
-    if(message === "Pokemon creado con éxito"){
-      setInput({
-        name: "",
-        image: "",
-        hp: 0,
-        attack: 0,
-        defense: 0,
-        speed: 0,
-        height: 0,
-        weight: 0,
-        types: [],
-        pokemonCreadoDB: true,
-      })
-    }
+    dispatch(updatePokeDB(input));
     setInfoCreatedModal(true)
   }
   
   const click = (e) => {
     e.preventDefault()
     setInfoCreatedModal(false)
-    if (message === "Pokemon creado con éxito") {
+    if (msg === "Pokemon actualizado con éxito") {
       dispatch(reset())
-      dispatch(getPokemons())
-      navigate("/home")
+      dispatch(getPokemonsById(id))
+      setTimeout(() => {
+        navigate(`/detail/${id}`)
+      }, 2000)
     }
   }
 
@@ -99,15 +104,16 @@ export const CreatePokemon = () => {
   return (
     <ContainerCreated>
       <HeaderCreatePokemon>
-        <Link to="/home">
-          <GlobalButton
-            textBtn="Regresar"
-            fontColor="black"
+      <Link to={`/detail/${id}`}>
+        <GlobalButton
+          textBtn="Regresar"
+          fontColor="black"
             colorBtn={YELLOW_PIKACHU}
-          />
-        </Link>
+          onClick={()=>dispatch(getPokemonsById(id))}
+        />
+      </Link>
       </HeaderCreatePokemon>
-      <FormPoke onSubmit={handleSubmit} action="POST">
+      <FormPoke onSubmit={handleSubmit} /* action="PUT" */>
         <InputSection> 
           <div>
             <GlobalInput
@@ -115,7 +121,7 @@ export const CreatePokemon = () => {
               type="text"
               name="name"
               onChange={handleChange}
-              value={input.name}
+              value={input.name} 
               placeholder="Ingrese un nombre"
               label="name"
               labelTitle="Nombre"
@@ -128,7 +134,7 @@ export const CreatePokemon = () => {
               type="text"
               name="image"
               onChange={handleChange}
-              value={input.image}
+              value={input.image} 
               placeholder="Ingrese una direccion de imagen"
               label="image"
               labelTitle="Imagen"
@@ -141,7 +147,7 @@ export const CreatePokemon = () => {
               type="number"
               name="hp"
               onChange={handleChange}
-              value={input.hp}
+              value={input.hp} 
               placeholder="Ingrese un número positívo"
               label="hp"
               labelTitle="Vida"
@@ -156,7 +162,7 @@ export const CreatePokemon = () => {
               type="number"
               name="attack"
               onChange={handleChange}
-              value={input.attack}
+              value={input.attack} 
               placeholder="Ingrese un número positívo"
               label="attack"
               labelTitle="Ataque"
@@ -171,7 +177,7 @@ export const CreatePokemon = () => {
               type="number"
               name="defense"
               onChange={handleChange}
-              value={input.defense}
+              value={input.defense} 
               placeholder="Ingrese un número positívo"
               label="defense"
               labelTitle="Defensa"
@@ -186,7 +192,7 @@ export const CreatePokemon = () => {
               type="number"
               name="speed"
               onChange={handleChange}
-              value={input.speed}
+              value={input.speed} 
               placeholder="Ingrese un número positívo"
               label="speed"
               labelTitle="Velocidad"
@@ -201,7 +207,7 @@ export const CreatePokemon = () => {
               type="number"
               name="height"
               onChange={handleChange}
-              value={input.height}
+              value={input.height} 
               placeholder="Ingrese un número positívo"
               label="height"
               labelTitle="Altura"
@@ -216,7 +222,7 @@ export const CreatePokemon = () => {
               type="number"
               name="weight"
               onChange={handleChange}
-              value={input.weight}
+              value={input.weight} 
               placeholder="Ingrese un número positívo"
               label="weight"
               labelTitle="Peso"
@@ -228,9 +234,9 @@ export const CreatePokemon = () => {
         </InputSection>
         <CheckSection>
           {
-            types?.map((el, i) => (
+            typesNameState?.map((el, i) => (
               <label key={el+i}>
-                <input onChange={handleChangeInputCheck} type="checkbox" name={el} value={el}/>
+                <input onChange={handleChangeInputCheck} type="checkbox" checked={input.types.includes(el)} name={el} value={el}/>
                 {el}
               </label>
             ))
@@ -239,7 +245,7 @@ export const CreatePokemon = () => {
         </CheckSection>
         <GlobalButton
           type="submit"
-          textBtn="Crear"
+          textBtn="Actualizar"
           fontColor="black"
           colorBtn={disabledBtn ? COLOR_LIGHT : YELLOW_PIKACHU}
           disabledState={disabledBtn ? true : false}
@@ -247,7 +253,7 @@ export const CreatePokemon = () => {
       </FormPoke>
       <Modal onClick={click} visible={infoCreatedModal}  className ="active">
               <div>
-                  <h3>{message}</h3>
+                  <h3>{msg}</h3>
               </div>
       </Modal>
     </ContainerCreated>

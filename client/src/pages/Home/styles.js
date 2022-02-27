@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLOR_RED_TRANSPARENT } from "../../styles/global";
+import { COLOR_RED_TRANSPARENT, SMOOTH_WHITE_POKEBALL } from "../../styles/global";
 
 export const HomeContainer = styled.div`
   ${({al})=> {
@@ -9,6 +9,8 @@ export const HomeContainer = styled.div`
       background-repeat: no-repeat;
       background-size: cover;
       height: ${al ? "" : "100vh"};
+      background: rgb(98,98,98);
+      background: radial-gradient(circle, rgba(98,98,98,1) 0%, rgba(65,66,68,1) 30%, rgba(27,27,27,1) 100%);
     `
   }}     
 `
@@ -16,8 +18,12 @@ export const Header = styled.header`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  height: 3.5rem;
+  height: 4rem;
   background-color: ${COLOR_RED_TRANSPARENT};
+  button{
+    height: 2.5rem;
+    cursor: pointer;
+  }
 `
 export const PokemonsContainer = styled.div`
   display: flex;
@@ -25,18 +31,15 @@ export const PokemonsContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   .error{
-    height:100vh;
+    //height:100vh;
     color: white;
   }
 `
 export const Select = styled.select`
   margin: 0 .5rem;
-  height: 2.25rem;
+  height: 2.5rem;
   border-radius: .25rem;
   padding-left: .5rem;
-  background-color: #69696999;
-  color: thistle;
-  option{
-    background-color: #7f4746;
-  }
+  font-size: .75rem;
+  background-color: ${SMOOTH_WHITE_POKEBALL};
 `

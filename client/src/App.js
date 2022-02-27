@@ -7,6 +7,7 @@ import {LandingPage} from "./pages/LandingPage/LandingPage"
 import { Home } from './pages/Home/Home';
 import { DetailsPoke } from './pages/DetailsPoke/DetailsPoke';
 import { CreatePokemon } from './pages/CreatePokemon/CreatePokemon';
+import {EditPokemon} from "./pages/EditPokemon/EditPokemon"
 
 function App() {  
   const dispatch = useDispatch()
@@ -25,6 +26,7 @@ function App() {
           <Route path="/home" element={<Home/>}/>
           <Route path="/detail/:id" element={<DetailsPoke/>}/>
           <Route path="/createPokemon" element={<CreatePokemon/>} />
+          <Route path="/detail/updatePokemon/:id" element={<EditPokemon/>} />
         </Routes>
       </React.Fragment>
   );
