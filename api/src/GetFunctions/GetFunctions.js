@@ -20,7 +20,7 @@ const getPokemonsAPI = async () => {
       const detailsPoke = {
         id: results[i].url.split("/")[6] + "_api",
         name: apiDetailsPoke.name,
-        image: apiDetailsPoke.sprites.other.home.front_default /* || apiDetailsPoke.sprites.other.home["front_shiny"] */,
+        image: /*apiDetailsPoke.sprites.other.home.front_default  ||*/ apiDetailsPoke.sprites.other.home["front_shiny"] ,
         types: apiDetailsPoke.types.map(el => el.type.name),
         hp: apiDetailsPoke.stats[0].base_stat,
         attack: apiDetailsPoke.stats[1].base_stat,
