@@ -99,8 +99,39 @@ router.post("/", async (req, res) => {
   await newPoke.addTypes(tipoPoke)
   //console.log(tipoPoke)
 
-  res.json({message:"Pokemon creado con exito"})
+  res.json({message:"Pokemon creado con éxito"})
 
+})
+
+router.put("/", async (req, res) => {
+  const {id,name, hp, attack, defense, speed, height, weight, image, types} = req.body;
+  const findDB = await Pokemon.findByPk(id)
+  if (findDB !== null) {
+    const updatePoke = await findDB.update({
+      name, 
+      hp, 
+      attack, 
+      defense, 
+      speed, 
+      height, 
+      weight, 
+      image
+    })
+    console.log("UPDATE",updatePoke.dataValues);
+    let updateType = await Type.findAll({
+      where: {name: types}
+    })
+    await updatePoke.setTypes(updateType)
+    return res.json({message: "Pokemon actualizado con éxito"})
+  }
+  res.json({message: "Error"})
+})
+
+router.delete("/:id", async (req, res) => {
+  const {id} = req.params
+  const deletePokeDB = await Pokemon.destroy({where:{id}})
+  console.log(deletePokeDB);
+  res.json({message: "Pokemon eliminado"})
 })
 
 module.exports = router;

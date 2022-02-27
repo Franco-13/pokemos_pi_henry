@@ -20,7 +20,7 @@ const getPokemonsAPI = async () => {
       const detailsPoke = {
         id: results[i].url.split("/")[6] + "_api",
         name: apiDetailsPoke.name,
-        image: apiDetailsPoke.sprites.other["official-artwork"].front_default || apiDetailsPoke.sprites.other.home["front_shiny"],
+        image: apiDetailsPoke.sprites.other.home.front_default /* || apiDetailsPoke.sprites.other.home["front_shiny"] */,
         types: apiDetailsPoke.types.map(el => el.type.name),
         hp: apiDetailsPoke.stats[0].base_stat,
         attack: apiDetailsPoke.stats[1].base_stat,
@@ -52,7 +52,7 @@ const getPokemonsDB = async () => {
 const getTypesAPI = async () => {
   const api = await fetch('https://pokeapi.co/api/v2/type');
   const typesRes = await api.json();
-  console.log(typesRes);
+  
   if (typesRes.results.length) {
     for (let i = 0; i < typesRes.results.length; i++) {
       await Type.create(
