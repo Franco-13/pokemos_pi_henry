@@ -47,6 +47,7 @@ export const Home = () => {
   
   const handleType = (e) => {
     dispatch(filterPokesByType(e.target.value))
+    console.log(dispatch(filterPokesByType(e.target.value)))
     setCurrentPage(1)
     setOrder(e)
   }

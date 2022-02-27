@@ -11,10 +11,10 @@ import { validateInputs } from "./../CreatePokemon/validates";
 export const EditPokemon = () => {
   const dispatch = useDispatch();
   const {name, hp, attack, defense, speed, height, weight, image, types} = useSelector((state) => state.detailsPoke)
-  const allPokes = useSelector((state) => state.allPokes)
+  const allPokes = useSelector((state) => state.pokemons)
   let {id} = useParams()
   const dbPokes = allPokes.filter(el => el.pokemonCreadoDB)
-  console.log(dbPokes);
+  console.log("17DBPokes",dbPokes);
   const tipos = types?.map((el) => el.name)
   const typess = useSelector((state) => state.types);
   const typesNameState = typess.map((type) => type.name)
@@ -69,21 +69,26 @@ export const EditPokemon = () => {
     }
   }
 
-  const pokesFind = dbPokes.length && dbPokes.filter(el => el.name.toLowerCase() === input.name.toLowerCase())
-  console.log("find",pokesFind)
-  let msg = ""
-  for (let i = 0; i < pokesFind.length; i++) {
-    if (pokesFind.id === id && pokesFind.name === input.name) {
-      msg = "Pokemon actualizado con éxito"
-    } else if ( pokesFind.id !== id && pokesFind.name === input.name){
-      msg = "Ya existe un pokemon con el nombre ingresado"
-    }
-  }
-
-
+/*   const pokesFind = dbPokes?.filter(el => el.name.toLowerCase() === input.name.toLowerCase())
+  console.log("find",pokesFind) */
+  const [msg, setMsg] = useState("")
+  //let msg = ""
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(updatePokeDB(input));
+    for (let i = 0; i < dbPokes.length; i++) {
+      console.log("FOR",dbPokes);
+      if (dbPokes[i].id === id && dbPokes[i].name === input.name.toLowerCase()) {
+        setMsg("Pokemon actualizado con éxito")
+      } else if ( dbPokes[i].id !== id && dbPokes[i].name === input.name.toLowerCase()){
+        setMsg("Ya existe un pokemon con el nombre ingresado")
+      } else if ( dbPokes[i].id !== id && dbPokes[i].name !== input.name.toLowerCase()){
+        setMsg("Pokemon actualizado con éxito")
+      }
+    }
+    console.log("MSG FOR", msg);
+    if (msg === "Pokemon actualizado con éxito") {
+      dispatch(updatePokeDB(input));
+    }
     setInfoCreatedModal(true)
   }
   
@@ -101,7 +106,7 @@ export const EditPokemon = () => {
 
   let disabledBtn = input.name.length === 0 || Object.keys(errors).length
 
-  return (
+  return (console.log(msg),
     <ContainerCreated>
       <HeaderCreatePokemon>
       <Link to={`/detail/${id}`}>

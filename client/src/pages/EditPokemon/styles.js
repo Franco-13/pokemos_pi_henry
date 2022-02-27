@@ -101,6 +101,7 @@ export const Modal = styled.div`
             padding-bottom: 2rem;
             font-size: 1rem;
             color: black;
+            text-align: center;
           }
         }
         &.active{

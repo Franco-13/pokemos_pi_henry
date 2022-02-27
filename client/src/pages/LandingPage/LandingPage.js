@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { BtnContainer, ImageLoading, LandingContainer, Title } from './styles';
 import { GlobalButton } from './../../components/GlobalButton/GlobalButton';
-import { COLOR_RED, COLOR_SECONDARY } from '../../styles/global';
+import { YELLOW_PIKACHU } from '../../styles/global';
 
 
 export const LandingPage = () => {
@@ -20,7 +20,8 @@ export const LandingPage = () => {
           <Link to="/home">
               <GlobalButton
                   textBtn="INGRESAR"
-                  colorBtn={COLOR_RED}
+                  fontColor="black"
+                  colorBtn={YELLOW_PIKACHU}
                   fontSize="1.5rem"
                 />
             </Link>

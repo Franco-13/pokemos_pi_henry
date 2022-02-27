@@ -11,7 +11,7 @@ export const Paginado = ({pokemonsPerPage, pokemons, pagination, currentPage}) =
       <ul>
         {
           pageNumber.length > 0 && pageNumber.map(( e, index) =>{
-            return (console.log(currentPage,index+1),
+            return (
               <li key={index+1}>
                 <GlobalButton
                 onClick={()=>pagination(index+1)}

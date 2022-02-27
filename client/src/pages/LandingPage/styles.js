@@ -1,6 +1,4 @@
 import styled from "styled-components";
-//import { COLOR_BORDER_BOX, COLOR_SUCCESS } from "../../styles/global";
-//import imgBG from "https://wallpapercave.com/wp/wp2566722.jpg"
 
 export const LandingContainer = styled.div`
   background-image: url("https://wallpapercave.com/wp/wp2566722.jpg");
@@ -26,6 +24,9 @@ export const Title = styled.div`
 export const BtnContainer = styled.div`
   position: absolute;
   top: 25rem;
+  button{
+    cursor: pointer;
+  }
   img{
     height: 9.2rem;
     box-shadow: inset 0px 0px 7px 8px;

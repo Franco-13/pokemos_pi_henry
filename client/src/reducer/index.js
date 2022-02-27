@@ -63,11 +63,12 @@ function rootReducer(state = initialState, action){
       }
 
     case FILTER_BY_TYPES:
+      const filterType = state.allPokes
       return {
         ...state,
         pokemons: action.payload === "All" 
         ? state.allPokes
-        :state.pokemons.filter((p) => p.types.includes(action.payload) || p.types.map(e => e.name).includes(action.payload))
+        :filterType.filter((p) => p.types.includes(action.payload) || p.types.map(e => e.name).includes(action.payload))
       }
 
     case FILTER_BY_ORIGIN:
@@ -104,18 +105,15 @@ function rootReducer(state = initialState, action){
         ...state,
         typeSortHp: action.payload,
         typeSortName:"",
-        typeFilterOrigin: "",
         pokemons: action.payload === "HP_ASC"
           ? state.pokemons.sort((a,b) => a.hp - b.hp)
           : state.pokemons.sort((a,b) => b.hp - a.hp)
       } 
 
     case SORT_POKES:
-      //const pokesAZ = state.allPokes
       return {
         ...state,
         typeSortHp:"",
-        typeFilterOrigin: "",
         typeSortName: action.payload,
          pokemons: action.payload === "A-Z" 
           ? state.pokemons.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()))
@@ -128,7 +126,10 @@ function rootReducer(state = initialState, action){
         pokemons: state.allPokes,
         searchPokemon: [],
         detailsPoke: {},
-        postMsg: {}
+        postMsg: {},
+        typeSortHp: "",
+        typeSortName: "",
+        typeFilterOrigin: "",
       }
     default:
       return state;

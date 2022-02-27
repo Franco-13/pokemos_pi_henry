@@ -76,7 +76,11 @@ export const CardContainer = styled.div`
     flex-direction: column;
     align-items: center;
   }
-  `
+  transition: transform .4s;
+  &:hover{
+    transform: scale(1.1)
+  }
+`
 export const SpanContainer = styled.section`
   display: flex;
   span{
