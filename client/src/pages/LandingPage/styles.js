@@ -24,6 +24,19 @@ export const Title = styled.div`
 export const BtnContainer = styled.div`
   position: absolute;
   top: 25rem;
+  animation-name: visiblility1;
+  //animation-delay: 1s;
+  animation-duration: 4s;
+  animation-fill-mode: forwards;
+  //z-index:100;
+  @keyframes visiblility1 {
+    0%{
+      opacity: 0;
+    }
+    100%{
+      opacity: 1;
+    }
+  }
   button{
     cursor: pointer;
   }
@@ -39,7 +52,17 @@ export const BtnContainer = styled.div`
 export const ImageLoading = styled.div`
   position: absolute;
   top: 21rem;
-  
+  animation-name: visiblility;
+  animation-duration: 4s;
+  animation-fill-mode: forwards;
+  @keyframes visiblility {
+    0%{
+      opacity: 1;
+    }
+    100%{
+      opacity: 0;
+    }
+  }
   img{
     height: 9.2rem;
     box-shadow: inset 0px 0px 7px 8px;

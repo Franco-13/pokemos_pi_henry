@@ -14,7 +14,6 @@ export const EditPokemon = () => {
   const allPokes = useSelector((state) => state.pokemons)
   let {id} = useParams()
   const dbPokes = allPokes.filter(el => el.pokemonCreadoDB)
-  console.log("17DBPokes",dbPokes);
   const tipos = types?.map((el) => el.name)
   const typess = useSelector((state) => state.types);
   const typesNameState = typess.map((type) => type.name)
@@ -32,7 +31,7 @@ export const EditPokemon = () => {
     weight,
     types: tipos,
   });
-  console.log("DET INPUT",input);
+
   const [errors, setErrors] = useState({});
   const [infoCreatedModal, setInfoCreatedModal] = useState(false)
 
@@ -69,14 +68,11 @@ export const EditPokemon = () => {
     }
   }
 
-/*   const pokesFind = dbPokes?.filter(el => el.name.toLowerCase() === input.name.toLowerCase())
-  console.log("find",pokesFind) */
   const [msg, setMsg] = useState("")
-  //let msg = ""
+  
   const handleSubmit = (e) => {
     e.preventDefault()
     for (let i = 0; i < dbPokes.length; i++) {
-      console.log("FOR",dbPokes);
       if (dbPokes[i].id === id && dbPokes[i].name === input.name.toLowerCase()) {
         setMsg("Pokemon actualizado con éxito")
       } else if ( dbPokes[i].id !== id && dbPokes[i].name === input.name.toLowerCase()){
@@ -85,7 +81,7 @@ export const EditPokemon = () => {
         setMsg("Pokemon actualizado con éxito")
       }
     }
-    console.log("MSG FOR", msg);
+    
     if (msg === "Pokemon actualizado con éxito") {
       dispatch(updatePokeDB(input));
     }
@@ -106,7 +102,7 @@ export const EditPokemon = () => {
 
   let disabledBtn = input.name.length === 0 || Object.keys(errors).length
 
-  return (console.log(msg),
+  return (
     <ContainerCreated>
       <HeaderCreatePokemon>
       <Link to={`/detail/${id}`}>

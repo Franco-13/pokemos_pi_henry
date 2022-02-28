@@ -32,6 +32,5 @@ export function validateInputs(input) {
   if (!validImg.test(input.image)) {
     errors.image = "La imagen debe ser '.jpg', '.jpeg', '.png' ó '.gif' "
   }
-  //console.log(errors)
   return errors;
 }

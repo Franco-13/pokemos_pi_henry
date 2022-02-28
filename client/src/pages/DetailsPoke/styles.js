@@ -107,18 +107,52 @@ export const SectionStatsAndType = styled.section`
   border-radius: .5rem;
 `
 export const Type = styled.div`
-  grid-column-start: 1;
-  grid-column-end: 3;
+/*   grid-column-start: 1;
+  grid-column-end: 3; */
   display: flex;
+  flex-direction: column;
   justify-content: center;
   h2{
     padding: 0 1rem;
   }
 `
 export const Stats = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr; 
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  /*display: grid;
+   grid-template-columns: 1fr 1fr; 
   grid-template-rows: 1fr 1fr 1fr;
+  line-height: 1rem; */
+  h2{
+    display: block;
+    width: 14rem;
+    white-space: nowrap;
+    height: 1.5rem;
+    animation: typing 2s /* steps(12) */, blink .5s infinite step-end alternate;
+    overflow: hidden;
+    padding-left: 0;
+  }
+  @keyframes typing{
+    from {width:0;}
+  }
+  @keyframes blink {
+    50% {border-color: transparent;}
+  }
+  .h2-types{
+    padding-left: 5rem;
+    width: 14rem;
+    white-space: nowrap;
+    height: 1.5rem;
+    animation: typing1 2s /* steps(12) */, blink1 .5s infinite step-end alternate;
+    overflow: hidden;
+  }
+  @keyframes typing1{
+    from {width:0;}
+  }
+  @keyframes blink1 {
+    50% {border-color: transparent;}
+  }
 `
 
 export const ImageLoading = styled.section`

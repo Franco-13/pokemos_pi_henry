@@ -14,23 +14,22 @@ export const LandingPage = () => {
       <Title>
         <h1>BIENVENIDOS</h1>
       </Title>
-      {
-        allPokemons.length ?
-        <BtnContainer>
+        
+        <ImageLoading isVisible={allPokemons.length} >
+          <img src="https://i.imgur.com/XLJxE8S.gif" alt="loading" />
+        </ImageLoading>
+        {allPokemons.length &&
+          <BtnContainer >
           <Link to="/home">
               <GlobalButton
                   textBtn="INGRESAR"
                   fontColor="black"
                   colorBtn={YELLOW_PIKACHU}
-                  fontSize="1.5rem"
+                  fontSize="1rem"
                 />
             </Link>
-        </BtnContainer>
-         : 
-        <ImageLoading>
-          <img src="https://i.imgur.com/XLJxE8S.gif" alt="loading" />
-        </ImageLoading>
-      }
+        </BtnContainer>}
+      
     </LandingContainer>
   )
 }

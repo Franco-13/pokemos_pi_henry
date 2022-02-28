@@ -33,7 +33,6 @@ export const Home = () => {
   }
 
   const handleSortAlpha = (e) => {
-    console.log(e.target.value);
     dispatch(sortPokes(e.target.value))
     setCurrentPage(1)
     setOrder(e)
@@ -47,7 +46,6 @@ export const Home = () => {
   
   const handleType = (e) => {
     dispatch(filterPokesByType(e.target.value))
-    console.log(dispatch(filterPokesByType(e.target.value)))
     setCurrentPage(1)
     setOrder(e)
   }
@@ -100,16 +98,12 @@ export const Home = () => {
       </Header>
       <Paginado pokemonsPerPage={pokesPerPage} pokemons={pokemonOrSearch.length} currentPage = {currentPage} pagination={pagination}/>
       <PokemonsContainer>
-        {pokemonOrSearch.length ? /* null  */
-        
-          currentPoke.length && currentPoke.map((el) => el.id === "ERROR_SIN_RESULTADO" ?
-            <h1 key={"ERROR_SIN_RESULTADO"}  className="error">{"Sin resultados"}</h1>
-            :
-              <Card key={el.id} name={el.name.toUpperCase()} image={el.image} id={el.id} types={el.types} />
-            
+        {pokemonOrSearch.length
+          ?currentPoke?.map((el) => el.id === "ERROR_SIN_RESULTADO" 
+            ?<h1 key={"ERROR_SIN_RESULTADO"}  className="error">{"Sin resultados, verifique el nombre"}</h1>
+            :<Card key={el.id} name={el.name.toUpperCase()} image={el.image} id={el.id} types={el.types} />
           )
-         
-        : <h1 className="error">{"Sin resultados"}</h1>}
+          :<h1 className="error">{"Sin resultados"}</h1>}
       </PokemonsContainer>
     </HomeContainer>
   )

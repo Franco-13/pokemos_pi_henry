@@ -11,7 +11,7 @@ export const PUT_RESPONSE = "PUT_RESPONSE"
 export const DELETE_RESPONSE = "DELETE_RESPONSE"
 export const FILTER_SEARCH_BY_ORIGIN = "FILTER_SEARCH_BY_ORIGIN"
 export const RESET = "RESET"
-
+const URL = "" || "http://localhost:3001"
 /* export function getPokemons(){
   return async function(dispatch){
     const backendRes = await fetch("http://localhost:3001/pokemons")
@@ -26,7 +26,7 @@ export const RESET = "RESET"
 
 export function getPokemons(){
   return function(dispatch) {
-    return fetch("http://localhost:3001/pokemons")
+    return fetch(`${URL}/pokemons`)
       .then(res => res.json())
       .then(pokes => dispatch({
           type:GET_POKEMONS,
@@ -38,7 +38,7 @@ export function getPokemons(){
 
 export function getPokemonsById(id){
   return async function(dispatch){
-    const backendResp = await fetch(`http://localhost:3001/pokemons/${id}`)
+    const backendResp = await fetch(`${URL}/pokemons/${id}`)
     const Poke = await backendResp.json()
     return dispatch({
       type: DETAILS_POKE,
@@ -64,7 +64,7 @@ export function getPokemonsById(id){
 
 export function getPokemonSearchName(name){
   return function(dispatch){
-    fetch(`http://localhost:3001/pokemons?name=${name}`)
+    fetch(`${URL}/pokemons?name=${name}`)
       .then(res => res.json())
       .then(poke => dispatch({
         type: GET_POKEMON_SEARCH_NAME,
@@ -88,7 +88,7 @@ export function getPokemonSearchName(name){
 
 export function getTypes() {
   return function(dispatch) {
-    fetch("http://localhost:3001/types")
+    fetch(`${URL}/types`)
       .then(res => res.json())
       .then(allTypes => dispatch({
         type: GET_TYPES,
@@ -124,7 +124,7 @@ export function getTypes() {
 
 export function postPokemon(payload) {
   return async function(dispatch) {
-    fetch("http://localhost:3001/pokemons",{
+    fetch(`${URL}/pokemons`,{
         method: "POST",
         headers: {
           "Accept": "application/json",
@@ -186,7 +186,7 @@ export function reset(){
 export function updatePokeDB(payload){
   return async function(dispatch) {
     try {
-      const resp = await fetch("http://localhost:3001/pokemons",{
+      const resp = await fetch(`${URL}/pokemons`,{
         method: "PUT",
         headers: {
           "Accept": "application/json",
@@ -223,7 +223,7 @@ export function updatePokeDB(payload){
 
 export function deletePokeDB(id) {
   return function(dispatch) {
-    fetch(`http://localhost:3001/pokemons/${id}`, {method:"DELETE"})
+    fetch(`${URL}/pokemons/${id}`, {method:"DELETE"})
       .then((r) => r.json())
       .then(respDel => dispatch({
         type: DELETE_RESPONSE,

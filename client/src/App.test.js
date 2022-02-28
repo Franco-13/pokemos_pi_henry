@@ -1,14 +1,18 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
-
+import { MemoryRouter, Routes, Route } from "react-router-dom";
 import { Provider } from 'react-redux';
 import store from './store/index';
+import { LandingPage } from './pages/LandingPage/LandingPage';
 
-test('renders learn react link', () => {
-  render( 
+describe('App', () => {
+  // eslint-disable-next-line testing-library/render-result-naming-convention
+  const wrapper = render( 
     <Provider store={store}>
-      <App />
+      <MemoryRouter initialEntries={["/"]}>
+        <App />
+      </MemoryRouter>
     </Provider>);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(wrapper.getByText(LandingPage)).toHaveLength(1);
 });

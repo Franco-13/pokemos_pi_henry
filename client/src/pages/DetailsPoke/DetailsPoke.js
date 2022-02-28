@@ -84,7 +84,7 @@ export const DetailsPoke = () => {
                 <Type>
                   <h2>TIPO: </h2>
                   {
-                    types?.map((el,i) => el.name ? <h2 key={el.id+i.toString()+id}>{el.name.toUpperCase()}</h2> : <h2 key={el.id+i.toString()+id}>{el.toUpperCase()} </h2>)
+                    types?.map((el,i) => el.name ? <h2 key={el.id+i.toString()+id}>{el.name.toUpperCase()}</h2> : <h2 className="h2-types" key={el.id+i.toString()+id}>{el.toUpperCase()} </h2>)
                   }
                 </Type>
               </Stats>

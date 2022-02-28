@@ -12,7 +12,6 @@ export const CreatePokemon = () => {
   const dispatch = useDispatch();
   const typess = useSelector((state) => state.types);
   const {message} = useSelector((state) => state.postMsg)
-  console.log(message);
   const types = typess.map((type) => type.name)
   let navigate = useNavigate();
 

@@ -12,7 +12,6 @@ export const SearchBar = () => {
   const [search, setSearch] = useState("");
 
   const handleChangeSearch = (e) => {
-    console.log(e.target.value);
     if (e.target.value === "") {
       dispatch(reset());
     }
