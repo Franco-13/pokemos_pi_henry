@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const { Pokemon, Type } = require('../db.js')
-const { getPokemonsAPI, getPokemonsDB } = require('../GetFunctions/GetFunctions')
+const { getPokemonsAPI, getPokemonsDB, getPokemonByNameAPI, getPokemonByIdAPI } = require('../GetFunctions/GetFunctions')
 
 const router = Router();
 
@@ -16,34 +16,39 @@ router.get("/", async (req, res) => {
       }
     }
   })
-
   const infoAPI = await getPokemonsAPI()
-  const allPokes = [...infoAPI, ...detailsPokeDb]
   const pokesError = [{
     id:"ERROR_SIN_RESULTADO",
     name: "Desconocido",
     image: "https://noticierodiario.com/img/pokemon-go-desactiva-el-comercio-despues-de-encontrar-un-error-importante.png",
     types: ["Realice otra búsqueda"]
   }]
-  const allPokesSorted = allPokes.sort(function(a, b){
-    if (a.name > b.name) {
-      return 1;
-    }
-    if (a.name < b.name) {
-      return -1;
-    }
-    return 0;
-  })
-
   if (name) {
-    let pokeName = allPokesSorted.filter(el => el.name.toLowerCase() === (name.toLowerCase()))
-    
-    pokeName.length 
-      ? res.status(200).send(pokeName)
-      : res.send(pokesError)
+    const pokeApiByName = await getPokemonByNameAPI(name)
+    console.log("pokeApi del get",pokeApiByName);
+    let pokeName = detailsPokeDb.filter(el => el.name.toLowerCase() === (name.toLowerCase()))
+    if (pokeApiByName.length || pokeName.length) {   
+      const pokesByName = [...pokeName, ...pokeApiByName]
+      return res.status(200).json(pokesByName)
+    }else{
+      return res.status(400).json(pokesError)
+    }
+  }else if (infoAPI.length || detailsPokeDb.length) {    
+    const allPokes = [...infoAPI, ...detailsPokeDb]
+    const allPokesSorted = allPokes.sort(function(a, b){
+      if (a.name > b.name) {
+        return 1;
+      }
+      if (a.name < b.name) {
+        return -1;
+      }
+      return 0;
+    })
+    return res.json(allPokesSorted)
   }else{
-    res.json(allPokesSorted)
+    res.status(404).json({msg:"Errror de conexión"})
   }
+  //console.log("infoAPI",infoAPI);
 
 })
 
@@ -59,11 +64,12 @@ router.get("/:id", async (req, res) => {
   }
 
   if (id.includes("_api")){
-    const pokeArray = await getPokemonsAPI()
-    const findPokedetailsAPI = pokeArray.find(el => el.id === id)
+    let idApi = id.split("_api")[0]
+    console.log(idApi);
+    const pokeAPI = await getPokemonByIdAPI(idApi)
 
-    if (findPokedetailsAPI) {
-      return res.status(200).json(findPokedetailsAPI)
+    if (pokeAPI) {
+      return res.status(200).json(pokeAPI)
     }
     res.status(404).send("El pokemon no existe")
   }
@@ -97,7 +103,6 @@ router.post("/", async (req, res) => {
     where: {name: types}
   })
   await newPoke.addTypes(tipoPoke)
-  //console.log(tipoPoke)
 
   res.json({message:"Pokemon creado con éxito"})
 
@@ -130,7 +135,6 @@ router.put("/", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   const {id} = req.params
   const deletePokeDB = await Pokemon.destroy({where:{id}})
-  console.log(deletePokeDB);
   res.json({message: "Pokemon eliminado"})
 })
 
