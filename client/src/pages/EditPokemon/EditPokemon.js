@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link , useNavigate, useParams} from "react-router-dom";
+import { Link , useParams} from "react-router-dom";
 import { updatePokeDB, reset, getPokemonsById, getPokemons } from "../../actions";
 import { GlobalButton } from "../../components/GlobalButton/GlobalButton";
 import { COLOR_LIGHT, YELLOW_PIKACHU } from "../../styles/global";
@@ -14,12 +14,10 @@ export const EditPokemon = () => {
   const allPokes = useSelector((state) => state.pokemons)
   let {id} = useParams()
   const dbPokes = allPokes.filter(el => el.pokemonCreadoDB)
-  const pokeUpdate = allPokes.find(el => el.id === id)
-  console.log("dbpokes edit",dbPokes);
+  
   const tipos = types?.map((el) => el.name)
   const typess = useSelector((state) => state.types);
   const typesNameState = typess.map((type) => type.name)
-  let navigate = useNavigate();
 
   const [input, setInput] = useState({
     id:id,
@@ -33,7 +31,7 @@ export const EditPokemon = () => {
     weight,
     types: tipos,
   });
-console.log("input edit",input);
+
   const [errors, setErrors] = useState({});
   const [infoCreatedModal, setInfoCreatedModal] = useState(false)
 

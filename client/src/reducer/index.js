@@ -105,9 +105,9 @@ function rootReducer(state = initialState, action){
         ...state,
         typeSortHp: action.payload,
         typeSortName:"",
-        pokemons: action.payload === "HP_ASC"
-          ? state.pokemons.sort((a,b) => a.hp - b.hp)
-          : state.pokemons.sort((a,b) => b.hp - a.hp)
+        pokemons: action.payload === "ATTACK_ASC"
+          ? state.pokemons.sort((a,b) => a.attack - b.attack)
+          : state.pokemons.sort((a,b) => b.attack - a.attack)
       } 
 
     case SORT_POKES:

@@ -73,9 +73,9 @@ export const Home = () => {
           />
         </Link>
         <Select value={typeSortHp} onChange={handleHP}>
-          <option value="" disabled>Ordenar Vida</option>
-          <option value="HP_ASC">Ascendente</option>
-          <option value="HP_DESC">Descendente</option>
+          <option value="" disabled>Ordenar Ataque</option>
+          <option value="ATTACK_ASC">Ascendente</option>
+          <option value="ATTACK_DESC">Descendente</option>
         </Select>
         <Select value={typeSortName} onChange={handleSortAlpha}>
           <option value="" disabled>Orden Alfabético</option>
