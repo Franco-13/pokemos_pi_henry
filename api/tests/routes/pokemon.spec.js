@@ -21,4 +21,10 @@ describe('Pokemon routes', () => {
       agent.get('/pokemons').expect(200)
     );
   });
+
+  describe("GET /pokemons/:id", ()=>{
+    it('responde con 200 cuando existe la página', ()=> {
+      agent.get("/pokemons/1").expect(200) 
+    })
+  })
 });
