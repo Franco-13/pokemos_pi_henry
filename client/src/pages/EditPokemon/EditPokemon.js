@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link , useNavigate, useParams} from "react-router-dom";
-import { updatePokeDB, reset, getPokemonsById } from "../../actions";
+import { updatePokeDB, reset, getPokemonsById, getPokemons } from "../../actions";
 import { GlobalButton } from "../../components/GlobalButton/GlobalButton";
 import { COLOR_LIGHT, YELLOW_PIKACHU } from "../../styles/global";
 import { CheckSection, ContainerCreated, FormPoke, HeaderCreatePokemon, InputSection, Modal } from "./styles";
@@ -14,6 +14,8 @@ export const EditPokemon = () => {
   const allPokes = useSelector((state) => state.pokemons)
   let {id} = useParams()
   const dbPokes = allPokes.filter(el => el.pokemonCreadoDB)
+  const pokeUpdate = allPokes.find(el => el.id === id)
+  console.log("dbpokes edit",dbPokes);
   const tipos = types?.map((el) => el.name)
   const typess = useSelector((state) => state.types);
   const typesNameState = typess.map((type) => type.name)
@@ -31,7 +33,7 @@ export const EditPokemon = () => {
     weight,
     types: tipos,
   });
-
+console.log("input edit",input);
   const [errors, setErrors] = useState({});
   const [infoCreatedModal, setInfoCreatedModal] = useState(false)
 
@@ -69,35 +71,29 @@ export const EditPokemon = () => {
   }
 
   const [msg, setMsg] = useState("")
-  
+
   const handleSubmit = (e) => {
-    e.preventDefault()
-    for (let i = 0; i < dbPokes.length; i++) {
-      if (dbPokes[i].id === id && dbPokes[i].name === input.name.toLowerCase()) {
-        setMsg("Pokemon actualizado con éxito")
-      } else if ( dbPokes[i].id !== id && dbPokes[i].name === input.name.toLowerCase()){
-        setMsg("Ya existe un pokemon con el nombre ingresado")
-      } else if ( dbPokes[i].id !== id && dbPokes[i].name !== input.name.toLowerCase()){
-        setMsg("Pokemon actualizado con éxito")
-      }
-    }
-    
-    if (msg === "Pokemon actualizado con éxito") {
-      dispatch(updatePokeDB(input));
-    }
-    setInfoCreatedModal(true)
+  e.preventDefault()
+  //console.log("upd",pokeUpdate);
+  const find = dbPokes.find(el => el.name === input.name)
+  //console.log("smt find",find?.id,"name "+input.name,"ID "+ id);
+  if (find && find.id !== id) {
+    setMsg("Ya existe un pokemon con el nombre ingresado")
+  }else{
+    dispatch(updatePokeDB(input));
+    setMsg("Pokemon actualizado con éxito")
+  }
+  setInfoCreatedModal(true)
   }
   
   const click = (e) => {
     e.preventDefault()
-    setInfoCreatedModal(false)
     if (msg === "Pokemon actualizado con éxito") {
       dispatch(reset())
+      dispatch(getPokemons())
       dispatch(getPokemonsById(id))
-      setTimeout(() => {
-        navigate(`/detail/${id}`)
-      }, 2000)
     }
+    setInfoCreatedModal(false)
   }
 
   let disabledBtn = input.name.length === 0 || Object.keys(errors).length
@@ -110,7 +106,7 @@ export const EditPokemon = () => {
           textBtn="Regresar"
           fontColor="black"
             colorBtn={YELLOW_PIKACHU}
-          onClick={()=>dispatch(getPokemonsById(id))}
+          //onClick={()=>dispatch(getPokemonsById(id))}
         />
       </Link>
       </HeaderCreatePokemon>

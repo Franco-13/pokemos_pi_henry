@@ -20,9 +20,9 @@ export const DetailsPoke = () => {
     dispatch(getPokemons())
   }
 
-  const clickDelete = (e) => {
+  const clickDelete = async (e) => {
     e.preventDefault()
-    dispatch(deletePokeDB(id))
+    await dispatch(deletePokeDB(id))
     dispatch(reset())
     dispatch(getPokemons())
     navigate("/home")
