@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { sortPokes, sortPokesHP, filterPokesByType, filterPokesByOrigin, filterSearchByOrigin } from '../../actions';
+import { sortPokes, sortPokesHP, filterPokesByType, filterPokesByOrigin, filterSearchByOrigin, getPokemonSearchName, reset } from '../../actions';
 import { Card } from '../../components/Card/Card';
 import { Paginado } from '../../components/Paginado/Paginado';
 import { SearchBar } from '../../components/SearchBar/SearchBar';
@@ -61,7 +61,22 @@ export const Home = () => {
       setOrder(e)
     }
   }
-  
+  //search
+  const [search, setSearch] = useState("");
+
+  const handleChangeSearch = (e) => {
+    if (e.target.value === "") {
+      dispatch(reset());
+    }
+    setSearch(e.target.value);
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(getPokemonSearchName(search))
+    setCurrentPage(1)
+      setOrder(e)
+  }
   return (
     <HomeContainer al = {pokemonOrSearch.length>3 ? true : false}>
       <Header>
@@ -93,8 +108,8 @@ export const Home = () => {
           {
             types?.sort((a, b) => a.name.localeCompare(b.name)).map((el) => <option key={el.name} value={el.name}>{el.name}</option>)
           }
-        </Select>
-        <SearchBar/>
+        </Select >
+        <SearchBar handleChangeSearch={handleChangeSearch} handleSubmit={handleSubmit} search={search}/>
       </Header>
       <Paginado pokemonsPerPage={pokesPerPage} pokemons={pokemonOrSearch.length} currentPage = {currentPage} pagination={pagination}/>
       <PokemonsContainer>
