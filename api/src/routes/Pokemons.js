@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const { Pokemon, Type } = require('../db.js')
-const { getPokemonsAPI, getPokemonsDB, getPokemonByNameAPI, getPokemonByIdAPI } = require('../GetFunctions/GetFunctions')
+const { getPokemonsAPI, getPokemonsDB, getPokemonByNameAPI, getPokemonByIdAPI } = require('../controller/getControllers.js')
 
 const router = Router();
 

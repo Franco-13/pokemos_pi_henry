@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const { getTypesAPI } = require('../GetFunctions/GetFunctions.js')
+const { getTypesAPI } = require('../controller/getControllers.js')
 const { Type } = require('../db.js')
 
 const router = Router();
