@@ -22,7 +22,7 @@ export const DetailsPoke = () => {
 
   const clickDelete = async (e) => {
     e.preventDefault()
-    await dispatch(deletePokeDB(id))
+    dispatch(deletePokeDB(id))
     dispatch(reset())
     dispatch(getPokemons())
     navigate("/home")

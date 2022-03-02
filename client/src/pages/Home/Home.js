@@ -73,7 +73,7 @@ export const Home = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(getPokemonSearchName(search))
+    dispatch(getPokemonSearchName(search.toLowerCase()))
     setCurrentPage(1)
       setOrder(e)
   }
