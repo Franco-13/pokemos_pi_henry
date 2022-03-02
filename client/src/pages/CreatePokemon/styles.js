@@ -5,7 +5,7 @@ export const ContainerCreated = styled.div`
   background-image: url("https://img.wallpapersafari.com/desktop/1366/768/13/63/7zrbm6.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  //height: 100vh;
+  height: 100vh;
   button{
     height: 2.5rem;
     cursor: pointer;
