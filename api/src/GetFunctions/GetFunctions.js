@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const { Pokemon, Type } = require('../db')
+const { Pokemon, Type } = require('../db.js')
 
 const getPokemonsAPI = async () => {
   try{ 
