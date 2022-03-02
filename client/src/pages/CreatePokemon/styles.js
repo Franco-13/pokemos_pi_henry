@@ -5,7 +5,7 @@ export const ContainerCreated = styled.div`
   background-image: url("https://img.wallpapersafari.com/desktop/1366/768/13/63/7zrbm6.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100vh;
+  //height: 100vh;
   button{
     height: 2.5rem;
     cursor: pointer;
@@ -92,12 +92,11 @@ export const Modal = styled.div`
     padding: 4rem;
     border-radius: 5px;
     background-size: cover;
+    background-position: center
     position: relative;
     width:20%;
     height:20%;
     >h3{
-      position: absolute;
-      top: 2rem;
       padding-bottom: 2rem;
       font-size: 1rem;
       color: black;

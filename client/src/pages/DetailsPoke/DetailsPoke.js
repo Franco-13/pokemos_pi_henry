@@ -1,5 +1,5 @@
 import React, { useState }from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, /* useNavigate, */ useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { Container, ContentBtn, DeatilContainer, DetailSection, HeaderDetail, ImageLoading, Modal, SectionStatsAndType, Stats, Type } from './styles';
 import { GlobalButton } from './../../components/GlobalButton/GlobalButton';
@@ -14,18 +14,19 @@ export const DetailsPoke = () => {
   let {id} = useParams()
   const dispatch = useDispatch()
   const [infoDeletePokeModal, setInfoDeletePokeModal] = useState(false)
-  let navigate = useNavigate();
+  //let navigate = useNavigate();
   const clickReturn = (e) => {
     dispatch(reset())
     dispatch(getPokemons())
   }
-
-  const clickDelete = async (e) => {
+  
+  const clickDelete = (e) => {
     e.preventDefault()
     dispatch(deletePokeDB(id))
-    dispatch(reset())
-    dispatch(getPokemons())
-    navigate("/home")
+    setInfoDeletePokeModal(false)
+   // dispatch(reset())
+    //dispatch(getPokemons())
+    //navigate("/home")
   }
   const clickOpenCloseModal = (e) => {
     if (infoDeletePokeModal) {
@@ -84,7 +85,7 @@ export const DetailsPoke = () => {
                 <Type>
                   <h2>TIPO: </h2>
                   {
-                    types?.map((el,i) => el.name ? <h2 key={el.id+i.toString()+id}>{el.name.toUpperCase()}</h2> : <h2 className="h2-types" key={el.id+i.toString()+id}>{el.toUpperCase()} </h2>)
+                    types?.map((el,i) => el.name ? <h2 className="h2-types" key={el.id+i.toString()+id}>{el.name.toUpperCase()}</h2> : <h2 className="h2-types" key={el.id+i.toString()+id}>{el.toUpperCase()} </h2>)
                   }
                 </Type>
               </Stats>

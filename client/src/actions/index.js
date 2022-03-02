@@ -211,9 +211,9 @@ export function updatePokeDB(payload){
     try {
       const resp = await fetch(`http://localhost:3001/pokemons/${id}`,{method: "DELETE"})
       let respDel = await resp.json()
-      return dispatch({
+      return await dispatch({
         type: DELETE_RESPONSE,
-        resp: respDel
+        delMsg: respDel
       })
     }catch (error) {
       console.log(error);

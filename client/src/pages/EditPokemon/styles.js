@@ -92,6 +92,7 @@ export const Modal = styled.div`
           padding: 3rem;
           border-radius: 5px;
           background-size: cover;
+          background-position: center;
           position: relative;
           width:30%;
           height:20%;

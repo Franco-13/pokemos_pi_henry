@@ -181,18 +181,19 @@ export const Modal = styled.div`
   color: black;
   >div{
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     background-image: url("https://www.molaunhuevo.com/wp-content/uploads/fondo-pokemon.jpg");
     padding: 4rem;
     border-radius: 5px;
     background-size: cover;
     position: relative;
-    width:20%;
-    height:20%;
+    height:25%;
     >h3{
-      position: absolute;
-      top: 2rem;
-      padding-bottom: 2rem;
+     //position: absolute;
+      //top: 2rem;
+      //padding-bottom: 2rem;
+      text-align: center;
       font-size: 1rem;
       color: black;
     }
@@ -205,11 +206,12 @@ export const ContentBtn = styled.div`
 display: flex;
 align-items: center;
 justify-content: space-between;
-width: 30rem;
-height: 3rem;
+width: 20rem;
+height: 0;
 margin-top: 9rem;
 button{
   width: 4rem;
   height: 2.5rem;
+  cursor: pointer;
 }
 `
