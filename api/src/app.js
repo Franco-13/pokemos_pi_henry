@@ -21,9 +21,7 @@ server.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   next();
 });
-server.get("/", (req, res) => {
-  res.json({ info: "Pagina cargada cpn exito" });
-});
+
 server.use('/', routes);
 
 // Error catching endware.
