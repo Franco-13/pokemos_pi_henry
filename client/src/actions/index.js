@@ -11,7 +11,6 @@ export const PUT_RESPONSE = "PUT_RESPONSE"
 export const DELETE_RESPONSE = "DELETE_RESPONSE"
 export const FILTER_SEARCH_BY_ORIGIN = "FILTER_SEARCH_BY_ORIGIN"
 export const RESET = "RESET"
-//const URL = /* "https://poke-app-fg.herokuapp.com" || */ "http://localhost:3001"
 
 /* export function getPokemons(){
   return async function(dispatch){
