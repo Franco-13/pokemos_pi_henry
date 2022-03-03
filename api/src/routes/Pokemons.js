@@ -7,7 +7,7 @@ const router = Router();
 router.get("/", async (req, res) => {
   const name = req.query.name
   const detailsPokeDb = await Pokemon.findAll({
-    attributes: ["name", "id", "image", "hp", "pokemonCreadoDB"],
+    attributes: ["name", "id", "image", "attack", "pokemonCreadoDB"],
     include: {
       model: Type,
       attributes: ["name"],

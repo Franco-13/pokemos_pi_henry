@@ -23,7 +23,7 @@ export const Home = () => {
   const [pokesPerPage, /* setPokesPerPage */] = useState(12)
   const indexLastPoke = currentPage * pokesPerPage
   const indexFirstPoke = indexLastPoke - pokesPerPage
-
+  //const [, setOrder] = useState("")
   let currentPoke = pokemonOrSearch?.slice(indexFirstPoke, indexLastPoke)
   
   const pagination = (pageNumber) => {
@@ -33,25 +33,30 @@ export const Home = () => {
   const handleSortAlpha = (e) => {
     dispatch(sortPokes(e.target.value))
     setCurrentPage(1)
+    //setOrder(e)
   }
 
   const handleHP = (e) => {
     dispatch(sortPokesHP(e.target.value))
     setCurrentPage(1)
+    //setOrder(e)
   }
   
   const handleType = (e) => {
     dispatch(filterPokesByType(e.target.value))
     setCurrentPage(1)
+    //setOrder(e)
   }
   
   const handleOrigin = (e) => {
     if (searchPokemon.length) {
       dispatch(filterSearchByOrigin(e.target.value))
       setCurrentPage(1)
+      //setOrder(e)
     }else{
       dispatch(filterPokesByOrigin(e.target.value))
       setCurrentPage(1)
+      //setOrder(e)
     }
   }
   //search

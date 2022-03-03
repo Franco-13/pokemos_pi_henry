@@ -66,7 +66,7 @@ function rootReducer(state = initialState, action){
         detailsPoke: action.payload
       }
 
-    case FILTER_BY_TYPES:
+/*     case FILTER_BY_TYPES:
       const filterType = state.allPokes
       return {
         ...state,
@@ -74,7 +74,38 @@ function rootReducer(state = initialState, action){
         typeSortName:"",
         pokemons: action.payload === "All" 
         ? state.allPokes
-        :filterType.filter((p) => p.types.includes(action.payload) || p.types.map(e => e.name).includes(action.payload))
+        :filterType.filter((p) => p.types.find(e => e === action.payload) || p.types.map(e => e.name).find(e => e === action.payload))
+      } */
+    case FILTER_BY_TYPES:
+      const filterType = state.allPokes
+      let arrF = []
+      if (state.typeFilterOrigin === "allOrigin") {
+        if (action.payload !== "All") {
+          arrF = filterType.filter((p) => p.types.find(e => e === action.payload) || p.types.map(e => e.name).find(e => e === action.payload))
+        }else{
+          arrF = filterType
+        }
+      }
+
+      if(state.typeFilterOrigin === "created"){
+        if (action.payload !== "All") {
+          arrF = filterType.filter(poke => poke.types.map(type => type.name).find(elType => elType === action.payload))
+        }else{
+          arrF = filterType.filter(p => p.pokemonCreadoDB)
+        }
+      }
+
+      if(state.typeFilterOrigin === "API"){
+        if (action.payload !== "All") {
+          arrF = filterType.filter((p) => p.types.find(e => e === action.payload))
+        }else{
+          arrF = filterType.filter(p => !p.pokemonCreadoDB)
+        }
+      }
+      
+      return{
+        ...state,
+        pokemons:  arrF
       }
 
     case FILTER_BY_ORIGIN:
