@@ -5,7 +5,7 @@ import { COLOR_RED_TRANSPARENT } from './../../styles/global';
 
 export const Paginado = ({pokemonsPerPage, pokemons, pagination, currentPage}) => {
   const pageNumber = Array(Math.ceil(pokemons/pokemonsPerPage)).fill(0)
- 
+  
   return (
     <Navigation >
       <ul>

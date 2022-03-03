@@ -11,10 +11,11 @@ export const PUT_RESPONSE = "PUT_RESPONSE"
 export const DELETE_RESPONSE = "DELETE_RESPONSE"
 export const FILTER_SEARCH_BY_ORIGIN = "FILTER_SEARCH_BY_ORIGIN"
 export const RESET = "RESET"
+export const LOADING = "LOADING"
 
 /* export function getPokemons(){
   return async function(dispatch){
-    dispatch({ type:"LOADING"})
+    dispatch({ type:LOADING})
     const backendRes = await fetch(`${process.env.REACT_APP_API}/pokemons`)
     const Pokes = await backendRes.json();
     
@@ -27,7 +28,7 @@ export const RESET = "RESET"
 
 export function getPokemons(){
   return function(dispatch) {
-    dispatch({ type:"LOADING"})
+    dispatch({ type:LOADING})
     return fetch(`${process.env.REACT_APP_API}/pokemons`)
       .then(res => res.json())
       .then(pokes => dispatch({
@@ -51,7 +52,7 @@ export function getPokemonsById(id){
 
 export function getPokemonSearchName(name){
   return async function(dispatch){
-    dispatch({ type:"LOADING"})
+    dispatch({ type:LOADING})
     const backendResp = await fetch(`${process.env.REACT_APP_API}/pokemons?name=${name}`)
     const Poke = await backendResp.json()
     try {
@@ -67,7 +68,7 @@ export function getPokemonSearchName(name){
 
 /* export function getPokemonSearchName(name){
   return function(dispatch){
-    dispatch({ type:"LOADING"})
+    dispatch({ type:LOADING})
     fetch(`${process.env.REACT_APP_API}/pokemons?name=${name}`)
     .then(res => res.json())
     .then(poke => dispatch({

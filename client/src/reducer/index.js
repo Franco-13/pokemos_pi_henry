@@ -1,4 +1,4 @@
-import {GET_POKEMONS, SORT_POKES, FILTER_BY_TYPES, SORT_POKES_HP, DETAILS_POKE, GET_POKEMON_SEARCH_NAME, FILTER_BY_ORIGIN, POST_RESPONSE, PUT_RESPONSE, DELETE_RESPONSE, FILTER_SEARCH_BY_ORIGIN, RESET} from "../actions"
+import {GET_POKEMONS, SORT_POKES, FILTER_BY_TYPES, SORT_POKES_HP, DETAILS_POKE, GET_POKEMON_SEARCH_NAME, FILTER_BY_ORIGIN, POST_RESPONSE, PUT_RESPONSE, DELETE_RESPONSE, FILTER_SEARCH_BY_ORIGIN, RESET, LOADING} from "../actions"
 import {GET_TYPES} from "../actions"
 
 const initialState = {
@@ -43,7 +43,7 @@ function rootReducer(state = initialState, action){
       ...state,
       postMsg: action.resp
     }
-    case "LOADING":
+    case LOADING:
       return {...state, loading: false}
     
     case GET_POKEMON_SEARCH_NAME:
