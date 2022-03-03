@@ -25,7 +25,7 @@ router.get("/", async (req, res) => {
   }]
   if (name) {
     const pokeApiByName = await getPokemonByNameAPI(name)
-    console.log("pokeApi del get",pokeApiByName);
+   //console.log("pokeApi del get",pokeApiByName);
     let pokeName = detailsPokeDb.filter(el => el.name.toLowerCase() === (name.toLowerCase()))
     if (pokeApiByName.length || pokeName.length) {   
       const pokesByName = [...pokeName, ...pokeApiByName]
@@ -65,7 +65,7 @@ router.get("/:id", async (req, res) => {
 
   if (id.includes("_api")){
     let idApi = id.split("_api")[0]
-    console.log(idApi);
+    //console.log(idApi);
     const pokeAPI = await getPokemonByIdAPI(idApi)
 
     if (pokeAPI) {
@@ -122,7 +122,7 @@ router.put("/", async (req, res) => {
       weight, 
       image
     })
-    console.log("UPDATE",updatePoke.dataValues);
+    //console.log("UPDATE",updatePoke.dataValues);
     let updateType = await Type.findAll({
       where: {name: types}
     })

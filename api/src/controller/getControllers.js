@@ -48,7 +48,7 @@ const getPokemonByNameAPI = async (name) => {
   try {
     const api = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
     const detailPoke = await api.json()
-    console.log("detail en la funciion",detailPoke);
+    //console.log("detail en la funciion",detailPoke);
     return [{
       id: detailPoke.id + "_api",
       name: detailPoke.name,
@@ -62,7 +62,7 @@ const getPokemonByNameAPI = async (name) => {
       weight: detailPoke.weight,
     }]
   } catch (error) {
-    console.log("error fn byName",error);
+    //console.log("error fn byName",error);
     return []
   }
 }
@@ -71,7 +71,7 @@ const getPokemonByIdAPI = async (id) => {
   try {
     const api = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
     const detailPoke = await api.json()
-    console.log(detailPoke);
+    //console.log(detailPoke);
     return {
       id: detailPoke.id + "_api",
       name: detailPoke.name,
