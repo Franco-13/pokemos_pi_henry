@@ -11,7 +11,7 @@ import { validateInputs } from "./validates";
 export const CreatePokemon = () => {
   const dispatch = useDispatch();
   const typess = useSelector((state) => state.types);
-  const {message} = useSelector((state) => state.postMsg)
+  const postMsg = useSelector((state) => state.postMsg)
   const types = typess.map((type) => type.name)
   let navigate = useNavigate();
 
@@ -66,7 +66,7 @@ export const CreatePokemon = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch(postPokemon(input));
-    if(message === "Pokemon creado con éxito"){
+    if(postMsg !== null && postMsg.message === "Pokemon creado con éxito"){
       setInput({
         name: "",
         image: "",
@@ -86,7 +86,7 @@ export const CreatePokemon = () => {
   const click = (e) => {
     e.preventDefault()
     setInfoCreatedModal(false)
-    if (message === "Pokemon creado con éxito") {
+    if (postMsg !== null && postMsg.message === "Pokemon creado con éxito") {
       dispatch(reset())
       dispatch(getPokemons())
       navigate("/home")
@@ -246,7 +246,7 @@ export const CreatePokemon = () => {
       </FormPoke>
       <Modal onClick={click} visible={infoCreatedModal}  className ="active">
               <div>
-                  <h3>{message}</h3>
+                  <h3>{postMsg !== null && postMsg.message}</h3>
               </div>
       </Modal>
     </ContainerCreated>

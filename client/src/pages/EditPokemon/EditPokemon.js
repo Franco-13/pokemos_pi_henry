@@ -10,30 +10,31 @@ import { validateInputs } from "./../CreatePokemon/validates";
 
 export const EditPokemon = () => {
   const dispatch = useDispatch();
-  const {name, hp, attack, defense, speed, height, weight, image, types} = useSelector((state) => state.detailsPoke)
+  //const {name, hp, attack, defense, speed, height, weight, image, types} = useSelector((state) => state.detailsPoke)
+  const detPoke = useSelector((state) => state.detailsPoke)
   const allPokes = useSelector((state) => state.pokemons)
   let {id} = useParams()
   const dbPokes = allPokes.filter(el => el.pokemonCreadoDB)
   
-  const tipos = types?.map((el) => el.name)
+  const tipos = detPoke?.types?.map((el) => el.name)
   const typess = useSelector((state) => state.types);
   const typesNameState = typess.map((type) => type.name)
 
   const [input, setInput] = useState({
     id:id,
-    name,
-    image,
-    hp,
-    attack,
-    defense,
-    speed,
-    height,
-    weight,
+    name: detPoke?.name,
+    image: detPoke?.image,
+    hp: detPoke?.hp,
+    attack: detPoke?.attack,
+    defense: detPoke?.defense,
+    speed: detPoke?.speed,
+    height: detPoke?.height,
+    weight: detPoke?.weight,
     types: tipos,
   });
 
   const [errors, setErrors] = useState({});
-  const [infoCreatedModal, setInfoCreatedModal] = useState(false)
+  const [infoEditModal, setInfoEditModal] = useState(false)
 
   const handleChange = (e) => {
     setInput({
@@ -81,7 +82,7 @@ export const EditPokemon = () => {
     dispatch(updatePokeDB(input));
     setMsg("Pokemon actualizado con éxito")
   }
-  setInfoCreatedModal(true)
+  setInfoEditModal(true)
   }
   
   const click = (e) => {
@@ -91,7 +92,7 @@ export const EditPokemon = () => {
       dispatch(getPokemons())
       dispatch(getPokemonsById(id))
     }
-    setInfoCreatedModal(false)
+    setInfoEditModal(false)
   }
 
   let disabledBtn = input.name.length === 0 || Object.keys(errors).length
@@ -246,7 +247,7 @@ export const EditPokemon = () => {
           disabledState={disabledBtn ? true : false}
         />
       </FormPoke>
-      <Modal onClick={click} visible={infoCreatedModal}  className ="active">
+      <Modal onClick={click} visible={infoEditModal}  className ="active">
               <div>
                   <h3>{msg}</h3>
               </div>

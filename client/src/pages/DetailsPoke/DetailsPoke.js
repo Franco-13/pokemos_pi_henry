@@ -8,8 +8,7 @@ import { deletePokeDB, getPokemons, reset } from '../../actions';
 import { useDispatch } from 'react-redux';
 
 export const DetailsPoke = () => {
-  const {name, hp, attack, defense, speed, height, weight, image, types} = useSelector((state) => state.detailsPoke)
-
+  //const {name, hp, attack, defense, speed, height, weight, image, types} = useSelector((state) => state.detailsPoke)
   const det = useSelector((state) => state.detailsPoke)
   let {id} = useParams()
   const dispatch = useDispatch()
@@ -47,7 +46,7 @@ export const DetailsPoke = () => {
           />
         </Link>
         {
-          det.pokemonCreadoDB &&
+          det?.pokemonCreadoDB &&
           <>
             <Link to={`/detail/updatePokemon/${id}`}>
             <GlobalButton 
@@ -65,27 +64,27 @@ export const DetailsPoke = () => {
           </>
         }
       </HeaderDetail>
-      { det.name 
+      { det?.name 
         ?<DeatilContainer>
-          <h1>{name.toUpperCase()}</h1>
+          <h1>{det.name.toUpperCase()}</h1>
           <span>ID: {id}</span>
           <DetailSection>
             <div className="imgPoke">
               <div className="line"></div>
-              <img src={image} alt={name} />
+              <img src={det.image} alt={det.name} />
             </div>
             <SectionStatsAndType>
               <Stats>
-                <h2>VIDA: {hp}</h2>
-                <h2>ATAQUE: {attack}</h2>
-                <h2>DEFENSA: {defense}</h2>
-                <h2>VELOCIDAD: {speed}</h2>
-                <h2>ALTURA: {height}</h2>
-                <h2>PESO: {weight}</h2>
+                <h2>VIDA: {det.hp}</h2>
+                <h2>ATAQUE: {det.attack}</h2>
+                <h2>DEFENSA: {det.defense}</h2>
+                <h2>VELOCIDAD: {det.speed}</h2>
+                <h2>ALTURA: {det.height}</h2>
+                <h2>PESO: {det.weight}</h2>
                 <Type>
                   <h2>TIPO: </h2>
                   {
-                    types?.map((el,i) => el.name ? <h2 className="h2-types" key={el.id+i.toString()+id}>{el.name.toUpperCase()}</h2> : <h2 className="h2-types" key={el.id+i.toString()+id}>{el.toUpperCase()} </h2>)
+                    det.types?.map((el,i) => el.name ? <h2 className="h2-types" key={el.id+i.toString()+id}>{el.name.toUpperCase()}</h2> : <h2 className="h2-types" key={el.id+i.toString()+id}>{el.toUpperCase()} </h2>)
                   }
                 </Type>
               </Stats>

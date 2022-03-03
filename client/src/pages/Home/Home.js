@@ -7,7 +7,7 @@ import { Paginado } from '../../components/Paginado/Paginado';
 import { SearchBar } from '../../components/SearchBar/SearchBar';
 import { YELLOW_PIKACHU } from '../../styles/global';
 import { GlobalButton } from './../../components/GlobalButton/GlobalButton';
-import { Header, HomeContainer, PokemonsContainer, Select } from './styles';
+import { Header, HomeContainer, Modal, PokemonsContainer, Select } from './styles';
 
 export const Home = () => {  
   const dispatch = useDispatch()
@@ -23,7 +23,7 @@ export const Home = () => {
   const [pokesPerPage, /* setPokesPerPage */] = useState(12)
   const indexLastPoke = currentPage * pokesPerPage
   const indexFirstPoke = indexLastPoke - pokesPerPage
-  const [/* order */, setOrder] = useState("")
+
   let currentPoke = pokemonOrSearch.length 
                         ? pokemonOrSearch?.slice(indexFirstPoke, indexLastPoke) 
                         : pokemons?.slice(indexFirstPoke, indexLastPoke)
@@ -35,50 +35,51 @@ export const Home = () => {
   const handleSortAlpha = (e) => {
     dispatch(sortPokes(e.target.value))
     setCurrentPage(1)
-    setOrder(e)
   }
 
   const handleHP = (e) => {
     dispatch(sortPokesHP(e.target.value))
     setCurrentPage(1)
-    setOrder(e)
   }
   
   const handleType = (e) => {
     dispatch(filterPokesByType(e.target.value))
     setCurrentPage(1)
-    setOrder(e)
   }
   
   const handleOrigin = (e) => {
     if (searchPokemon.length) {
       dispatch(filterSearchByOrigin(e.target.value))
       setCurrentPage(1)
-      setOrder(e)
     }else{
       dispatch(filterPokesByOrigin(e.target.value))
       setCurrentPage(1)
-      setOrder(e)
     }
   }
   //search
   const [search, setSearch] = useState("");
-
+  const [infoSearchModal, setInfoSearchModal] = useState(false)
   const handleChangeSearch = (e) => {
     if (e.target.value === "") {
       dispatch(reset());
     }
     setSearch(e.target.value);
   }
-
+  const closeModal = () => {
+    setInfoSearchModal(false)
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(getPokemonSearchName(search.toLowerCase()))
-    setCurrentPage(1)
-      setOrder(e)
+    if (search === "") {
+      setInfoSearchModal(true)
+    }else{
+      dispatch(getPokemonSearchName(search.toLowerCase()))
+      setCurrentPage(1)
+    }
   }
-  return (
-    <HomeContainer al = {pokemonOrSearch.length>3 ? true : false}>
+
+  return (console.log(pokemonOrSearch.length),
+    <HomeContainer al = {pokemonOrSearch.length < 4 ? false : true}>
       <Header>
         <Link to="/createPokemon">
           <GlobalButton
@@ -120,6 +121,11 @@ export const Home = () => {
           )
           :<h1 className="error">{"Sin resultados"}</h1>}
       </PokemonsContainer>
+      <Modal onClick={closeModal} visible={infoSearchModal}  className ="active">
+              <div>
+                  <h3>Verifique el nombre ingresado</h3>
+              </div>
+      </Modal>
     </HomeContainer>
   )
 }

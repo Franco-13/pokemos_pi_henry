@@ -43,3 +43,35 @@ export const Select = styled.select`
   font-size: .75rem;
   background-color: ${SMOOTH_WHITE_POKEBALL};
 `
+export const Modal = styled.div`
+  position: fixed;
+  width: 100vw;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 500;
+  background-color: #2d312da1;
+  justify-content: center;
+  align-items: center;
+  display: none;
+  color: black;
+  >div{
+    display: flex;
+    justify-content: center;
+    background-image: url("https://www.molaunhuevo.com/wp-content/uploads/fondo-pokemon.jpg");
+    padding: 4rem;
+    border-radius: 5px;
+    background-size: cover;
+    position: absolute;
+    width:20%;
+    height:20%;
+    >h3{
+      padding-bottom: 2rem;
+      font-size: 1rem;
+      color: black;
+    }
+  }
+  &.active{
+      display: ${({visible})=>visible?"flex":"none"};
+  }
+`
