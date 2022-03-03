@@ -14,6 +14,7 @@ export const RESET = "RESET"
 const URL = /* "https://poke-app-fg.herokuapp.com" || */ "http://localhost:3001"
 /* export function getPokemons(){
   return async function(dispatch){
+    dispatch({ type:"LOADING"})
     const backendRes = await fetch("http://localhost:3001/pokemons")
     const Pokes = await backendRes.json();
     
@@ -26,6 +27,7 @@ const URL = /* "https://poke-app-fg.herokuapp.com" || */ "http://localhost:3001"
 
 export function getPokemons(){
   return function(dispatch) {
+    dispatch({ type:"LOADING"})
     return fetch(`${URL}/pokemons`)
       .then(res => res.json())
       .then(pokes => dispatch({
@@ -47,9 +49,10 @@ export function getPokemonsById(id){
   }
 }
 
-/* export function getPokemonSearchName(name){
+export function getPokemonSearchName(name){
   return async function(dispatch){
-    const backendResp = await fetch(`http://localhost:3001/pokemons?name=${name}`)
+    dispatch({ type:"LOADING"})
+    const backendResp = await fetch(`${URL}/pokemons?name=${name}`)
     const Poke = await backendResp.json()
     try {
       return dispatch({
@@ -60,19 +63,20 @@ export function getPokemonsById(id){
       console.log(error);
     }
   }
-} */
-
-export function getPokemonSearchName(name){
-  return function(dispatch){
-    fetch(`${URL}/pokemons?name=${name}`)
-      .then(res => res.json())
-      .then(poke => dispatch({
-        type: GET_POKEMON_SEARCH_NAME,
-        payload: poke
-      }))
-      .catch(error => console.log(error))
-  }
 }
+
+/* export function getPokemonSearchName(name){
+  return function(dispatch){
+    dispatch({ type:"LOADING"})
+    fetch(`${URL}/pokemons?name=${name}`)
+    .then(res => res.json())
+    .then(poke => dispatch({
+      type: GET_POKEMON_SEARCH_NAME,
+      payload: poke
+    }))
+    .catch(error => console.log(error));
+  }
+} */
 
 
 /* export function getTypes(){

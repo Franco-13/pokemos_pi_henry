@@ -7,7 +7,7 @@ import { Paginado } from '../../components/Paginado/Paginado';
 import { SearchBar } from '../../components/SearchBar/SearchBar';
 import { YELLOW_PIKACHU } from '../../styles/global';
 import { GlobalButton } from './../../components/GlobalButton/GlobalButton';
-import { Header, HomeContainer, Modal, PokemonsContainer, Select } from './styles';
+import { Header, HomeContainer, Loading, Modal, PokemonsContainer, Select } from './styles';
 
 export const Home = () => {  
   const dispatch = useDispatch()
@@ -24,9 +24,7 @@ export const Home = () => {
   const indexLastPoke = currentPage * pokesPerPage
   const indexFirstPoke = indexLastPoke - pokesPerPage
 
-  let currentPoke = pokemonOrSearch.length 
-                        ? pokemonOrSearch?.slice(indexFirstPoke, indexLastPoke) 
-                        : pokemons?.slice(indexFirstPoke, indexLastPoke)
+  let currentPoke = pokemonOrSearch?.slice(indexFirstPoke, indexLastPoke)
   
   const pagination = (pageNumber) => {
     setCurrentPage(pageNumber)
@@ -57,6 +55,7 @@ export const Home = () => {
     }
   }
   //search
+  const loading = useSelector((state) => state.loading)
   const [search, setSearch] = useState("");
   const [infoSearchModal, setInfoSearchModal] = useState(false)
   const handleChangeSearch = (e) => {
@@ -113,17 +112,24 @@ export const Home = () => {
         <SearchBar handleChangeSearch={handleChangeSearch} handleSubmit={handleSubmit} search={search}/>
       </Header>
       <Paginado pokemonsPerPage={pokesPerPage} pokemons={pokemonOrSearch.length} currentPage = {currentPage} pagination={pagination}/>
-      <PokemonsContainer>
-        {pokemonOrSearch.length
-          ?currentPoke?.map((el) => el.id === "ERROR_SIN_RESULTADO" 
-            ?<h1 key={"ERROR_SIN_RESULTADO"}  className="error">{"Sin resultados, verifique el nombre"}</h1>
-            :<Card key={el.id} name={el.name.toUpperCase()} image={el.image} id={el.id} types={el.types} />
-          )
-          :<h1 className="error">{"Sin resultados"}</h1>}
-      </PokemonsContainer>
+
+      {loading 
+        ?
+        <PokemonsContainer>
+          {pokemonOrSearch.length
+            ?currentPoke?.map((el) => el.id === "ERROR_SIN_RESULTADO" 
+              ?<h1 key={"ERROR_SIN_RESULTADO"}  className="error">{"Sin resultados, verifique el nombre"}</h1>
+              :<Card key={el.id} name={el.name.toUpperCase()} image={el.image} id={el.id} types={el.types} />
+            )
+            :<h1 className="error">{"Sin resultados"}</h1>}
+        </PokemonsContainer>
+        : <Loading>
+          <img src="https://i.imgur.com/XLJxE8S.gif" alt="loading" /> 
+        </Loading>   
+      }
       <Modal onClick={closeModal} visible={infoSearchModal}  className ="active">
               <div>
-                  <h3>Verifique el nombre ingresado</h3>
+                  <h3>Ingrese un nombre para buscar</h3>
               </div>
       </Modal>
     </HomeContainer>

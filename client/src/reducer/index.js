@@ -14,6 +14,7 @@ const initialState = {
   typeSortHp: "",
   typeSortName: "",
   typeFilterOrigin: "",
+  loading: false,
 }
 
 function rootReducer(state = initialState, action){
@@ -23,12 +24,12 @@ function rootReducer(state = initialState, action){
         ...state,
         putMsg: action.resp
       }
-
-    case GET_POKEMONS:
-      return {
+      case GET_POKEMONS:
+        return {
         ...state,
-         pokemons: action.payload,
-         allPokes: action.payload
+        loading: true,
+        pokemons: action.payload,
+        allPokes: action.payload
       }
 
     case DELETE_RESPONSE:
@@ -42,10 +43,13 @@ function rootReducer(state = initialState, action){
       ...state,
       postMsg: action.resp
     }
+    case "LOADING":
+      return {...state, loading: false}
     
     case GET_POKEMON_SEARCH_NAME:
       return {
         ...state,
+        loading: true,
         searchPokemon: action.payload,
         searchPokemonOriginal: action.payload
       }
@@ -102,7 +106,6 @@ function rootReducer(state = initialState, action){
       }
 
     case SORT_POKES_HP:
-      //const pokesHP = state.allPokes
       return{
         ...state,
         typeSortHp: action.payload,

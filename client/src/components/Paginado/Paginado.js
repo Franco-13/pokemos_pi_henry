@@ -22,7 +22,6 @@ export const Paginado = ({pokemonsPerPage, pokemons, pagination, currentPage}) =
                 fontColor={COLOR_RED_TRANSPARENT}
                 active={currentPage===index+1 ? true : false}
                 />
-                <div className="linea"></div>
               </li>
             )
           })
