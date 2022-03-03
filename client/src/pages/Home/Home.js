@@ -77,7 +77,7 @@ export const Home = () => {
     }
   }
 
-  return (console.log(pokemonOrSearch.length),
+  return (
     <HomeContainer al = {pokemonOrSearch.length < 4 ? false : true}>
       <Header>
         <Link to="/createPokemon">
@@ -88,7 +88,7 @@ export const Home = () => {
           />
         </Link>
         <Select value={typeSortHp} onChange={handleHP}>
-          <option value="" disabled>Ordenar Ataque</option>
+          <option value="" disabled>Orden de Ataque</option>
           <option value="ATTACK_ASC">Ascendente</option>
           <option value="ATTACK_DESC">Descendente</option>
         </Select>

@@ -11,11 +11,12 @@ export const PUT_RESPONSE = "PUT_RESPONSE"
 export const DELETE_RESPONSE = "DELETE_RESPONSE"
 export const FILTER_SEARCH_BY_ORIGIN = "FILTER_SEARCH_BY_ORIGIN"
 export const RESET = "RESET"
-const URL = /* "https://poke-app-fg.herokuapp.com" || */ "http://localhost:3001"
+//const URL = /* "https://poke-app-fg.herokuapp.com" || */ "http://localhost:3001"
+
 /* export function getPokemons(){
   return async function(dispatch){
     dispatch({ type:"LOADING"})
-    const backendRes = await fetch("http://localhost:3001/pokemons")
+    const backendRes = await fetch(`${process.env.REACT_APP_API}/pokemons`)
     const Pokes = await backendRes.json();
     
     return dispatch({
@@ -28,7 +29,7 @@ const URL = /* "https://poke-app-fg.herokuapp.com" || */ "http://localhost:3001"
 export function getPokemons(){
   return function(dispatch) {
     dispatch({ type:"LOADING"})
-    return fetch(`${URL}/pokemons`)
+    return fetch(`${process.env.REACT_APP_API}/pokemons`)
       .then(res => res.json())
       .then(pokes => dispatch({
           type:GET_POKEMONS,
@@ -40,7 +41,7 @@ export function getPokemons(){
 
 export function getPokemonsById(id){
   return async function(dispatch){
-    const backendResp = await fetch(`${URL}/pokemons/${id}`)
+    const backendResp = await fetch(`${process.env.REACT_APP_API}/pokemons/${id}`)
     const Poke = await backendResp.json()
     return dispatch({
       type: DETAILS_POKE,
@@ -52,7 +53,7 @@ export function getPokemonsById(id){
 export function getPokemonSearchName(name){
   return async function(dispatch){
     dispatch({ type:"LOADING"})
-    const backendResp = await fetch(`${URL}/pokemons?name=${name}`)
+    const backendResp = await fetch(`${process.env.REACT_APP_API}/pokemons?name=${name}`)
     const Poke = await backendResp.json()
     try {
       return dispatch({
@@ -68,7 +69,7 @@ export function getPokemonSearchName(name){
 /* export function getPokemonSearchName(name){
   return function(dispatch){
     dispatch({ type:"LOADING"})
-    fetch(`${URL}/pokemons?name=${name}`)
+    fetch(`${process.env.REACT_APP_API}/pokemons?name=${name}`)
     .then(res => res.json())
     .then(poke => dispatch({
       type: GET_POKEMON_SEARCH_NAME,
@@ -92,7 +93,7 @@ export function getPokemonSearchName(name){
 
 export function getTypes() {
   return function(dispatch) {
-    fetch(`${URL}/types`)
+    fetch(`${process.env.REACT_APP_API}/types`)
       .then(res => res.json())
       .then(allTypes => dispatch({
         type: GET_TYPES,
@@ -128,7 +129,7 @@ export function getTypes() {
 
 export function postPokemon(payload) {
   return async function(dispatch) {
-    fetch(`${URL}/pokemons`,{
+    fetch(`${process.env.REACT_APP_API}/pokemons`,{
         method: "POST",
         headers: {
           "Accept": "application/json",
@@ -190,7 +191,7 @@ export function reset(){
 export function updatePokeDB(payload){
   return async function(dispatch) {
     try {
-      const resp = await fetch(`${URL}/pokemons`,{
+      const resp = await fetch(`${process.env.REACT_APP_API}/pokemons`,{
         method: "PUT",
         headers: {
           "Accept": "application/json",
@@ -227,7 +228,7 @@ export function updatePokeDB(payload){
 
 export function deletePokeDB(id) {
   return function(dispatch) {
-    fetch(`${URL}/pokemons/${id}`, {method:"DELETE"})
+    fetch(`${process.env.REACT_APP_API}/pokemons/${id}`, {method:"DELETE"})
       .then((r) => r.json())
       .then(respDel => dispatch({
         type: DELETE_RESPONSE,
