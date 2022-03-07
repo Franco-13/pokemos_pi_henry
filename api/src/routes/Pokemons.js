@@ -7,7 +7,7 @@ const router = Router();
 router.get("/", async (req, res) => {
   const name = req.query.name
   const detailsPokeDb = await Pokemon.findAll({
-    attributes: ["name", "id", "image", "attack", "pokemonCreadoDB"],
+    attributes: ["name", "id", "image", "attack", "hp", "pokemonCreadoDB"],
     include: {
       model: Type,
       attributes: ["name"],
@@ -18,10 +18,7 @@ router.get("/", async (req, res) => {
   })
   const infoAPI = await getPokemonsAPI()
   const pokesError = [{
-    id:"ERROR_SIN_RESULTADO",
-    name: "Desconocido",
-    image: "https://noticierodiario.com/img/pokemon-go-desactiva-el-comercio-despues-de-encontrar-un-error-importante.png",
-    types: ["Realice otra búsqueda"]
+    message: "Pokemon no encontrado. Realice otra búsqueda."
   }]
   if (name) {
     const pokeApiByName = await getPokemonByNameAPI(name)
@@ -31,7 +28,7 @@ router.get("/", async (req, res) => {
       const pokesByName = [...pokeName, ...pokeApiByName]
       return res.status(200).json(pokesByName)
     }else{
-      return res.status(400).json(pokesError)
+      return res.status(404).json(pokesError)
     }
   }else if (infoAPI.length || detailsPokeDb.length) {    
     const allPokes = [...infoAPI, ...detailsPokeDb]
@@ -77,10 +74,11 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   let {name, hp, attack, defense, speed, height, weight, image, types} = req.body;
-
+  
   const [newPoke, created] = await Pokemon.findOrCreate({
-    where: {
-      name, 
+    where: {name}, 
+    defaults: {
+      name,
       hp, 
       attack, 
       defense, 
