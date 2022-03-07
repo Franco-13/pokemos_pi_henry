@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { COLOR_RED, SMOOTH_WHITE_POKEBALL } from "../../styles/global";
+/*
+425 --> 300
+212.5 --> 150
 
+*/
 export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -8,8 +12,8 @@ export const CardContainer = styled.div`
   justify-content: center;
   background: ${SMOOTH_WHITE_POKEBALL};
   margin: 1.5rem;
-  width: 425px;
-  height: 425px;
+  width: 300px;
+  height: 300px;
   border-radius:50%;
   border: 8px ridge black;
   position: relative;
@@ -18,19 +22,19 @@ export const CardContainer = styled.div`
   &::before{
     content: "";
     top: 0;
-    height: 212.5px;
-    width: 425px;
+    height: 150px;
+    width: 300px;
     background: ${COLOR_RED};
-    border-radius: 212.5px 212.5px 0 0;
+    border-radius: 150px 150px 0 0;
     position: absolute;
     box-shadow: inset 20px 19px 78px 12px black;
   }
   .line{
     top: 0;
     position: absolute;
-    width: 425.5px;
+    width: 300px;
     height: 15px;
-    margin-top: 212.5px;
+    margin-top: 150px;
     background: black;
   }
   .line::before{
@@ -41,7 +45,7 @@ export const CardContainer = styled.div`
     border-radius: 50%;
     position: absolute;
     margin-top: -43px;
-    margin-left: 162.5px;
+    margin-left: 100px;
   }
   .line::after{
     content: "";
@@ -50,13 +54,13 @@ export const CardContainer = styled.div`
     background: ${SMOOTH_WHITE_POKEBALL};
     border-radius: 50%;
     position: absolute;
-    margin-left: 177.5px;
+    margin-left: 115px;
     margin-top: -28px;
   }
   img{
     z-index:100;
-    width: 15rem;
-    height: 15rem;
+    width: 10rem;
+    height: 10rem;
   }
   a{
     z-index: 5;
