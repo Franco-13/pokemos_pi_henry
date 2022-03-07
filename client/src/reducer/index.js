@@ -66,16 +66,6 @@ function rootReducer(state = initialState, action){
         detailsPoke: action.payload
       }
 
-/*     case FILTER_BY_TYPES:
-      const filterType = state.allPokes
-      return {
-        ...state,
-        typeSortHp:"",
-        typeSortName:"",
-        pokemons: action.payload === "All" 
-        ? state.allPokes
-        :filterType.filter((p) => p.types.find(e => e === action.payload) || p.types.map(e => e.name).find(e => e === action.payload))
-      } */
     case FILTER_BY_TYPES:
       const filterType = state.allPokes
       let arrF = []
