@@ -1,31 +1,31 @@
 import React, { useState }from 'react'
-import { Link, /* useNavigate, */ useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux';
-import { Container, ContentBtn, DeatilContainer, DetailSection, HeaderDetail, ImageLoading, Modal, SectionStatsAndType, Stats, Type } from './styles';
+import { Container, DeatilContainer, DetailSection, HeaderDetail, ImageLoading, /* Modal, */ SectionStatsAndType, Stats, Type } from './styles';
 import { GlobalButton } from './../../components/GlobalButton/GlobalButton';
-import { COLOR_RED_TRANSPARENT, YELLOW_PIKACHU } from '../../styles/global';
+import { YELLOW_PIKACHU } from '../../styles/global';
 import { deletePokeDB, getPokemons, reset } from '../../actions';
 import { useDispatch } from 'react-redux';
+import { Modal } from '../../components/Modal/Modal';
 
 export const DetailsPoke = () => {
-  //const {name, hp, attack, defense, speed, height, weight, image, types} = useSelector((state) => state.detailsPoke)
   const det = useSelector((state) => state.detailsPoke)
   let {id} = useParams()
   const dispatch = useDispatch()
   const [infoDeletePokeModal, setInfoDeletePokeModal] = useState(false)
-  //let navigate = useNavigate();
+  let evento = window.event?.target
+  //console.log(evento)
   const clickReturn = (e) => {
     dispatch(reset())
-    dispatch(getPokemons())
+    if(evento?.innerHTML ==="SI"){
+      dispatch(getPokemons())
+    }
   }
   
   const clickDelete = (e) => {
     e.preventDefault()
     dispatch(deletePokeDB(id))
     setInfoDeletePokeModal(false)
-   // dispatch(reset())
-    //dispatch(getPokemons())
-    //navigate("/home")
   }
   const clickOpenCloseModal = (e) => {
     if (infoDeletePokeModal) {
@@ -34,6 +34,7 @@ export const DetailsPoke = () => {
       setInfoDeletePokeModal(true)
     }
   }
+  
   return (
     <Container>
       <HeaderDetail>
@@ -95,7 +96,15 @@ export const DetailsPoke = () => {
             <img src="https://i.imgur.com/XLJxE8S.gif" alt='Loading'/>
           </ImageLoading> 
       }
-      <Modal  visible={infoDeletePokeModal}  className ="active">
+      <Modal 
+        visible={infoDeletePokeModal} 
+        modalMessage="¿Está seguro en eliminar el pokemon?"
+        buttons={true}
+        onClickBtn1={clickDelete}
+        onClickBtn2={clickOpenCloseModal}
+      />
+
+{/*       <Modal  visible={infoDeletePokeModal}  className ="active">
         <div>
           <h3>{"¿Está seguro en eliminar el pokemon?"}</h3>
           <ContentBtn>
@@ -113,7 +122,7 @@ export const DetailsPoke = () => {
             />
           </ContentBtn>
         </div>
-      </Modal>
+      </Modal> */}
     </Container>
   )
 }

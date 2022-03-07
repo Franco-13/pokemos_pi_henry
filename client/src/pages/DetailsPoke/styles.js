@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { COLOR_RED, COLOR_RED_TRANSPARENT, SMOOTH_WHITE_POKEBALL } from "../../styles/global";
+import { COLOR_RED, COLOR_RED_TRANSPARENT, LAPTOP, MOVILE_L, MOVILE_S, SMOOTH_WHITE_POKEBALL, TABLET } from "../../styles/global";
 
 export const Container = styled.div`
-  background-image: url("https://wallpapercave.com/wp/wp8053695.jpg");
+/*   background-image: url("https://wallpapercave.com/wp/wp8053695.jpg");
   background-repeat: no-repeat;
-  background-size: cover;
-  height: 100vh;
+  background-size: cover; */
+  //height: 100vh;
 `
 export const HeaderDetail = styled.header`     
   display: flex;
@@ -17,8 +17,17 @@ export const HeaderDetail = styled.header`
     height: 2.5rem;
     cursor: pointer;
   }
+  @media only screen and (max-width:${LAPTOP}){
+    button{
+      font-size: .6rem;
+    }
+  }
 `
 export const DeatilContainer = styled.section`
+  background-image: url("https://wallpapercave.com/wp/wp8053695.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,94 +45,161 @@ export const DeatilContainer = styled.section`
   span{
     color: ${SMOOTH_WHITE_POKEBALL};
   }
-  `
+  @media only screen and (max-width:${LAPTOP}){
+    background-position: center;
+  }
+  @media only screen and (max-width:${TABLET}){
+    background-position: center;
+    background-color: black;
+    background-size: contain;
+    h1{
+      font-size: 2rem;
+    }
+    span{
+      font-size: .5rem;
+    }
+    h2{
+      margin: .25rem 0;
+      font-size: 1rem;
+    }
+  }
+`
 export const DetailSection = styled.section`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-columns: 1rem;
+  justify-items: center;
+  width: 60%;
   margin: 2rem auto;
-  display: flex;
-  align-items: center;
   box-shadow: inset 0 0 25px 20px black;
   background: #ffffffb5;
   border-radius: 0.5rem;
-    .imgPoke{  
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: ${SMOOTH_WHITE_POKEBALL};
-      margin: 1.5rem;
+  .imgPoke{  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: ${SMOOTH_WHITE_POKEBALL};
+    margin: 1.5rem;
+    width: 425px;
+    height: 425px;
+    border-radius:50%;
+    border: 8px ridge black;
+    position: relative;
+    box-shadow: inset 20px 19px 78px 12px black;
+    //padding: 1rem;
+    &::before{
+      content: "";
+      top: 0;
+      height: 212.5px;
       width: 425px;
-      height: 425px;
-      border-radius:50%;
-      border: 8px ridge black;
-      position: relative;
+      background: ${COLOR_RED};
+      border-radius: 212.5px 212.5px 0 0;
+      position: absolute;
       box-shadow: inset 20px 19px 78px 12px black;
-      //padding: 1rem;
+    }
+    .line{
+      position: absolute;
+      width: 425.5px;
+      height: 10px;
+      background: black;
+    }
+    .line::before{
+      content: "";
+      width: 100px;
+      height: 100px;
+      background: black;
+      border-radius: 50%;
+      position: absolute;
+      margin-top: -43px;
+      margin-left: 162.5px;
+    }
+    .line::after{
+      content: "";
+      width: 70px;
+      height: 70px;
+      background: ${SMOOTH_WHITE_POKEBALL};
+      border-radius: 50%;
+      position: absolute;
+      margin-left: 177.5px;
+      margin-top: -28px;
+    }
+    img{
+      width: 18rem;
+      height: 18rem;
+      z-index: 100;
+    }
+  }
+  @media only screen and (max-width:${LAPTOP}){
+    width: 85%;
+  }
+  @media only screen and (max-width:${TABLET}){
+    width: 85%;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 20rem;
+    justify-items: center;
+  }
+  @media only screen and (max-width:${MOVILE_L}){
+    width: 85%;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 20rem;
+    .imgPoke{
+      width: 200px;
+      height: 200px;
       &::before{
-        content: "";
-        top: 0;
-        height: 212.5px;
-        width: 425px;
-        background: ${COLOR_RED};
-        border-radius: 212.5px 212.5px 0 0;
-        position: absolute;
-        box-shadow: inset 20px 19px 78px 12px black;
+      height: 100px;
+      width: 200px;
       }
       .line{
-        position: absolute;
-        width: 425.5px;
-        height: 10px;
-        background: black;
+      width: 200px;
       }
       .line::before{
-        content: "";
-        width: 100px;
-        height: 100px;
-        background: black;
-        border-radius: 50%;
-        position: absolute;
-        margin-top: -43px;
-        margin-left: 162.5px;
+        width: 80px;
+        height: 80px;
+        margin-left: 60px;
+        margin-top: -35px;
       }
       .line::after{
-        content: "";
-        width: 70px;
-        height: 70px;
-        background: ${SMOOTH_WHITE_POKEBALL};
-        border-radius: 50%;
-        position: absolute;
-        margin-left: 177.5px;
-        margin-top: -28px;
+        width: 40px;
+        height: 40px;
+        margin-left: 80px;
+        margin-top: -15px;
       }
       img{
-        width: 20rem;
-        height: 20rem;
-        z-index: 100;
+        width: 8rem;
+        height: 8rem;
       }
     }
+  }
 `
 export const SectionStatsAndType = styled.section`
-  width: 30rem;
-  padding: 1rem 1rem;
-  border-radius: .5rem;
+  padding: 1rem 0rem 1rem 3rem;
+  @media only screen and (max-width:${MOVILE_L}){
+    padding: 0;
+  }
 `
 export const Type = styled.div`
-/*   grid-column-start: 1;
-  grid-column-end: 3; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   h2{
     padding: 0 1rem;
   }
+  @media only screen and (max-width:${TABLET}){
+    display: grid;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    justify-self: center;
+  }
+  @media only screen and (max-width:${MOVILE_L}){
+    display: flex;
+  }
 `
 export const Stats = styled.div`
   display: flex;
   flex-direction: column;
   align-content: flex-start;
-  /*display: grid;
-   grid-template-columns: 1fr 1fr; 
-  grid-template-rows: 1fr 1fr 1fr;
-  line-height: 1rem; */
+  width: 80%;
   h2{
     display: block;
     width: 14rem;
@@ -153,8 +229,26 @@ export const Stats = styled.div`
   @keyframes blink1 {
     50% {border-color: transparent;}
   }
+  @media only screen and (max-width:${TABLET}){
+    display: grid;
+    grid-template-columns: 15rem 15rem;
+    padding: 0px;
+  }
+  @media only screen and (max-width:${MOVILE_L}){
+    display: flex;
+    .h2-types{
+      width: 10rem;
+    }
+  }
+  @media only screen and (max-width:${MOVILE_S}){
+    h2{
+      width: 12rem;
+    }
+    .h2-types{
+      width: 8rem;
+    }
+  }
 `
-
 export const ImageLoading = styled.section`
   display: flex;
   justify-content: center;
@@ -166,52 +260,4 @@ export const ImageLoading = styled.section`
     background-color: #64a8e2b8;
     padding: 1rem 1rem;
   }
-`
-export const Modal = styled.div`
-  position: fixed;
-  width: 100vw;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 500;
-  background-color: #2d312da1;
-  justify-content: center;
-  align-items: center;
-  display: none;
-  color: black;
-  >div{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    background-image: url("https://www.molaunhuevo.com/wp-content/uploads/fondo-pokemon.jpg");
-    padding: 4rem;
-    border-radius: 5px;
-    background-size: cover;
-    position: relative;
-    height:25%;
-    >h3{
-     //position: absolute;
-      //top: 2rem;
-      //padding-bottom: 2rem;
-      text-align: center;
-      font-size: 1rem;
-      color: black;
-    }
-  }
-  &.active{
-      display: ${({visible})=>visible?"flex":"none"};
-  }
-`
-export const ContentBtn = styled.div`
-display: flex;
-align-items: center;
-justify-content: space-between;
-width: 20rem;
-height: 0;
-margin-top: 9rem;
-button{
-  width: 4rem;
-  height: 2.5rem;
-  cursor: pointer;
-}
 `
