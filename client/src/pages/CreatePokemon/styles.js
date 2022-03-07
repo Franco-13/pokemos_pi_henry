@@ -1,22 +1,39 @@
 import styled from 'styled-components';
-import { COLOR_RED, COLOR_RED_TRANSPARENT, SMOOTH_WHITE_POKEBALL } from '../../styles/global';
+import { COLOR_RED, COLOR_RED_TRANSPARENT, LAPTOP, MOVILE_L, MOVILE_S, SMOOTH_WHITE_POKEBALL, TABLET } from '../../styles/global';
 
 export const ContainerCreated = styled.div`
-  background-image: url("https://img.wallpapersafari.com/desktop/1366/768/13/63/7zrbm6.jpg");
+/*   background-image: url("https://img.wallpapersafari.com/desktop/1366/768/13/63/7zrbm6.jpg");
   background-repeat: no-repeat;
-  background-size: cover;
-  height: 100vh;
+  background-size: cover; */
+  //height: 100vh;
   button{
     height: 2.5rem;
     cursor: pointer;
   }
 `
-export const HeaderCreatePokemon = styled.header`     
+export const HeaderCreatePokemon = styled.header`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   height: 3.5rem;
   background-color: ${COLOR_RED_TRANSPARENT};
+  @media only screen and (max-width:${LAPTOP}){
+    button{
+      font-size: .60rem;
+    }
+  }
+`
+export const FormContainer = styled.div`
+  background-image: url("https://img.wallpapersafari.com/desktop/1366/768/13/63/7zrbm6.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  @media only screen and (max-width:${TABLET}){
+    background-color: black;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
 `
 export const FormPoke = styled.form`
   display: flex;
@@ -25,12 +42,27 @@ export const FormPoke = styled.form`
   width: 40rem;
   height: 38rem;
   margin: 0 auto;
-  margin-top: 1rem;
+  //margin-top: 1rem;
   background: #000000db;
   span{
     color: ${COLOR_RED};
     font-size: .65rem;
     margin-left: 0.75rem;
+  }
+  @media only screen and (max-width:${TABLET}){
+    height: auto;
+    width: auto;
+    padding: 1rem 0;
+  }
+  @media only screen and (max-width:${MOVILE_L}){
+    height: auto;
+    width: auto;
+    padding: 1rem 0;
+  }
+  @media only screen and (max-width:${MOVILE_S}){
+    button{
+      margin: .25rem .5rem;
+    }
   }
 `
 export const InputSection = styled.section`
@@ -49,6 +81,19 @@ export const InputSection = styled.section`
     color: white;
     width: 10rem;
   }
+  @media only screen and (max-width:${TABLET}){
+    height: auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(8, 5rem);
+    grid-auto-rows: 3rem;
+  }
+  @media only screen and (max-width:${MOVILE_L}){
+    height: auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(8, 5rem);
+    grid-auto-rows: 3rem;
+    width: 20rem;
+  }
 `
 export const CheckSection = styled.section`
   position: relative;
@@ -59,8 +104,8 @@ export const CheckSection = styled.section`
   width: 38rem;
   height: 7rem;
   margin: 0 auto;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr; 
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr; 
+  grid-template-rows: 1fr 1fr 1fr 1fr ;
   label{
     padding-left: 1rem;
     color: white;
@@ -72,37 +117,15 @@ export const CheckSection = styled.section`
     margin-left: 2.25rem;
     bottom:-4px;
   }
-`
-export const Modal = styled.div`
-  position: fixed;
-  width: 100vw;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 500;
-  background-color: #2d312da1;
-  justify-content: center;
-  align-items: center;
-  display: none;
-  color: black;
-  >div{
-    display: flex;
-    justify-content: center;
-    background-image: url("https://www.molaunhuevo.com/wp-content/uploads/fondo-pokemon.jpg");
-    padding: 4rem;
-    border-radius: 5px;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    width:20%;
-    height:20%;
-    >h3{
-      padding-bottom: 2rem;
-      font-size: 1rem;
-      color: black;
-    }
+  @media only screen and (max-width:${TABLET}){
+    margin-bottom: 1.5rem;
   }
-  &.active{
-      display: ${({visible})=>visible?"flex":"none"};
+  @media only screen and (max-width:${MOVILE_L}){
+    height: auto;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(10, 2rem);
+    grid-auto-rows: 3rem;
+    width: 20rem;
+    padding: 0;
   }
 `

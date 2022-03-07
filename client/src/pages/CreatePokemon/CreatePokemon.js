@@ -4,9 +4,10 @@ import { Link , useNavigate} from "react-router-dom";
 import { getPokemons, postPokemon, reset } from "../../actions";
 import { GlobalButton } from "../../components/GlobalButton/GlobalButton";
 import { COLOR_LIGHT, YELLOW_PIKACHU } from "../../styles/global";
-import { CheckSection, ContainerCreated, FormPoke, HeaderCreatePokemon, InputSection, Modal } from "./styles";
+import { CheckSection, ContainerCreated, FormContainer, FormPoke, HeaderCreatePokemon, InputSection/* , Modal */ } from "./styles";
 import { GlobalInput } from './../../components/GlobalInput/GlobalInput';
 import { validateInputs } from "./validates";
+import { Modal } from "../../components/Modal/Modal";
 
 export const CreatePokemon = () => {
   const dispatch = useDispatch();
@@ -106,149 +107,152 @@ export const CreatePokemon = () => {
           />
         </Link>
       </HeaderCreatePokemon>
-      <FormPoke onSubmit={handleSubmit} action="POST">
-        <InputSection> 
-          <div>
-            <GlobalInput
-              id="name"
-              type="text"
-              name="name"
-              onChange={handleChange}
-              value={input.name}
-              placeholder="Ingrese un nombre"
-              label="name"
-              labelTitle="Nombre"
-            />
-            {!errors.name ? null : <span>{errors.name}</span>}
-          </div>
-          <div> 
-            <GlobalInput
-              id="image"
-              type="text"
-              name="image"
-              onChange={handleChange}
-              value={input.image}
-              placeholder="Ingrese una direccion de imagen"
-              label="image"
-              labelTitle="Imagen"
-            />
-            {!errors.image ? null : <span>{errors.image}</span>}
-          </div>
-          <div>       
-            <GlobalInput
-              id="hp"
-              type="number"
-              name="hp"
-              onChange={handleChange}
-              value={input.hp}
-              placeholder="Ingrese un número positívo"
-              label="hp"
-              labelTitle="Vida"
-              min="0"
-              max="252"
-            />
-            {!errors.hp ? null : <span>{errors.hp}</span>}
-          </div>
-          <div>
-            <GlobalInput
-              id="attack"
-              type="number"
-              name="attack"
-              onChange={handleChange}
-              value={input.attack}
-              placeholder="Ingrese un número positívo"
-              label="attack"
-              labelTitle="Ataque"
-              min="0"
-              max="252"
-            />
-            {!errors.attack ? null : <span>{errors.attack}</span>}
-          </div>
-          <div>
-            <GlobalInput
-              id="defense"
-              type="number"
-              name="defense"
-              onChange={handleChange}
-              value={input.defense}
-              placeholder="Ingrese un número positívo"
-              label="defense"
-              labelTitle="Defensa"
-              min="0"
-              max="252"
-            />
-            {!errors.defense ? null : <span>{errors.defense}</span>}
-          </div>
-          <div>
-            <GlobalInput
-              id="speed"
-              type="number"
-              name="speed"
-              onChange={handleChange}
-              value={input.speed}
-              placeholder="Ingrese un número positívo"
-              label="speed"
-              labelTitle="Velocidad"
-              min="0"
-              max="252"
-            />
-            {!errors.speed ? null : <span>{errors.speed}</span>}
-          </div>
-          <div>
-            <GlobalInput
-              id="height"
-              type="number"
-              name="height"
-              onChange={handleChange}
-              value={input.height}
-              placeholder="Ingrese un número positívo"
-              label="height"
-              labelTitle="Altura"
-              min="0"
-              max="100"
-            />
-            {!errors.height ? null : <span>{errors.height}</span>}
-          </div>
-          <div>  
-            <GlobalInput
-              id="weight"
-              type="number"
-              name="weight"
-              onChange={handleChange}
-              value={input.weight}
-              placeholder="Ingrese un número positívo"
-              label="weight"
-              labelTitle="Peso"
-              min="0"
-              max="1000"
-            />
-            {!errors.weight ? null : <span>{errors.weight}</span>}
-          </div>
-        </InputSection>
-        <CheckSection>
-          {
-            types?.map((el, i) => (
-              <label key={el+i}>
-                <input onChange={handleChangeInputCheck} type="checkbox" name={el} value={el}/>
-                {el}
-              </label>
-            ))
-          }
-          {!errors.types ? null : <span>{errors.types}</span>}  
-        </CheckSection>
-        <GlobalButton
-          type="submit"
-          textBtn="Crear"
-          fontColor="black"
-          colorBtn={disabledBtn ? COLOR_LIGHT : YELLOW_PIKACHU}
-          disabledState={disabledBtn ? true : false}
-        />
-      </FormPoke>
-      <Modal onClick={click} visible={infoCreatedModal}  className ="active">
-              <div>
-                  <h3>{postMsg !== null && postMsg.message}</h3>
-              </div>
-      </Modal>
+      <FormContainer>
+
+        <FormPoke onSubmit={handleSubmit} action="POST">
+          <InputSection> 
+            <div>
+              <GlobalInput
+                id="name"
+                type="text"
+                name="name"
+                onChange={handleChange}
+                value={input.name}
+                placeholder="Ingrese un nombre"
+                label="name"
+                labelTitle="Nombre"
+              />
+              {!errors.name ? null : <span>{errors.name}</span>}
+            </div>
+            <div> 
+              <GlobalInput
+                id="image"
+                type="text"
+                name="image"
+                onChange={handleChange}
+                value={input.image}
+                placeholder="Ingrese una direccion de imagen"
+                label="image"
+                labelTitle="Imagen"
+              />
+              {!errors.image ? null : <span>{errors.image}</span>}
+            </div>
+            <div>       
+              <GlobalInput
+                id="hp"
+                type="number"
+                name="hp"
+                onChange={handleChange}
+                value={input.hp}
+                placeholder="Ingrese un número positívo"
+                label="hp"
+                labelTitle="Vida"
+                min="0"
+                max="252"
+              />
+              {!errors.hp ? null : <span>{errors.hp}</span>}
+            </div>
+            <div>
+              <GlobalInput
+                id="attack"
+                type="number"
+                name="attack"
+                onChange={handleChange}
+                value={input.attack}
+                placeholder="Ingrese un número positívo"
+                label="attack"
+                labelTitle="Ataque"
+                min="0"
+                max="252"
+              />
+              {!errors.attack ? null : <span>{errors.attack}</span>}
+            </div>
+            <div>
+              <GlobalInput
+                id="defense"
+                type="number"
+                name="defense"
+                onChange={handleChange}
+                value={input.defense}
+                placeholder="Ingrese un número positívo"
+                label="defense"
+                labelTitle="Defensa"
+                min="0"
+                max="252"
+              />
+              {!errors.defense ? null : <span>{errors.defense}</span>}
+            </div>
+            <div>
+              <GlobalInput
+                id="speed"
+                type="number"
+                name="speed"
+                onChange={handleChange}
+                value={input.speed}
+                placeholder="Ingrese un número positívo"
+                label="speed"
+                labelTitle="Velocidad"
+                min="0"
+                max="252"
+              />
+              {!errors.speed ? null : <span>{errors.speed}</span>}
+            </div>
+            <div>
+              <GlobalInput
+                id="height"
+                type="number"
+                name="height"
+                onChange={handleChange}
+                value={input.height}
+                placeholder="Ingrese un número positívo"
+                label="height"
+                labelTitle="Altura"
+                min="0"
+                max="100"
+              />
+              {!errors.height ? null : <span>{errors.height}</span>}
+            </div>
+            <div>  
+              <GlobalInput
+                id="weight"
+                type="number"
+                name="weight"
+                onChange={handleChange}
+                value={input.weight}
+                placeholder="Ingrese un número positívo"
+                label="weight"
+                labelTitle="Peso"
+                min="0"
+                max="1000"
+              />
+              {!errors.weight ? null : <span>{errors.weight}</span>}
+            </div>
+          </InputSection>
+          <CheckSection>
+            {
+              types?.map((el, i) => (
+                <label key={el+i}>
+                  <input onChange={handleChangeInputCheck} type="checkbox" name={el} value={el}/>
+                  {el}
+                </label>
+              ))
+            }
+            {!errors.types ? null : <span>{errors.types}</span>}  
+          </CheckSection>
+          <GlobalButton
+            type="submit"
+            textBtn="Crear"
+            fontColor="black"
+            colorBtn={disabledBtn ? COLOR_LIGHT : YELLOW_PIKACHU}
+            disabledState={disabledBtn ? true : false}
+          />
+        </FormPoke>
+      </FormContainer>
+      <Modal 
+        onClick={click} 
+        visible={infoCreatedModal}
+        modalMessage={postMsg !== null && postMsg.message}
+      />
     </ContainerCreated>
   );
 };
