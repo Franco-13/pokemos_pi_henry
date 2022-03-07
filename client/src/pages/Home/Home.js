@@ -8,7 +8,7 @@ import { Paginado } from '../../components/Paginado/Paginado';
 import { SearchBar } from '../../components/SearchBar/SearchBar';
 import { YELLOW_PIKACHU } from '../../styles/global';
 import { GlobalButton } from './../../components/GlobalButton/GlobalButton';
-import { Header, HomeContainer, Loading, PokemonsContainer, Select, SelectOptions, SelectSection } from './styles';
+import { Header, HomeContainer, Loading, PokemonsContainer, Select, SelectSection } from './styles';
 
 export const Home = () => {  
   const dispatch = useDispatch()
@@ -40,22 +40,18 @@ export const Home = () => {
   const handleSortAlpha = (e) => {
     dispatch(sortPokes(e.target.value))
     setCurrentPage(1)
-    setSelectSectionOpenClose(false)
   }
 
   const handleHP = (e) => {
     dispatch(sortPokesHP(e.target.value))
     setCurrentPage(1)
-    setSelectSectionOpenClose(false)
   }
 
   const handleType = (e) => {
     if( typeFilterOrigin !== "" ){
       dispatch(filterPokesByType(e.target.value))
       setCurrentPage(1)
-      setSelectSectionOpenClose(false)
     } else {
-      setSelectSectionOpenClose(false)
       setModalMessage("Seleccione un origen")
       setInfoSearchModal(true)
     }
@@ -65,11 +61,9 @@ export const Home = () => {
     if (searchPokemon.length) {
       dispatch(filterSearchByOrigin(e.target.value))
       setCurrentPage(1)
-      setSelectSectionOpenClose(false)
     }else{
       dispatch(filterPokesByOrigin(e.target.value))
       setCurrentPage(1)
-      setSelectSectionOpenClose(false)
     }
   }
   
@@ -95,14 +89,7 @@ export const Home = () => {
       setCurrentPage(1)
     }
   }
-  const [selectSectionOpenClose, setSelectSectionOpenClose] = useState(false)
-  const handleShowSelects = () => {
-    if (selectSectionOpenClose) {
-      setSelectSectionOpenClose(false)
-    }else{
-      setSelectSectionOpenClose(true)
-    }
-  }
+
   return (
     <HomeContainer>
       <Header>
@@ -114,36 +101,28 @@ export const Home = () => {
           />
         </Link>
         <SelectSection>
-          <GlobalButton 
-            onClick={handleShowSelects}
-            textBtn="Filtro y Orden"
-            colorBtn={YELLOW_PIKACHU}
-            fontColor="black"
-          />
-          <SelectOptions show = {selectSectionOpenClose}>
-            <Select value={typeSortHp} onChange={handleHP}>
-              <option value="" disabled>Orden de Ataque</option>
-              <option value="ATTACK_ASC">Ascendente</option>
-              <option value="ATTACK_DESC">Descendente</option>
-            </Select>
-            <Select value={typeSortName} onChange={handleSortAlpha}>
-              <option value="" disabled>Orden Alfabético</option>
-              <option value="A-Z">A-Z</option>
-              <option value="Z-A">Z-A</option>
-            </Select>
-            <Select value={typeFilterOrigin} onChange={handleOrigin}>
-              <option value="" disabled>Seleciona origen</option>
-              <option value="allOrigin">Todos los orígenes</option>
-              <option value="created">Creados</option>
-              <option value="API">Originales</option>
-            </Select>
-            <Select onChange={handleType}>
-              <option value="All">Todos los tipos</option>
-              {
-                types?.sort((a, b) => a.name.localeCompare(b.name)).map((el) => <option key={el.name} value={el.name}>{el.name}</option>)
-              }
-            </Select >
-          </SelectOptions>
+          <Select value={typeSortHp} onChange={handleHP}>
+            <option value="" disabled>Orden de Ataque</option>
+            <option value="ATTACK_ASC">Ascendente</option>
+            <option value="ATTACK_DESC">Descendente</option>
+          </Select>
+          <Select value={typeSortName} onChange={handleSortAlpha}>
+            <option value="" disabled>Orden Alfabético</option>
+            <option value="A-Z">A-Z</option>
+            <option value="Z-A">Z-A</option>
+          </Select>
+          <Select value={typeFilterOrigin} onChange={handleOrigin}>
+            <option value="" disabled>Seleciona origen</option>
+            <option value="allOrigin">Todos los orígenes</option>
+            <option value="created">Creados</option>
+            <option value="API">Originales</option>
+          </Select>
+          <Select onChange={handleType}>
+            <option value="All">Todos los tipos</option>
+            {
+              types?.sort((a, b) => a.name.localeCompare(b.name)).map((el) => <option key={el.name} value={el.name}>{el.name}</option>)
+            }
+          </Select >
         </SelectSection>
         <SearchBar handleChangeSearch={handleChangeSearch} handleSubmit={handleSubmit} search={search}/>
       </Header>
@@ -164,11 +143,6 @@ export const Home = () => {
           <img src="https://i.imgur.com/XLJxE8S.gif" alt="loading" /> 
         </Loading>   
       }
-      {/* <Modal onClick={closeModal} visible={infoSearchModal} className ="active">
-              <div>
-                  <h3>{modalMessage}</h3>
-              </div>
-      </Modal> */}
       <Modal 
         onClick={closeModal} 
         visible={infoSearchModal}

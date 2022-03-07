@@ -54,22 +54,6 @@ export function getPokemonSearchName(name){
   }
 }
 
-/* export function getPokemonSearchHp(number){
-  return async function(dispatch){
-    dispatch({ type:LOADING})
-    const backendResp = await fetch(`${process.env.REACT_APP_API}/pokemons?name=${name}`)
-    const Poke = await backendResp.json()
-    try {
-      return dispatch({
-        type: GET_POKEMON_SEARCH_NAME,
-        payload: Poke
-      })
-    } catch (error) {
-      console.log(error);
-    }
-  }
-} */
-
 export function getTypes() {
   return function(dispatch) {
     fetch(`${process.env.REACT_APP_API}/types`)
@@ -83,7 +67,6 @@ export function getTypes() {
 
 export function postPokemon(payload){
   return async function(dispatch){
-    //console.log(payload);
     try {
       const resp = await fetch(`${process.env.REACT_APP_API}/pokemons`,{
         method: "POST",
@@ -95,7 +78,6 @@ export function postPokemon(payload){
       }
       )
       const respPost = await resp.json()
-      //console.log(respPost);
       return dispatch({
         type: POST_RESPONSE,
         resp: respPost

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { LAPTOP, MOVILE_L, MOVILE_S, TABLET } from "../../styles/global";
 
 export const ModalContainer = styled.div`
 position: fixed;
@@ -33,7 +32,6 @@ color: black;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    //width: 20rem;
     height: 0;
     margin-top: 5rem;
     button{
@@ -42,28 +40,6 @@ color: black;
       height: 2.5rem;
       cursor: pointer;
     }
-  }
-  @media only screen and (max-width:${LAPTOP}){
-    background-position-x: center;
-    background-position-y: bottom;
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 25%;
-    height: 18%;
-  }
-  @media only screen and (max-width:${TABLET}){
-    width: 34%;
-    height: 18%;
-  }
-  @media only screen and (max-width:${MOVILE_L}){
-    width: 64%;
-    height: 25%;
-    padding: 1rem;
-  }
-  @media only screen and (max-width:${MOVILE_S}){
-    width: 89%;
-    height: 27%;
-    padding: .5rem;
   }
 }
 &.active{

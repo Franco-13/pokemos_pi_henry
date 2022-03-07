@@ -1,81 +1,29 @@
 import styled from "styled-components";
-import { COLOR_RED_TRANSPARENT, LAPTOP, SMOOTH_WHITE_POKEBALL, TABLET } from "../../styles/global";
+import { COLOR_RED_TRANSPARENT, SMOOTH_WHITE_POKEBALL } from "../../styles/global";
 
 export const HomeContainer = styled.div`
-    
+  height: 100vh;
 `
 export const Header = styled.header`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  height: 4rem;
+  height: 7%;
   background-color: ${COLOR_RED_TRANSPARENT};
   button{
     height: 2.5rem;
     cursor: pointer;
   }
-  @media only screen and (max-width:${LAPTOP}){
-    button, input, select{
-      font-size: .60rem;
-    }
-  }
-  @media only screen and (max-width:${TABLET}){
-    position: fixed;
-    z-index:100;
-    width: 100%;
-  } 
 `
 export const SelectSection = styled.div`
-  button{
-    display: none;
-  }
-  @media only screen and (max-width:${TABLET}){
-    display: flex;
-    flex-direction: column;
-    //padding-top: 10rem;
-    button{
-      display: flex;
-      width: 10rem;
-      margin-left: 0.5rem;
-    }
-  }
-`
-export const SelectOptions = styled.div`
-  @media only screen and (max-width:${TABLET}){
-    option{
-      font-size: .5rem;
-    }
-    select{
-      display: ${({show}) => show ? "flex" : "none"};
-      width: 10rem;
-    }
-    select:nth-child(1){
-      position: absolute;
-      top: 3.5rem;
-    }
-    select:nth-child(2){
-      position: absolute;
-      top: 6rem;
-    }
-    select:nth-child(3){
-      position: absolute;
-      top: 8.5rem;
-    }
-    select:last-child{
-      position: absolute;
-      top: 11rem;
-    }
-  }
+  display: flex;
 `
 export const PokemonsContainer = styled.div`
-  height: ${({al})=> al ? "" : "100vh"};
+  height: ${({al})=> al ? "" : "93%"};
   background: radial-gradient(circle, rgba(98,98,98,1) 0%, rgba(65,66,68,1) 30%, rgba(27,27,27,1) 100%);
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  @media only screen and (max-width:${TABLET}){
-    padding-top:4rem;
-  }
 `
 export const Select = styled.select`
   margin: 0 .5rem;

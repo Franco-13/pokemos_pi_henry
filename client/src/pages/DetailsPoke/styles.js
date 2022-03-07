@@ -1,33 +1,25 @@
 import styled from "styled-components";
-import { COLOR_RED, COLOR_RED_TRANSPARENT, LAPTOP, MOVILE_L, MOVILE_S, SMOOTH_WHITE_POKEBALL, TABLET } from "../../styles/global";
+import { COLOR_RED, COLOR_RED_TRANSPARENT, MOVILE_L, SMOOTH_WHITE_POKEBALL } from "../../styles/global";
 
 export const Container = styled.div`
-/*   background-image: url("https://wallpapercave.com/wp/wp8053695.jpg");
-  background-repeat: no-repeat;
-  background-size: cover; */
-  //height: 100vh;
+  height: 100vh;
 `
 export const HeaderDetail = styled.header`     
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  height: 3.5rem;
+  height: 7%;
   background-color: ${COLOR_RED_TRANSPARENT};
   button{
     height: 2.5rem;
     cursor: pointer;
-  }
-  @media only screen and (max-width:${LAPTOP}){
-    button{
-      font-size: .6rem;
-    }
   }
 `
 export const DeatilContainer = styled.section`
   background-image: url("https://wallpapercave.com/wp/wp8053695.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-
+  height: 93%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,24 +36,6 @@ export const DeatilContainer = styled.section`
   }
   span{
     color: ${SMOOTH_WHITE_POKEBALL};
-  }
-  @media only screen and (max-width:${LAPTOP}){
-    background-position: center;
-  }
-  @media only screen and (max-width:${TABLET}){
-    background-position: center;
-    background-color: black;
-    background-size: contain;
-    h1{
-      font-size: 2rem;
-    }
-    span{
-      font-size: .5rem;
-    }
-    h2{
-      margin: .25rem 0;
-      font-size: 1rem;
-    }
   }
 `
 export const DetailSection = styled.section`
@@ -130,47 +104,6 @@ export const DetailSection = styled.section`
       z-index: 100;
     }
   }
-  @media only screen and (max-width:${LAPTOP}){
-    width: 85%;
-  }
-  @media only screen and (max-width:${TABLET}){
-    width: 85%;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 20rem;
-    justify-items: center;
-  }
-  @media only screen and (max-width:${MOVILE_L}){
-    width: 85%;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 20rem;
-    .imgPoke{
-      width: 200px;
-      height: 200px;
-      &::before{
-      height: 100px;
-      width: 200px;
-      }
-      .line{
-      width: 200px;
-      }
-      .line::before{
-        width: 80px;
-        height: 80px;
-        margin-left: 60px;
-        margin-top: -35px;
-      }
-      .line::after{
-        width: 40px;
-        height: 40px;
-        margin-left: 80px;
-        margin-top: -15px;
-      }
-      img{
-        width: 8rem;
-        height: 8rem;
-      }
-    }
-  }
 `
 export const SectionStatsAndType = styled.section`
   padding: 1rem 0rem 1rem 3rem;
@@ -184,15 +117,6 @@ export const Type = styled.div`
   justify-content: center;
   h2{
     padding: 0 1rem;
-  }
-  @media only screen and (max-width:${TABLET}){
-    display: grid;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    justify-self: center;
-  }
-  @media only screen and (max-width:${MOVILE_L}){
-    display: flex;
   }
 `
 export const Stats = styled.div`
@@ -228,25 +152,6 @@ export const Stats = styled.div`
   }
   @keyframes blink1 {
     50% {border-color: transparent;}
-  }
-  @media only screen and (max-width:${TABLET}){
-    display: grid;
-    grid-template-columns: 15rem 15rem;
-    padding: 0px;
-  }
-  @media only screen and (max-width:${MOVILE_L}){
-    display: flex;
-    .h2-types{
-      width: 10rem;
-    }
-  }
-  @media only screen and (max-width:${MOVILE_S}){
-    h2{
-      width: 12rem;
-    }
-    .h2-types{
-      width: 8rem;
-    }
   }
 `
 export const ImageLoading = styled.section`

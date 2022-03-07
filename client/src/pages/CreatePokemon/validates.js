@@ -1,12 +1,12 @@
 export function validateInputs(input) {
   let errors = {};
   let validImg = /^.*\.(jpg|jpeg|png|gif)$/;
-  let validName = /^[a-zA-Z\s]+$/;
+  let validName = /^[^\s].([A-Za-z]+\s)*[A-Za-z]+$/; // /^[a-zA-Z\s]+$/ 
   
   if (!input.name.length) {
     errors.name = "Ingrese un nombre para el pokemon"
   } else if (!validName.test(input.name)) {
-    errors.name = "El nombre solo debe contener letras"
+    errors.name = "El nombre solo debe contener letras y un espacio entre palabras"
   }
   if (input.types.length > 2) {
     errors.types = "Solo puede asignar hasta dos tipos"

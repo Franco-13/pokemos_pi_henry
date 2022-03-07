@@ -108,7 +108,6 @@ export const CreatePokemon = () => {
         </Link>
       </HeaderCreatePokemon>
       <FormContainer>
-
         <FormPoke onSubmit={handleSubmit} action="POST">
           <InputSection> 
             <div>

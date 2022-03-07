@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { LAPTOP, SMOOTH_WHITE_POKEBALL } from './../../styles/global';
+import { SMOOTH_WHITE_POKEBALL } from './../../styles/global';
 
 export const SearchContainer = styled.div`
   display: flex;
@@ -14,10 +14,5 @@ export const SearchContainer = styled.div`
   input{
     background: ${SMOOTH_WHITE_POKEBALL};
     height: 2.25rem;
-  }
-  @media only screen and (max-width:${LAPTOP}){
-    div:first-child {
-      width: 10rem;
-    }
   }
 `

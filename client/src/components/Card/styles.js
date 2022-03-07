@@ -1,10 +1,6 @@
 import styled from "styled-components";
 import { COLOR_RED, SMOOTH_WHITE_POKEBALL } from "../../styles/global";
-/*
-425 --> 300
-212.5 --> 150
 
-*/
 export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -15,7 +11,7 @@ export const CardContainer = styled.div`
   width: 300px;
   height: 300px;
   border-radius:50%;
-  border: 8px ridge black;
+  border: 4px ridge black;
   position: relative;
   box-shadow: inset 20px 11px 45px 27px black;
   //padding: 1rem;
