@@ -1,20 +1,10 @@
 import styled from "styled-components";
-import { COLOR_RED_TRANSPARENT, SMOOTH_WHITE_POKEBALL } from "../../styles/global";
+import { COLOR_RED_TRANSPARENT, LAPTOP, SMOOTH_WHITE_POKEBALL, TABLET } from "../../styles/global";
 
 export const HomeContainer = styled.div`
-  ${({al})=> {
-    return`
-      background-image: url("https://img.wallpapersafari.com/desktop/1366/768/84/98/Af4vaS.jpg");
-      background-attachment: fixed;
-      background-repeat: no-repeat;
-      background-size: cover;
-      height: ${al ? "" : "100vh"};
-      background: rgb(98,98,98);
-      background: radial-gradient(circle, rgba(98,98,98,1) 0%, rgba(65,66,68,1) 30%, rgba(27,27,27,1) 100%);
-    `
-  }}     
+    
 `
-export const Header = styled.header`     
+export const Header = styled.header`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -24,15 +14,67 @@ export const Header = styled.header`
     height: 2.5rem;
     cursor: pointer;
   }
+  @media only screen and (max-width:${LAPTOP}){
+    button, input, select{
+      font-size: .60rem;
+    }
+  }
+  @media only screen and (max-width:${TABLET}){
+    position: fixed;
+    z-index:100;
+    width: 100%;
+  } 
+`
+export const SelectSection = styled.div`
+  button{
+    display: none;
+  }
+  @media only screen and (max-width:${TABLET}){
+    display: flex;
+    flex-direction: column;
+    //padding-top: 10rem;
+    button{
+      display: flex;
+      width: 10rem;
+      margin-left: 0.5rem;
+    }
+  }
+`
+export const SelectOptions = styled.div`
+  @media only screen and (max-width:${TABLET}){
+    option{
+      font-size: .5rem;
+    }
+    select{
+      display: ${({show}) => show ? "flex" : "none"};
+      width: 10rem;
+    }
+    select:nth-child(1){
+      position: absolute;
+      top: 3.5rem;
+    }
+    select:nth-child(2){
+      position: absolute;
+      top: 6rem;
+    }
+    select:nth-child(3){
+      position: absolute;
+      top: 8.5rem;
+    }
+    select:last-child{
+      position: absolute;
+      top: 11rem;
+    }
+  }
 `
 export const PokemonsContainer = styled.div`
+  height: ${({al})=> al ? "" : "100vh"};
+  background: radial-gradient(circle, rgba(98,98,98,1) 0%, rgba(65,66,68,1) 30%, rgba(27,27,27,1) 100%);
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
   justify-content: center;
-  .error{
-    //height:100vh;
-    color: white;
+  flex-wrap: wrap;
+  @media only screen and (max-width:${TABLET}){
+    padding-top:4rem;
   }
 `
 export const Select = styled.select`
@@ -42,39 +84,6 @@ export const Select = styled.select`
   padding-left: .5rem;
   font-size: .75rem;
   background-color: ${SMOOTH_WHITE_POKEBALL};
-`
-export const Modal = styled.div`
-  position: fixed;
-  width: 100vw;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 500;
-  background-color: #2d312da1;
-  justify-content: center;
-  align-items: center;
-  display: none;
-  color: black;
-  >div{
-    display: flex;
-    justify-content: center;
-    background-image: url("https://www.molaunhuevo.com/wp-content/uploads/fondo-pokemon.jpg");
-    padding: 4rem;
-    border-radius: 5px;
-    background-size: cover;
-    position: absolute;
-    width:20%;
-    height:20%;
-    >h3{
-      padding-bottom: 2rem;
-      font-size: 1rem;
-      color: black;
-      text-align: center;
-    }
-  }
-  &.active{
-      display: ${({visible})=>visible?"flex":"none"};
-  }
 `
 export const Loading = styled.div`
   display: flex;
