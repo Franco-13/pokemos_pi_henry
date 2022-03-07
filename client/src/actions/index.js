@@ -85,7 +85,7 @@ export function postPokemon(payload){
   return async function(dispatch){
     //console.log(payload);
     try {
-      const resp = await fetch("http://localhost:3001/pokemons",{
+      const resp = await fetch(`${process.env.REACT_APP_API}/pokemons`,{
         method: "POST",
         headers: {
           "Accept": "application/json",
