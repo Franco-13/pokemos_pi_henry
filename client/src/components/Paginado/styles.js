@@ -4,6 +4,7 @@ import { COLOR_RED, SMOOTH_WHITE_POKEBALL } from "../../styles/global";
 export const Navigation = styled.nav`
 position: fixed;
 right: 0;
+top: 25%;
 z-index:1000;
   ul{
     display: flex;
