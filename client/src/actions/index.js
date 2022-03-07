@@ -13,18 +13,6 @@ export const FILTER_SEARCH_BY_ORIGIN = "FILTER_SEARCH_BY_ORIGIN"
 export const RESET = "RESET"
 export const LOADING = "LOADING"
 
-/* export function getPokemons(){
-  return async function(dispatch){
-    dispatch({ type:LOADING})
-    const backendRes = await fetch(`${process.env.REACT_APP_API}/pokemons`)
-    const Pokes = await backendRes.json();
-    
-    return dispatch({
-      type: GET_POKEMONS,
-      payload: Pokes
-    })
-  }
-} */
 
 export function getPokemons(){
   return function(dispatch) {
@@ -66,28 +54,19 @@ export function getPokemonSearchName(name){
   }
 }
 
-/* export function getPokemonSearchName(name){
-  return function(dispatch){
-    dispatch({ type:LOADING})
-    fetch(`${process.env.REACT_APP_API}/pokemons?name=${name}`)
-    .then(res => res.json())
-    .then(poke => dispatch({
-      type: GET_POKEMON_SEARCH_NAME,
-      payload: poke
-    }))
-    .catch(error => console.log(error));
-  }
-} */
-
-
-/* export function getTypes(){
+/* export function getPokemonSearchHp(number){
   return async function(dispatch){
-    const backendRes = await fetch("http://localhost:3001/types")
-    const allTypes = await backendRes.json();
-    return dispatch({
-      type: GET_TYPES,
-      payload: allTypes
-    })
+    dispatch({ type:LOADING})
+    const backendResp = await fetch(`${process.env.REACT_APP_API}/pokemons?name=${name}`)
+    const Poke = await backendResp.json()
+    try {
+      return dispatch({
+        type: GET_POKEMON_SEARCH_NAME,
+        payload: Poke
+      })
+    } catch (error) {
+      console.log(error);
+    }
   }
 } */
 
@@ -102,7 +81,7 @@ export function getTypes() {
   }
 }
 
-/* export function postPokemon(payload){
+export function postPokemon(payload){
   return async function(dispatch){
     //console.log(payload);
     try {
@@ -124,26 +103,6 @@ export function getTypes() {
     }catch (error) {
       console.log(error);
     }
-  }
-} */
-
-export function postPokemon(payload) {
-  return async function(dispatch) {
-    fetch(`${process.env.REACT_APP_API}/pokemons`,{
-        method: "POST",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      }
-    )
-    .then(res => res.json())
-    .then(respPost => dispatch({
-      type: POST_RESPONSE,
-      resp: respPost
-    }))
-    .catch(error => console.log(error))
   }
 }
 
@@ -210,21 +169,6 @@ export function updatePokeDB(payload){
     }
   } 
 }
-
-/* export function deletePokeDB(id){
-  return async function(dispatch) {
-    try {
-      const resp = await fetch(`http://localhost:3001/pokemons/${id}`,{method: "DELETE"})
-      let respDel = await resp.json()
-      return await dispatch({
-        type: DELETE_RESPONSE,
-        delMsg: respDel
-      })
-    }catch (error) {
-      console.log(error);
-    }
-  } 
-} */
 
 export function deletePokeDB(id) {
   return function(dispatch) {
