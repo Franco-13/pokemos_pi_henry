@@ -129,7 +129,7 @@ export const Home = () => {
       <Paginado pokemonsPerPage={pokesPerPage} pokemons={pokemonOrSearch.length} currentPage = {currentPage} pagination={pagination}/>
 
       {loading 
-        ?<PokemonsContainer al = {pokemonOrSearch.length < 4 ? false : true}>
+        ?<PokemonsContainer al = {pokemonOrSearch.length < 5 ? false : true}>
           {
           pokemonOrSearch.length && !pokemonOrSearch[0]?.hasOwnProperty("message")
             ? currentPoke?.map((el) => 
