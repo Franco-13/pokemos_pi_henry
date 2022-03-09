@@ -55,14 +55,14 @@ export const DetailsPoke = () => {
           <>
             <Link to={`/detail/updatePokemon/${id}`}>
             <GlobalButton 
-              textBtn="Editar poke"
+              textBtn="Editar pokemon"
               fontColor="black"
               colorBtn={YELLOW_PIKACHU}
             />
             </Link>
             <GlobalButton
               onClick={clickOpenCloseModal} 
-              textBtn="Eliminar poke"
+              textBtn="Eliminar pokemon"
               fontColor="black"
               colorBtn={YELLOW_PIKACHU}
             />

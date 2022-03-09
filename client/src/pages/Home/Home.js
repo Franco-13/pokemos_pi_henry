@@ -53,7 +53,7 @@ export const Home = () => {
       dispatch(filterPokesByType(e.target.value))
       setCurrentPage(1)
     } else {
-      setModalMessage("Seleccione un origen")
+      setModalMessage("Selecciona un origen")
       setInfoSearchModal(true)
       e.target.value = "All"
     }
@@ -114,7 +114,7 @@ export const Home = () => {
             <option value="Z-A">Z-A</option>
           </Select>
           <Select value={typeFilterOrigin} onChange={handleOrigin}>
-            <option value="" disabled>Seleciona origen</option>
+            <option value="" disabled>Selecciona origen</option>
             <option value="allOrigin">Todos los orígenes</option>
             <option value="created">Creados</option>
             <option value="API">Originales</option>
