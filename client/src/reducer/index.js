@@ -15,6 +15,7 @@ const initialState = {
   typeSortName: "",
   typeFilterOrigin: "",
   loading: false,
+  filterType:""
 }
 
 function rootReducer(state = initialState, action){
@@ -63,6 +64,7 @@ function rootReducer(state = initialState, action){
     case DETAILS_POKE:
       return {
         ...state,
+        loading: true,
         detailsPoke: action.payload
       }
 
@@ -95,6 +97,7 @@ function rootReducer(state = initialState, action){
       
       return{
         ...state,
+        filterType: action.payload,
         pokemons:  arrF
       }
 
@@ -102,8 +105,9 @@ function rootReducer(state = initialState, action){
       const pokesOrigin = state.allPokes
       return {
         ...state,
-        typeSortHp:"",
-        typeSortName:"",
+        typeSortHp: "",
+        typeSortName: "",
+        filterType: "",
         typeFilterOrigin: action.payload,
         pokemons: action.payload === "created"
           ? pokesOrigin.filter(p => p.pokemonCreadoDB)  
@@ -118,6 +122,7 @@ function rootReducer(state = initialState, action){
         ...state,
         typeSortHp:"",
         typeSortName:"",
+        filterType: "",
         typeFilterOrigin: action.payload,
         searchPokemon: action.payload === "created"
           ? pokesSearchOrigin.filter(p => p.pokemonCreadoDB)  

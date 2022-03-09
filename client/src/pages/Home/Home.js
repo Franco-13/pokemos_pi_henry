@@ -18,6 +18,7 @@ export const Home = () => {
   let typeSortHp = useSelector((state) => state.typeSortHp)
   let typeSortName = useSelector((state) => state.typeSortName)
   let typeFilterOrigin = useSelector((state) => state.typeFilterOrigin)
+  let filterType = useSelector((state) => state.filterType)
   const loading = useSelector((state) => state.loading)
 
   const pokemonOrSearch = searchPokemon.length === 0 ? pokemons : searchPokemon;
@@ -54,6 +55,7 @@ export const Home = () => {
     } else {
       setModalMessage("Seleccione un origen")
       setInfoSearchModal(true)
+      e.target.value = "All"
     }
   }
 
@@ -117,7 +119,7 @@ export const Home = () => {
             <option value="created">Creados</option>
             <option value="API">Originales</option>
           </Select>
-          <Select onChange={handleType}>
+          <Select value={filterType} onChange={handleType}>
             <option value="All">Todos los tipos</option>
             {
               types?.sort((a, b) => a.name.localeCompare(b.name)).map((el) => <option key={el.name} value={el.name}>{el.name}</option>)

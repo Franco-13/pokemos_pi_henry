@@ -10,11 +10,14 @@ import { Modal } from '../../components/Modal/Modal';
 
 export const DetailsPoke = () => {
   const det = useSelector((state) => state.detailsPoke)
-  let {id} = useParams()
+  const loading = useSelector((state) => state.loading)
   const dispatch = useDispatch()
+  let {id} = useParams()
+  
   const [infoDeletePokeModal, setInfoDeletePokeModal] = useState(false)
+  
   let evento = window.event?.target
-  //console.log(evento)
+  
   const clickReturn = (e) => {
     dispatch(reset())
     if(evento?.innerHTML ==="SI"){
@@ -27,6 +30,7 @@ export const DetailsPoke = () => {
     dispatch(deletePokeDB(id))
     setInfoDeletePokeModal(false)
   }
+  
   const clickOpenCloseModal = (e) => {
     if (infoDeletePokeModal) {
       setInfoDeletePokeModal(false)
@@ -34,7 +38,7 @@ export const DetailsPoke = () => {
       setInfoDeletePokeModal(true)
     }
   }
-  
+
   return (
     <Container>
       <HeaderDetail>
@@ -65,7 +69,7 @@ export const DetailsPoke = () => {
           </>
         }
       </HeaderDetail>
-      { det?.name 
+      { loading 
         ?<DeatilContainer>
           <h1>{det.name.toUpperCase()}</h1>
           <span>ID: {id}</span>

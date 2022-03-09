@@ -29,6 +29,7 @@ export function getPokemons(){
 
 export function getPokemonsById(id){
   return async function(dispatch){
+    dispatch({ type:LOADING})
     const backendResp = await fetch(`${process.env.REACT_APP_API}/pokemons/${id}`)
     const Poke = await backendResp.json()
     return dispatch({
