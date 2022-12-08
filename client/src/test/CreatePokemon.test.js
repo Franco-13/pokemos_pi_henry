@@ -11,7 +11,7 @@ import { CreatePokemon } from './../pages/CreatePokemon/CreatePokemon';
 
 describe('CreatePokemon', () => {
 
-           //-----------------------label--------------------//
+           //-----------------------labels--------------------//
   it('El form debe tener un label "Nombre"', () => {
     const { container } = render(<Provider store={store}><BrowserRouter><App/><CreatePokemon/></BrowserRouter></Provider>)
     const element = container.querySelectorAll('label')[0]
