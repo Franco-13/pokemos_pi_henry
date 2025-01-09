@@ -57,7 +57,10 @@ export function getPokemonSearchName(name){
 
 export function getTypes() {
   return function(dispatch) {
-    fetch(`${process.env.REACT_APP_API}/types`)
+    fetch(`${process.env.REACT_APP_API}/types`,{
+      method: 'GET',
+      credentials: 'include', 
+    })
       .then(res => res.json())
       .then(allTypes => dispatch({
         type: GET_TYPES,
