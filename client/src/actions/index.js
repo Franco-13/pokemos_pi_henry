@@ -59,7 +59,8 @@ export function getTypes() {
   return function(dispatch) {
     fetch(`${process.env.REACT_APP_API}/types`,{
       method: 'GET',
-      credentials: 'include', 
+      credentials: 'include',
+      mode:'no-cors'
     })
       .then(res => res.json())
       .then(allTypes => dispatch({
