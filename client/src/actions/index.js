@@ -1,170 +1,172 @@
-export const GET_POKEMONS = "GET_POKEMONS"
-export const GET_TYPES = "GET_TYPES"
-export const FILTER_BY_TYPES = "FILTER_BY_TYPES"
-export const SORT_POKES = "SORT_POKES"
-export const SORT_POKES_HP = "SORT_POKES_HP"
-export const DETAILS_POKE = "DETAILS_POKE"
-export const GET_POKEMON_SEARCH_NAME = "GET_POKEMON_SEARCH_NAME"
-export const FILTER_BY_ORIGIN = "FILTER_BY_ORIGIN"
-export const POST_RESPONSE = "POST_RESPONSE"
-export const PUT_RESPONSE = "PUT_RESPONSE"
-export const DELETE_RESPONSE = "DELETE_RESPONSE"
-export const FILTER_SEARCH_BY_ORIGIN = "FILTER_SEARCH_BY_ORIGIN"
-export const RESET = "RESET"
-export const LOADING = "LOADING"
+export const GET_POKEMONS = "GET_POKEMONS";
+export const GET_TYPES = "GET_TYPES";
+export const FILTER_BY_TYPES = "FILTER_BY_TYPES";
+export const SORT_POKES = "SORT_POKES";
+export const SORT_POKES_HP = "SORT_POKES_HP";
+export const DETAILS_POKE = "DETAILS_POKE";
+export const GET_POKEMON_SEARCH_NAME = "GET_POKEMON_SEARCH_NAME";
+export const FILTER_BY_ORIGIN = "FILTER_BY_ORIGIN";
+export const POST_RESPONSE = "POST_RESPONSE";
+export const PUT_RESPONSE = "PUT_RESPONSE";
+export const DELETE_RESPONSE = "DELETE_RESPONSE";
+export const FILTER_SEARCH_BY_ORIGIN = "FILTER_SEARCH_BY_ORIGIN";
+export const RESET = "RESET";
+export const LOADING = "LOADING";
 
-
-export function getPokemons(){
-  return function(dispatch) {
-    dispatch({ type:LOADING})
+export function getPokemons() {
+  return function (dispatch) {
+    dispatch({ type: LOADING });
     return fetch(`${process.env.REACT_APP_API}/pokemons`)
-      .then(res => res.json())
-      .then(pokes => dispatch({
-          type:GET_POKEMONS,
-          payload: pokes
+      .then((res) => res.json())
+      .then((pokes) =>
+        dispatch({
+          type: GET_POKEMONS,
+          payload: pokes,
         })
-      )
-  }
+      );
+  };
 }
 
-export function getPokemonsById(id){
-  return async function(dispatch){
-    dispatch({ type:LOADING})
-    const backendResp = await fetch(`${process.env.REACT_APP_API}/pokemons/${id}`)
-    const Poke = await backendResp.json()
+export function getPokemonsById(id) {
+  return async function (dispatch) {
+    dispatch({ type: LOADING });
+    const backendResp = await fetch(
+      `${process.env.REACT_APP_API}/pokemons/${id}`
+    );
+    const Poke = await backendResp.json();
     return dispatch({
       type: DETAILS_POKE,
-      payload:Poke
-    })
-  }
+      payload: Poke,
+    });
+  };
 }
 
-export function getPokemonSearchName(name){
-  return async function(dispatch){
-    dispatch({ type:LOADING})
-    const backendResp = await fetch(`${process.env.REACT_APP_API}/pokemons?name=${name}`)
-    const Poke = await backendResp.json()
+export function getPokemonSearchName(name) {
+  return async function (dispatch) {
+    dispatch({ type: LOADING });
+    const backendResp = await fetch(
+      `${process.env.REACT_APP_API}/pokemons?name=${name}`
+    );
+    const Poke = await backendResp.json();
     try {
       return dispatch({
         type: GET_POKEMON_SEARCH_NAME,
-        payload: Poke
-      })
+        payload: Poke,
+      });
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 }
 
 export function getTypes() {
-  return function(dispatch) {
-    fetch(`${process.env.REACT_APP_API}/types`,{
-      method: 'GET',
-      credentials: 'include',
-      mode:'no-cors'
-    })
-      .then(res => res.json())
-      .then(allTypes => dispatch({
-        type: GET_TYPES,
-        payload: allTypes
-      }))
-  }
+  return function (dispatch) {
+    return fetch(`${process.env.REACT_APP_API}/types`)
+      .then((res) => res.json())
+      .then((allTypes) =>
+        dispatch({
+          type: GET_TYPES,
+          payload: allTypes,
+        })
+      );
+  };
 }
 
-export function postPokemon(payload){
-  return async function(dispatch){
+export function postPokemon(payload) {
+  return async function (dispatch) {
     try {
-      const resp = await fetch(`${process.env.REACT_APP_API}/pokemons`,{
+      const resp = await fetch(`${process.env.REACT_APP_API}/pokemons`, {
         method: "POST",
         headers: {
-          "Accept": "application/json",
+          Accept: "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
-      }
-      )
-      const respPost = await resp.json()
+      });
+      const respPost = await resp.json();
       return dispatch({
         type: POST_RESPONSE,
-        resp: respPost
-      })
-    }catch (error) {
+        resp: respPost,
+      });
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 }
 
-export function filterPokesByType(payload){
+export function filterPokesByType(payload) {
   return {
     type: FILTER_BY_TYPES,
-    payload
-  }
+    payload,
+  };
 }
 
-export function filterPokesByOrigin(payload){
+export function filterPokesByOrigin(payload) {
   return {
     type: FILTER_BY_ORIGIN,
-    payload
-  }
+    payload,
+  };
 }
 
-export function filterSearchByOrigin(payload){
+export function filterSearchByOrigin(payload) {
   return {
     type: FILTER_SEARCH_BY_ORIGIN,
-    payload
-  }
+    payload,
+  };
 }
 
-export function sortPokes(payload){
+export function sortPokes(payload) {
   return {
     type: SORT_POKES,
-    payload
-  }
+    payload,
+  };
 }
 
-export function sortPokesHP(payload){
+export function sortPokesHP(payload) {
   return {
     type: SORT_POKES_HP,
-    payload
-  }
+    payload,
+  };
 }
 
-export function reset(){
+export function reset() {
   return {
-    type: RESET
-  }
+    type: RESET,
+  };
 }
 
-export function updatePokeDB(payload){
-  return async function(dispatch) {
+export function updatePokeDB(payload) {
+  return async function (dispatch) {
     try {
-      const resp = await fetch(`${process.env.REACT_APP_API}/pokemons`,{
+      const resp = await fetch(`${process.env.REACT_APP_API}/pokemons`, {
         method: "PUT",
         headers: {
-          "Accept": "application/json",
+          Accept: "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
-      }
-      )
-      const respPut = await resp.json()
+      });
+      const respPut = await resp.json();
       return dispatch({
         type: PUT_RESPONSE,
-        resp: respPut
-      })
-    }catch (error) {
+        resp: respPut,
+      });
+    } catch (error) {
       console.log("error");
     }
-  } 
+  };
 }
 
 export function deletePokeDB(id) {
-  return function(dispatch) {
-    fetch(`${process.env.REACT_APP_API}/pokemons/${id}`, {method:"DELETE"})
+  return function (dispatch) {
+    fetch(`${process.env.REACT_APP_API}/pokemons/${id}`, { method: "DELETE" })
       .then((r) => r.json())
-      .then(respDel => dispatch({
-        type: DELETE_RESPONSE,
-        delMsg: respDel
-      }))
-      .catch(error => console.log(error))
-  }
+      .then((respDel) =>
+        dispatch({
+          type: DELETE_RESPONSE,
+          delMsg: respDel,
+        })
+      )
+      .catch((error) => console.log(error));
+  };
 }
