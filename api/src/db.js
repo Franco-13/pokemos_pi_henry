@@ -3,7 +3,7 @@ require("dotenv").config();
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
-const { DB_USER, DB_PASSWORD, DB_HOST, DB_DATABASE, DB_PORT, DATABASE_URL } =
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_DATABASE, DB_PORT, DB_DATABASE_URL } =
   process.env;
 
 let sequelize;
@@ -36,7 +36,7 @@ let sequelize;
 //   });
 
 if (process.env.NODE_ENV === "production") {
-  sequelize = new Sequelize(DATABASE_URL, {
+  sequelize = new Sequelize(DB_DATABASE_URL, {
     dialect: "postgres",
     protocol: "postgres",
     port: DB_PORT,
