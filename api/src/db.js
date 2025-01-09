@@ -35,7 +35,7 @@ let sequelize;
 //     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
 //   });
 
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV !== "production") {
   sequelize = new Sequelize(DB_DATABASE_URL, {
     dialect: "postgres",
     protocol: "postgres",
